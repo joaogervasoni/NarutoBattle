@@ -106,5 +106,21 @@
   <ItemGroup>
     <Resource Include="Characters\Boruto\Boruto_default.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Characters\Sarada\Sarada_skill1_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Characters\Boruto\Boruto_skill1_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Controllers\Controllers.csproj">
+      <Project>{6C638354-F974-4CD8-A33D-E40FB735AFD0}</Project>
+      <Name>Controllers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{695A3958-EC8E-4443-85B0-3A16881E6CC3}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

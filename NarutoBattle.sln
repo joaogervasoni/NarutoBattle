@@ -6,8 +6,15 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{695A3958-EC8E-4443-85B0-3A16881E6CC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controllers", "Controllers\Controllers.csproj", "{6C638354-F974-4CD8-A33D-E40FB735AFD0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{695A3958-EC8E-4443-85B0-3A16881E6CC3} = {695A3958-EC8E-4443-85B0-3A16881E6CC3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewWpf", "ViewWpf\ViewWpf.csproj", "{71EBDAC7-6AD5-4451-8BB2-6A3C65D50BAD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6C638354-F974-4CD8-A33D-E40FB735AFD0} = {6C638354-F974-4CD8-A33D-E40FB735AFD0}
+		{695A3958-EC8E-4443-85B0-3A16881E6CC3} = {695A3958-EC8E-4443-85B0-3A16881E6CC3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

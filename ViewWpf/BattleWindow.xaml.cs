@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,27 @@ namespace ViewWpf
     /// </summary>
     public partial class BattleWindow : Window
     {
+        BattleController bat = new BattleController();
+
         public BattleWindow()
         {
             InitializeComponent();
+        }
+
+        private void Character1_red_skill1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //personagem selecionado
+
+            Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content);
+            if (bat.dead_confirmation(Character1_blue_life.Content) == true)
+            {
+                //muda img para morto
+            }
+        }
+
+        private void Pass_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Turn.Content = bat.pass_turn(Turn.Content);
         }
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class Battle
+    public class Battle
     {
-
+        public int Turn { get; set; }
+        public int Turn_play { get; set; }
         //Red Team = agress
         //Blue team = IA
     }

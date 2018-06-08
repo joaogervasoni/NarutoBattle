@@ -8,5 +8,10 @@ namespace Controllers
 {
     class PlayerController
     {
+        public int attack(int atual_life)
+        {
+            //receive skill damage
+            return atual_life - 25;
+        }
     }
 }
