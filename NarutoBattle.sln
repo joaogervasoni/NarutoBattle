@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{695A3958-EC8E-4443-85B0-3A16881E6CC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controllers", "Controllers\Controllers.csproj", "{6C638354-F974-4CD8-A33D-E40FB735AFD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewWpf", "ViewWpf\ViewWpf.csproj", "{71EBDAC7-6AD5-4451-8BB2-6A3C65D50BAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{695A3958-EC8E-4443-85B0-3A16881E6CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{695A3958-EC8E-4443-85B0-3A16881E6CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{695A3958-EC8E-4443-85B0-3A16881E6CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{695A3958-EC8E-4443-85B0-3A16881E6CC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C638354-F974-4CD8-A33D-E40FB735AFD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C638354-F974-4CD8-A33D-E40FB735AFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C638354-F974-4CD8-A33D-E40FB735AFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C638354-F974-4CD8-A33D-E40FB735AFD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71EBDAC7-6AD5-4451-8BB2-6A3C65D50BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71EBDAC7-6AD5-4451-8BB2-6A3C65D50BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71EBDAC7-6AD5-4451-8BB2-6A3C65D50BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71EBDAC7-6AD5-4451-8BB2-6A3C65D50BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD3A24F0-9069-43BA-935C-66F788210144}
+	EndGlobalSection
+EndGlobal
