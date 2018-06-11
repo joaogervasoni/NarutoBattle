@@ -122,5 +122,12 @@
       <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Characters\Mitsuki\Mitsuki_default.png" />
+    <Resource Include="Characters\Mitsuki\Mitsuki_skill1_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Characters\Mitsuki\Mitsuki_default2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

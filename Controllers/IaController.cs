@@ -8,5 +8,9 @@ namespace Controllers
 {
     class IAController
     {
+        internal int attack(int atual_life)
+        {
+            return atual_life - 20;
+        }
     }
 }
