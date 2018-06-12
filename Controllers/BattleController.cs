@@ -23,7 +23,6 @@ namespace Controllers
             iac = new IAController();
             batt = new Battle();
             batt.Turn_play = 0;
-            //initial_turn();
             
         }
 
@@ -78,6 +77,27 @@ namespace Controllers
             return atual_turn_int;
         }
 
+        public int attack_choose(int skillSelect ,object life1, object life2, object life3, string name)
+        {
+            if (skillSelect != 0 && batt.Turn_play == 1)
+            {
+                int characterNumber = convert_name_int(name);
+                if (characterNumber == 1)
+                {
+                    return 1;
+                }
+                else if (characterNumber == 2)
+                {
+                    return 2;
+                }
+                else if (characterNumber == 3)
+                {
+                    return 3;
+                }
+            }
+            return 0;
+
+        }
 
         public int attack_red(object life)
         {

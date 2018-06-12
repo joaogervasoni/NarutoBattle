@@ -36,30 +36,13 @@ namespace ViewWpf
             //MessageBox.Show("Player jogada:" + bat.printturno());
         }
 
+        //=====================Turno=====================
 
-        private void Character1_red_skill1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //personagem selecionado
-
-            Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content);
-            if (bat.dead_confirmation(Character1_blue_life.Content) == true)
-            {
-                MessageBox.Show("persongem / time blue morreu");
-                //muda img para morto
-            }
-        }
-
+        //Pass turn button
         private void Pass_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             pass_turn();
             ia_play();
-        }
-
-        //Jogada da IA
-        private void ia_play()
-        {
-            Character1_red_life.Content = bat.attack_blue(Character1_red_life.Content);
-            pass_turn();
         }
 
         //Alterar numeração da label de turno
@@ -69,25 +52,72 @@ namespace ViewWpf
             skill_select = 0;
         }
 
+        //=====================Attack====================
+
+        //Receiv number skill
         private void ReceiveSkillNumber(object sender, MouseButtonEventArgs e)
         {
             int skillNumber = bat.convert_name_int(Character1_red_skill2.Name);
-            //MessageBox.Show("Result: " + skillNumber);
             skill_select = skillNumber;
         }
+
+        //Select enemy to atk
+        private void Select_Enemy(object sender, MouseButtonEventArgs e)
+        {
+            Image image = (Image)sender;
+            int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character2_blue_life.Content, image.Name);
+
+            if (characterNumber == 1)
+            {
+                Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content);
+            }
+            else if (characterNumber == 2)
+            {
+                Character2_blue_life.Content = bat.attack_red(Character2_blue_life.Content);
+            }
+            else if (characterNumber == 3)
+            {
+                Character3_blue_life.Content = bat.attack_red(Character3_blue_life.Content);
+            }
+        }
+
+        //=====================Others====================
+
+        //Jogada da IA
+        private void ia_play()
+        {
+            Random rand = new Random();
+            int characterNumber = rand.Next(1, 4);
+            //MessageBox.Show("" + characterNumber);
+
+            if (characterNumber == 1)
+            {
+                Character1_red_life.Content = bat.attack_blue(Character1_red_life.Content);
+            }
+            else if (characterNumber == 2)
+            {
+                Character2_red_life.Content = bat.attack_blue(Character2_red_life.Content);
+            }
+            else if (characterNumber == 3)
+            {
+                Character3_red_life.Content = bat.attack_blue(Character3_red_life.Content);
+            }
+
+            pass_turn();
+        }
+
 
         private void Generic_mouseEnter(object sender, MouseEventArgs e)
         {
             Image image = (Image)sender;
             string source = image.Tag.ToString();
-            
+
             source = source.Remove(source.Length - 4);
-            //MessageBox.Show("Test:" + source);
 
             if (bat.skill_select(skill_select) == true)
             {
                 image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
-            }            
+            }
         }
 
         private void Generic_mouseLeave(object sender, MouseEventArgs e)
@@ -96,36 +126,9 @@ namespace ViewWpf
             string source = image.Tag.ToString();
 
             source = source.Remove(source.Length - 4);
-            //MessageBox.Show("Test:" + source);
             if (bat.skill_select(skill_select) == true)
             {
                 image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
-            }
-        }
-
-
-        private void Select_Enemy(object sender, MouseButtonEventArgs e)
-        {
-            if (skill_select != 0)
-            {
-                //Confere o turno de quem ta atacando
-                int turn_play = bat.printturno();
-                //manda skill com o numero dela
-                if (turn_play == 1)
-                {
-                    Image image = (Image)sender;
-                    if (bat.convert_name_int(image.Name) == 1)
-                    {
-                        Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content);
-                    }
-
-                    //life.Content = bat.attack_red(life.Content);
-                }
-                else
-                {
-
-                }
-                // Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content);
             }
         }
     }
