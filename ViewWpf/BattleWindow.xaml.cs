@@ -21,6 +21,7 @@ namespace ViewWpf
     public partial class BattleWindow : Window
     {
 
+        static int skill_select;
         BattleController bat = new BattleController();
 
         public BattleWindow()
@@ -65,6 +66,67 @@ namespace ViewWpf
         private void pass_turn()
         {
             Turn.Content = bat.pass_turn(Turn.Content);
+            skill_select = 0;
+        }
+
+        private void ReceiveSkillNumber(object sender, MouseButtonEventArgs e)
+        {
+            int skillNumber = bat.convert_name_int(Character1_red_skill2.Name);
+            //MessageBox.Show("Result: " + skillNumber);
+            skill_select = skillNumber;
+        }
+
+        private void Generic_mouseEnter(object sender, MouseEventArgs e)
+        {
+            Image image = (Image)sender;
+            string source = image.Tag.ToString();
+            
+            source = source.Remove(source.Length - 4);
+            //MessageBox.Show("Test:" + source);
+
+            if (bat.skill_select(skill_select) == true)
+            {
+                image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
+            }            
+        }
+
+        private void Generic_mouseLeave(object sender, MouseEventArgs e)
+        {
+            Image image = (Image)sender;
+            string source = image.Tag.ToString();
+
+            source = source.Remove(source.Length - 4);
+            //MessageBox.Show("Test:" + source);
+            if (bat.skill_select(skill_select) == true)
+            {
+                image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
+            }
+        }
+
+
+        private void Select_Enemy(object sender, MouseButtonEventArgs e)
+        {
+            if (skill_select != 0)
+            {
+                //Confere o turno de quem ta atacando
+                int turn_play = bat.printturno();
+                //manda skill com o numero dela
+                if (turn_play == 1)
+                {
+                    Image image = (Image)sender;
+                    if (bat.convert_name_int(image.Name) == 1)
+                    {
+                        Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content);
+                    }
+
+                    //life.Content = bat.attack_red(life.Content);
+                }
+                else
+                {
+
+                }
+                // Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content);
+            }
         }
     }
 }

@@ -123,11 +123,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Characters\Mitsuki\Mitsuki_default.png" />
     <Resource Include="Characters\Mitsuki\Mitsuki_skill1_default.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Characters\Mitsuki\Mitsuki_default2.png" />
+    <Resource Include="Characters\Mitsuki\Mitsuki_default.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Characters\Mitsuki\Mitsuki_skill2_default.png" />
@@ -142,6 +141,15 @@
   <ItemGroup>
     <Resource Include="Characters\Boruto\Boruto_skill2_default.png" />
     <Resource Include="Characters\Boruto\Boruto_skill3_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Characters\Sarada\Sarada_default_select.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Characters\Mitsuki\Mitsuki_default_select.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Characters\Boruto\Boruto_default_select.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

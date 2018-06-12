@@ -78,6 +78,7 @@ namespace Controllers
             return atual_turn_int;
         }
 
+
         public int attack_red(object life)
         {
             if (batt.Turn_play == 1)
@@ -100,6 +101,16 @@ namespace Controllers
             return iac.attack(life_int);
         }
 
+        public bool skill_select(int skill)
+        {
+            if (skill == 12)
+            {
+
+                return true;
+            }
+            return false;
+        }
+
         public bool dead_confirmation(object life)
         {
             int life_int = conversion_object_toint(life);
@@ -109,6 +120,13 @@ namespace Controllers
             }
 
             return false;
+        }
+
+        public int convert_name_int(string name)
+        {
+
+            name = String.Join("", System.Text.RegularExpressions.Regex.Split(name, @"[^\d]"));
+            return int.Parse(name);
         }
 
         public int conversion_object_toint(object obj)
