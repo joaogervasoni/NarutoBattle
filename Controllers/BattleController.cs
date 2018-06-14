@@ -11,9 +11,8 @@ using System.Threading.Tasks;
 namespace Controllers
 {
 
-    public class BattleController
+    public class BattleController : Battle
     {
-        private Battle batt;
         private PlayerController playc;
         private IAController iac;
 
@@ -21,28 +20,27 @@ namespace Controllers
         {
             playc = new PlayerController();
             iac = new IAController();
-            batt = new Battle();
-            batt.Turn_play = 0;
+            Turn_play = 0;
             
         }
 
         public int printturno()
         {
-            return batt.Turn_play;
+            return Turn_play;
         }
 
         public void turn()
         {
             //1 red
             //2 blue
-            int atual_play = batt.Turn_play;
+            int atual_play = Turn_play;
             if (atual_play == 1)
             {
-                batt.Turn_play = 2;
+                Turn_play = 2;
             }
             else if (atual_play == 2)
             {
-                batt.Turn_play = 1;
+                Turn_play = 1;
             }
         }
 
@@ -52,9 +50,9 @@ namespace Controllers
             //1 red
             //2 blue
             Random random = new Random();
-            batt.Turn_play = random.Next(1,3);
+            Turn_play = random.Next(1,3);
 
-            if (batt.Turn_play == 2)
+            if (Turn_play == 2)
             {
                 return true;
             }
@@ -66,12 +64,12 @@ namespace Controllers
         {
             int atual_turn_int = conversion_object_toint(atual_turn);
 
-            if (atual_turn_int != batt.Turn)
+            if (atual_turn_int != Turn)
             {
                 //erro
             }
 
-            atual_turn_int = batt.Turn += 1;
+            atual_turn_int = Turn += 1;
 
             turn();
             return atual_turn_int;
@@ -79,7 +77,7 @@ namespace Controllers
 
         public int attack_choose(int skillSelect ,object life1, object life2, object life3, string name)
         {
-            if (skillSelect != 0 && batt.Turn_play == 1)
+            if (skillSelect != 0 && Turn_play == 1)
             {
                 int characterNumber = convert_name_int(name);
                 if (characterNumber == 1)
@@ -101,7 +99,7 @@ namespace Controllers
 
         public int attack_red(object life)
         {
-            if (batt.Turn_play == 1)
+            if (Turn_play == 1)
             {
                 int life_int = conversion_object_toint(life);
                 return playc.attack(life_int);
