@@ -24,7 +24,7 @@ namespace ViewWpf
         static int skill_select;
         BattleController bat = new BattleController();
 
-        public BattleWindow()
+        public BattleWindow(string character1, string character2, string character3)
         {
             InitializeComponent();
 
@@ -33,8 +33,39 @@ namespace ViewWpf
                 ia_play();
             }
             
-            //MessageBox.Show("Player jogada:" + bat.printturno());
+            //Load character
+            Character1_red.Source = load_image(character1);
+            Character2_red.Source = load_image(character2);
+            Character3_red.Source = load_image(character3);
+
+            //skills
+            Character1_red_skill1.Source = load_skill(character1, 1);
+            Character1_red_skill2.Source = load_skill(character1, 2);
+            Character1_red_skill3.Source = load_skill(character1, 3);
+
+            Character2_red_skill1.Source = load_skill(character2, 1);
+            Character2_red_skill2.Source = load_skill(character2, 2);
+            Character2_red_skill3.Source = load_skill(character2, 3);
+
+            Character3_red_skill1.Source = load_skill(character3, 1);
+            Character3_red_skill2.Source = load_skill(character3, 2);
+            Character3_red_skill3.Source = load_skill(character3, 3);
+
+
         }
+
+        private ImageSource load_image(string character)
+        {
+            return new BitmapImage(new Uri("Characters/" + character + "/" + character + "_default.png", UriKind.Relative));
+        }
+
+        private ImageSource load_skill(string character, int number)
+        {
+            return new BitmapImage(new Uri("Characters/" + character + "/" + character + "_skill" + number + "_default.png", UriKind.Relative));
+        }
+
+        //MessageBox.Show("Player jogada:" + bat.printturno());
+
 
         //=====================Turno=====================
 
@@ -43,6 +74,7 @@ namespace ViewWpf
         {
             pass_turn();
             ia_play();
+            //MessageBox.Show("test: " +  bat.test());
         }
 
         //Alterar numeração da label de turno

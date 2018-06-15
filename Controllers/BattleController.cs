@@ -24,6 +24,12 @@ namespace Controllers
             
         }
 
+        public string test()
+        {
+            string text = playc.test().ToString();
+            return text;
+        }
+
         public int printturno()
         {
             return Turn_play;
