@@ -24,11 +24,6 @@ namespace Controllers
             
         }
 
-        public string test()
-        {
-            string text = playc.test().ToString();
-            return text;
-        }
 
         public int printturno()
         {
@@ -88,14 +83,26 @@ namespace Controllers
                 int characterNumber = convert_name_int(name);
                 if (characterNumber == 1)
                 {
+                    if (conversion_object_toint(life1) == 0)
+                    {
+                        return 0;
+                    }
                     return 1;
                 }
                 else if (characterNumber == 2)
                 {
+                    if (conversion_object_toint(life2) == 0)
+                    {
+                        return 0;
+                    }
                     return 2;
                 }
                 else if (characterNumber == 3)
                 {
+                    if (conversion_object_toint(life3) == 0)
+                    {
+                        return 0;
+                    }
                     return 3;
                 }
             }
@@ -134,6 +141,7 @@ namespace Controllers
             }
             return false;
         }
+
 
         public bool dead_confirmation(object life)
         {

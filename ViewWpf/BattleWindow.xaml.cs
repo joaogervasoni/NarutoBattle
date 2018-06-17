@@ -102,18 +102,39 @@ namespace ViewWpf
             if (characterNumber == 1)
             {
                 Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content);
+                dead(sender, Character1_blue_life.Content);
             }
             else if (characterNumber == 2)
             {
                 Character2_blue_life.Content = bat.attack_red(Character2_blue_life.Content);
+                dead(sender, Character2_blue_life.Content);
             }
             else if (characterNumber == 3)
             {
                 Character3_blue_life.Content = bat.attack_red(Character3_blue_life.Content);
+                dead(sender, Character3_blue_life.Content);
             }
         }
 
         //=====================Others====================
+
+        //Dead
+        private void dead(object nome_e_cor, object life)
+        {
+            Image image = (Image)nome_e_cor;
+
+            //string name = image.Name.ToString();
+            bool confimation = bat.dead_confirmation(life);
+            if (confimation == true)
+            {
+                image.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                image.Tag = "Others/dead_default.png";
+            }
+            else
+            {
+
+            }
+        }
 
         //Jogada da IA
         private void ia_play()
@@ -146,7 +167,11 @@ namespace ViewWpf
 
             source = source.Remove(source.Length - 4);
 
-            if (bat.skill_select(skill_select) == true)
+            if (image.Tag == "Others/dead_default.png")
+            {
+
+            }
+            else if (bat.skill_select(skill_select) == true)
             {
                 image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
             }
@@ -158,7 +183,12 @@ namespace ViewWpf
             string source = image.Tag.ToString();
 
             source = source.Remove(source.Length - 4);
-            if (bat.skill_select(skill_select) == true)
+
+            if (image.Tag == "Others/dead_default.png")
+            {
+
+            }
+            else if (bat.skill_select(skill_select) == true)
             {
                 image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
             }

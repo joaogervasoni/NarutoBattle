@@ -11,14 +11,14 @@ namespace Controllers
     {
         public int attack(int atual_life)
         {
-            
+            if (atual_life == 0)
+            {
+                return atual_life;
+            }
             //receive skill damage
             return atual_life - 25;
         }
         
-        public object test()
-        {
-            return teste();
-        }
+
     }
 }
