@@ -26,17 +26,17 @@
         <Label x:Name="Character3_blue_life" Content="100" Background="Green" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,445,10,0" VerticalAlignment="Top" FontWeight="Bold" Width="107" Height="24"/>
 
         <!--Skills-->
-        <Image x:Name="Character1_red_skill1" Source="Characters/Sarada/Sarada_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,81,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character1_red_skill2" Source="Characters/Sarada/Sarada_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,81,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="1.649,0.597" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character1_red_skill3" Source="Characters/Sarada/Sarada_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,81,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-
-        <Image x:Name="Character2_red_skill1" Source="Characters/Mitsuki/Mitsuki_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character2_red_skill2" Source="Characters/Mitsuki/Mitsuki_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character2_red_skill3" Source="Characters/Mitsuki/Mitsuki_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-
-        <Image x:Name="Character3_red_skill1" Source="Characters/Boruto/Boruto_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character3_red_skill2" Source="Characters/Boruto/Boruto_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character3_red_skill3" Source="Characters/Boruto/Boruto_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+        <Image x:Name="Character1_red_skill1" Tag="" Source="Characters/Sarada/Sarada_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,81,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+        <Image x:Name="Character1_red_skill2" Tag="" Source="Characters/Sarada/Sarada_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,81,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="1.649,0.597" MouseLeftButtonDown="ReceiveSkillNumber"/>
+        <Image x:Name="Character1_red_skill3" Tag="" Source="Characters/Sarada/Sarada_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,81,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+                                            
+        <Image x:Name="Character2_red_skill1" Tag="" Source="Characters/Mitsuki/Mitsuki_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+        <Image x:Name="Character2_red_skill2" Tag="" Source="Characters/Mitsuki/Mitsuki_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+        <Image x:Name="Character2_red_skill3" Tag="" Source="Characters/Mitsuki/Mitsuki_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+                                             
+        <Image x:Name="Character3_red_skill1" Tag="" Source="Characters/Boruto/Boruto_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+        <Image x:Name="Character3_red_skill2" Tag="" Source="Characters/Boruto/Boruto_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+        <Image x:Name="Character3_red_skill3" Tag="" Source="Characters/Boruto/Boruto_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
 
         <!--Hidden-->
         <Image x:Name="Character1_blue_skill1" Source="Characters/Boruto/Boruto_skill1_default.png" Height="77" Margin="0,81,122,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="77" Visibility="Hidden"/>

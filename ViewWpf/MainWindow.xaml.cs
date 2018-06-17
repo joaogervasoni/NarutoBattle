@@ -69,5 +69,6 @@ namespace ViewWpf
             BattleWindow btWin = new BattleWindow(char1, char2, char3);
             btWin.ShowDialog();
         }
+
     }
 }

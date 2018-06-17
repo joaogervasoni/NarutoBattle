@@ -35,6 +35,24 @@ namespace Controllers.DAL
             return chars;
         }
 
+        public string damage_skill(string skill, string name)
+        {
+            
+            int skillnumber = int.Parse(skill);
+            skill = "Skill" + skill;
+
+            conn.Open();
+            string sql = "SELECT "+ skill +" FROM Character WHERE Name = '" + name + "'";
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            SQLiteDataReader reader = command.ExecuteReader();
+            reader.Read();
+
+            string damage = reader[skill].ToString();
+            conn.Close();
+
+            return damage;
+        }
+
         public object teste()
         {
             conn.Open();

@@ -110,12 +110,14 @@ namespace Controllers
 
         }
 
-        public int attack_red(object life)
+        public int attack_red(object life, int skillSelect, string attackChar)
         {
+            
+
             if (Turn_play == 1)
             {
                 int life_int = conversion_object_toint(life);
-                return playc.attack(life_int);
+                return playc.attack(life_int, skillSelect, attackChar);
             }
             else
             {
@@ -134,7 +136,7 @@ namespace Controllers
 
         public bool skill_select(int skill)
         {
-            if (skill == 12)
+            if (skill != 0)
             {
 
                 return true;

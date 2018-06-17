@@ -22,6 +22,7 @@ namespace ViewWpf
     {
 
         static int skill_select;
+        string attack_char;
         BattleController bat = new BattleController();
 
         public BattleWindow(string character1, string character2, string character3)
@@ -51,7 +52,9 @@ namespace ViewWpf
             Character3_red_skill2.Source = load_skill(character3, 2);
             Character3_red_skill3.Source = load_skill(character3, 3);
 
-
+            bat.Character1_red = character1;
+            bat.Character2_red = character2;
+            bat.Character3_red = character3;
         }
 
         private ImageSource load_image(string character)
@@ -89,8 +92,27 @@ namespace ViewWpf
         //Receiv number skill
         private void ReceiveSkillNumber(object sender, MouseButtonEventArgs e)
         {
-            int skillNumber = bat.convert_name_int(Character1_red_skill2.Name);
-            skill_select = skillNumber;
+            Image image = (Image)sender;
+
+            string skillNumber = bat.convert_name_int(image.Name).ToString();
+            skill_select = int.Parse(skillNumber.Substring(0, 1));
+
+            string charNumberString = skillNumber.Remove(skillNumber.Length - 1);
+            int charNumber = int.Parse(charNumberString);
+
+            if (charNumber == 1)
+            {
+                attack_char = bat.Character1_red;
+            }
+            else if (charNumber == 2)
+            {
+                attack_char = bat.Character2_red;
+            }
+            else if (charNumber == 3)
+            {
+                attack_char = bat.Character3_red;
+            }
+   
         }
 
         //Select enemy to atk
@@ -98,20 +120,21 @@ namespace ViewWpf
         {
             Image image = (Image)sender;
             int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character2_blue_life.Content, image.Name);
+            
 
             if (characterNumber == 1)
             {
-                Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content);
+                Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content, skill_select, attack_char);
                 dead(sender, Character1_blue_life.Content);
             }
             else if (characterNumber == 2)
             {
-                Character2_blue_life.Content = bat.attack_red(Character2_blue_life.Content);
+                Character2_blue_life.Content = bat.attack_red(Character2_blue_life.Content, skill_select, attack_char);
                 dead(sender, Character2_blue_life.Content);
             }
             else if (characterNumber == 3)
             {
-                Character3_blue_life.Content = bat.attack_red(Character3_blue_life.Content);
+                Character3_blue_life.Content = bat.attack_red(Character3_blue_life.Content, skill_select, attack_char);
                 dead(sender, Character3_blue_life.Content);
             }
         }
