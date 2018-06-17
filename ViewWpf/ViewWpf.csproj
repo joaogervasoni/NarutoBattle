@@ -157,6 +157,34 @@
   <ItemGroup>
     <Resource Include="Characters\Boruto\Boruto_default_select.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Cursor\Normal_Select.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Characters\Jiraiya\Jiraiya_default.png" />
+    <Resource Include="Characters\Jiraiya\Jiraiya_default_select.png" />
+    <Resource Include="Characters\Jiraiya\Jiraya_skill1_default.png" />
+    <Resource Include="Characters\Jiraiya\Jiraya_skill2_default.png" />
+    <Resource Include="Characters\Jiraiya\Jiraya_skill3_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Characters\Itachi\Itachi_default.png" />
+    <Resource Include="Characters\Itachi\Itachi_default_select.png" />
+    <Resource Include="Characters\Itachi\Itachi_skill1_default.png" />
+    <Resource Include="Characters\Itachi\Itachi_skill2_default.png" />
+    <Resource Include="Characters\Itachi\Itachi_skill3_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Characters\Tsunade\Tsunade_default.png" />
+    <Resource Include="Characters\Tsunade\Tsunade_default_select.png" />
+    <Resource Include="Characters\Tsunade\Tsunade_skill1_default.png" />
+    <Resource Include="Characters\Tsunade\Tsunade_skill2_default.png" />
+    <Resource Include="Characters\Tsunade\Tsunade_skill3_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Others\dead_default.png" />
+    <Resource Include="Others\invalid_default.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -55,7 +55,7 @@ namespace ViewWpf
             }
             else
             {
-                image.Source = new BitmapImage(new Uri("Characters/Sarada/Sarada_default_select.png", UriKind.Relative));
+                image.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
             }
             
         }

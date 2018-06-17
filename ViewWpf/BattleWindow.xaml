@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ViewWpf"
         mc:Ignorable="d"
         Title="BattleWindow" Height="580.048" Width="800">
-    <Grid Background="DarkGray">
+    <Grid Background="DarkGray" Cursor="Cursor/Normal_Select.cur">
         <!--Add default img for test-->
         <Image x:Name="Character1_red" Source="Characters/Sarada/Sarada_default.png" HorizontalAlignment="Left" Height="107" Margin="10,51,0,0" VerticalAlignment="Top" Width="107"/>
         <Image x:Name="Character2_red" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Left" Height="107" Margin="10,192,0,0" VerticalAlignment="Top" Width="107"/>
