@@ -6,7 +6,21 @@
         xmlns:local="clr-namespace:ViewWpf"
         mc:Ignorable="d"
         Title="BattleWindow" Height="580.048" Width="800">
-    <Grid Background="DarkGray" Cursor="Cursor/Normal_Select.cur">
+    <Grid Cursor="Cursor/Normal_Select.cur">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="535*"/>
+            <RowDefinition Height="14*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="Others/background.png" Stretch="Uniform"/>
+        </Grid.Background>
+        <!--Add default img for test-->
+        <Rectangle HorizontalAlignment="Left" Height="46" Margin="0,0,-3,0" StrokeMiterLimit="150" VerticalAlignment="Top" Width="795" Stroke="Black" Fill="Black"/>
+
+
+        <Rectangle HorizontalAlignment="Left" Height="60" Margin="-3,491,0,-2" StrokeMiterLimit="150" VerticalAlignment="Top" Width="795" Stroke="Black" Fill="Black" Grid.RowSpan="2"/>
+
+
         <!--Add default img for test-->
         <Image x:Name="Character1_red" Source="Characters/Sarada/Sarada_default.png" HorizontalAlignment="Left" Height="107" Margin="10,51,0,0" VerticalAlignment="Top" Width="107"/>
         <Image x:Name="Character2_red" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Left" Height="107" Margin="10,192,0,0" VerticalAlignment="Top" Width="107"/>
@@ -29,11 +43,11 @@
         <Image x:Name="Character1_red_skill1" Tag="" Source="Characters/Sarada/Sarada_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,81,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
         <Image x:Name="Character1_red_skill2" Tag="" Source="Characters/Sarada/Sarada_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,81,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="1.649,0.597" MouseLeftButtonDown="ReceiveSkillNumber"/>
         <Image x:Name="Character1_red_skill3" Tag="" Source="Characters/Sarada/Sarada_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,81,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-                                            
+
         <Image x:Name="Character2_red_skill1" Tag="" Source="Characters/Mitsuki/Mitsuki_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
         <Image x:Name="Character2_red_skill2" Tag="" Source="Characters/Mitsuki/Mitsuki_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
         <Image x:Name="Character2_red_skill3" Tag="" Source="Characters/Mitsuki/Mitsuki_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-                                             
+
         <Image x:Name="Character3_red_skill1" Tag="" Source="Characters/Boruto/Boruto_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
         <Image x:Name="Character3_red_skill2" Tag="" Source="Characters/Boruto/Boruto_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
         <Image x:Name="Character3_red_skill3" Tag="" Source="Characters/Boruto/Boruto_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
@@ -42,9 +56,9 @@
         <Image x:Name="Character1_blue_skill1" Source="Characters/Boruto/Boruto_skill1_default.png" Height="77" Margin="0,81,122,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="77" Visibility="Hidden"/>
 
         <!--Others-->
-        <Label Content="Turno:" HorizontalAlignment="Left" Margin="353,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-        <Label x:Name="Pass" Content="Pass Turn" HorizontalAlignment="Center" Margin="322,501,324,0" VerticalAlignment="Top" Height="36" Width="146" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Verdana Pro Black" FontSize="20" Background="#FFD65A5A" MouseLeftButtonDown="Pass_MouseLeftButtonDown"/>
-        <Label x:Name="Turn" Content="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="423,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Turno:" HorizontalAlignment="Left" Margin="353,17,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Background="White" BorderBrush="#FF060606"/>
+        <Label x:Name="Pass" Content="Pass Turn" HorizontalAlignment="Center" Margin="325,475,321,0" VerticalAlignment="Top" Height="36" Width="146" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Verdana Pro Black" FontSize="20" Background="White" MouseLeftButtonDown="Pass_MouseLeftButtonDown"/>
+        <Label x:Name="Turn" Content="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="423,17,0,0" VerticalAlignment="Top" Background="White"/>
 
 
     </Grid>
