@@ -126,20 +126,60 @@ namespace ViewWpf
             {
                 Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content, skill_select, attack_char);
                 dead(sender, Character1_blue_life.Content);
+                teamDead();
             }
             else if (characterNumber == 2)
             {
                 Character2_blue_life.Content = bat.attack_red(Character2_blue_life.Content, skill_select, attack_char);
                 dead(sender, Character2_blue_life.Content);
+                teamDead();
             }
             else if (characterNumber == 3)
             {
                 Character3_blue_life.Content = bat.attack_red(Character3_blue_life.Content, skill_select, attack_char);
                 dead(sender, Character3_blue_life.Content);
+                teamDead();
             }
         }
 
         //=====================Others====================
+        private void teamDead()
+        {
+            int dead = confirmation_teamDead();
+            string d = "";
+            if (dead == 2)
+            {
+                d = "Ganhou";
+                MessageBox.Show("Você " + d);
+                Close();
+            }
+            else if (dead == 1)
+            {
+                d = "Perdeu";
+                MessageBox.Show("Você " + d);
+                Close();
+            }
+
+        }
+
+        private int confirmation_teamDead()
+        {
+            if (bat.conversion_object_toint(Character1_blue_life.Content) <= 0 &&
+                bat.conversion_object_toint(Character2_blue_life.Content) <= 0 &&
+                bat.conversion_object_toint(Character3_blue_life.Content) <= 0)
+            {
+                return 2;
+            }
+
+            if (bat.conversion_object_toint(Character1_red_life.Content) <= 0 &&
+                bat.conversion_object_toint(Character2_red_life.Content) <= 0 &&
+                bat.conversion_object_toint(Character3_red_life.Content) <= 0)
+            {
+                return 1;
+            }
+
+            return 0;
+        }
 
         //Dead
         private void dead(object nome_e_cor, object life)
@@ -169,14 +209,20 @@ namespace ViewWpf
             if (characterNumber == 1)
             {
                 Character1_red_life.Content = bat.attack_blue(Character1_red_life.Content);
+                dead(Character1_red, Character1_red_life.Content);
+                teamDead();
             }
             else if (characterNumber == 2)
             {
                 Character2_red_life.Content = bat.attack_blue(Character2_red_life.Content);
+                dead(Character2_red, Character2_red_life.Content);
+                teamDead();
             }
             else if (characterNumber == 3)
             {
                 Character3_red_life.Content = bat.attack_blue(Character3_red_life.Content);
+                dead(Character3_red, Character3_red_life.Content);
+                teamDead();
             }
 
             pass_turn();
