@@ -163,9 +163,9 @@
   <ItemGroup>
     <Resource Include="Characters\Jiraiya\Jiraiya_default.png" />
     <Resource Include="Characters\Jiraiya\Jiraiya_default_select.png" />
-    <Resource Include="Characters\Jiraiya\Jiraya_skill1_default.png" />
-    <Resource Include="Characters\Jiraiya\Jiraya_skill2_default.png" />
-    <Resource Include="Characters\Jiraiya\Jiraya_skill3_default.png" />
+    <Resource Include="Characters\Jiraiya\Jiraiya_skill1_default.png" />
+    <Resource Include="Characters\Jiraiya\Jiraiya_skill2_default.png" />
+    <Resource Include="Characters\Jiraiya\Jiraiya_skill3_default.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Characters\Itachi\Itachi_default.png" />

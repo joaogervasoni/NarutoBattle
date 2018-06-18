@@ -21,7 +21,7 @@ namespace ViewWpf
     public partial class BattleWindow : Window
     {
 
-        static int skill_select;
+        int skill_select;
         string attack_char;
         BattleController bat = new BattleController();
 
@@ -119,25 +119,25 @@ namespace ViewWpf
         private void Select_Enemy(object sender, MouseButtonEventArgs e)
         {
             Image image = (Image)sender;
-            int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character2_blue_life.Content, image.Name);
+            int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content, image.Name);
             
 
             if (characterNumber == 1)
             {
                 Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content, skill_select, attack_char);
-                dead(sender, Character1_blue_life.Content);
+                dead(sender, Character1_blue_life);
                 teamDead();
             }
             else if (characterNumber == 2)
             {
                 Character2_blue_life.Content = bat.attack_red(Character2_blue_life.Content, skill_select, attack_char);
-                dead(sender, Character2_blue_life.Content);
+                dead(sender, Character2_blue_life);
                 teamDead();
             }
             else if (characterNumber == 3)
             {
                 Character3_blue_life.Content = bat.attack_red(Character3_blue_life.Content, skill_select, attack_char);
-                dead(sender, Character3_blue_life.Content);
+                dead(sender, Character3_blue_life);
                 teamDead();
             }
         }
@@ -184,14 +184,18 @@ namespace ViewWpf
         //Dead
         private void dead(object nome_e_cor, object life)
         {
+            
             Image image = (Image)nome_e_cor;
+            Label label = (Label)life;
 
             //string name = image.Name.ToString();
-            bool confimation = bat.dead_confirmation(life);
+            bool confimation = bat.dead_confirmation(label.Content);
             if (confimation == true)
             {
                 image.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
                 image.Tag = "Others/dead_default.png";
+                image.IsEnabled = false;
+                label.Content = "0";
             }
             else
             {
@@ -209,19 +213,19 @@ namespace ViewWpf
             if (characterNumber == 1)
             {
                 Character1_red_life.Content = bat.attack_blue(Character1_red_life.Content);
-                dead(Character1_red, Character1_red_life.Content);
+                dead(Character1_red, Character1_red_life);
                 teamDead();
             }
             else if (characterNumber == 2)
             {
                 Character2_red_life.Content = bat.attack_blue(Character2_red_life.Content);
-                dead(Character2_red, Character2_red_life.Content);
+                dead(Character2_red, Character2_red_life);
                 teamDead();
             }
             else if (characterNumber == 3)
             {
                 Character3_red_life.Content = bat.attack_blue(Character3_red_life.Content);
-                dead(Character3_red, Character3_red_life.Content);
+                dead(Character3_red, Character3_red_life);
                 teamDead();
             }
 

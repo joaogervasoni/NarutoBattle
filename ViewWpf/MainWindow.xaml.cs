@@ -24,6 +24,10 @@ namespace ViewWpf
     {
         Context context = new Context();
         List<string> charss = new List<string>();
+        String Char1 = "";
+        String Char2 = "";
+        String Char3 = "";
+        int atualChanged = 0;
 
         public MainWindow()
         {
@@ -52,6 +56,7 @@ namespace ViewWpf
             if (charss.Count > number)
             {
                 image.Source = new BitmapImage(new Uri("Characters/" + charss[number] + "/" + charss[number] + "_default.png", UriKind.Relative));
+                image.Tag = charss[number];
             }
             else
             {
@@ -60,6 +65,26 @@ namespace ViewWpf
             
         }
 
+        public void addSelectChar()
+        {
+            if (atualChanged == 1)
+            {
+                CharacterSelect1.Source = new BitmapImage(new Uri("Characters/" + Char1 + "/" + Char1 + "_default.png", UriKind.Relative));
+                CharacterSelect1.Tag = Char1;
+            }
+            if (atualChanged == 2)
+            {
+                CharacterSelect2.Source = new BitmapImage(new Uri("Characters/" + Char2 + "/" + Char2 + "_default.png", UriKind.Relative));
+                CharacterSelect2.Tag = Char2;
+            }
+            if (atualChanged == 3)
+            {
+                CharacterSelect3.Source = new BitmapImage(new Uri("Characters/" + Char3 + "/" + Char3 + "_default.png", UriKind.Relative));
+                CharacterSelect3.Tag = Char3;
+            }
+                
+        }   
+         
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             string char1 = CharacterSelect1.Tag.ToString();
@@ -70,5 +95,32 @@ namespace ViewWpf
             btWin.ShowDialog();
         }
 
+        private void Character_Select(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                //MessageBox.Show("Double");
+                Image image = (Image)sender;
+                atualChanged += 1;
+                if (atualChanged == 1)
+                {
+                    Char1 = image.Tag.ToString();
+                    addSelectChar();
+                }
+                else if (atualChanged == 2)
+                {
+                    Char2 = image.Tag.ToString();
+                    addSelectChar();
+                }
+                else if (atualChanged == 3)
+                {
+                    Char3 = image.Tag.ToString();
+                    addSelectChar();
+                    atualChanged = 0;
+                }
+                
+
+            }
+        }
     }
 }
