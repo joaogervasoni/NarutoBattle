@@ -1,5 +1,4 @@
-﻿using Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,15 +22,37 @@ namespace Controllers
 
         private PlayerController playc;
         private IAController iac;
+        public ChakraController ChakraRed;
+        public ChakraController ChakraBlue;
 
         public BattleController()
         {
             playc = new PlayerController();
             iac = new IAController();
+            ChakraRed = new ChakraController();
+            ChakraBlue = new ChakraController();
             Turn_play = 0;
             
         }
 
+        public List<int> returnChakras(int team)
+        {
+            if (team == 1)
+            {
+                return ChakraRed.returnChakras();
+            }
+            else if (team == 2)
+            {
+                return ChakraBlue.returnChakras();
+            }
+
+            return null;
+        }
+
+        public string printChakras()
+        {
+            return ChakraRed.printChakra() + ChakraBlue.printChakra();
+        }
 
         public int printturno()
         {

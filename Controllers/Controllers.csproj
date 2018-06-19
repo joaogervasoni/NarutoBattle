@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BattleController.cs" />
+    <Compile Include="ChakraController.cs" />
     <Compile Include="DAL\Context.cs" />
     <Compile Include="IAController.cs" />
     <Compile Include="PlayerController.cs" />

@@ -55,6 +55,10 @@ namespace ViewWpf
             bat.Character1_red = character1;
             bat.Character2_red = character2;
             bat.Character3_red = character3;
+
+            //Chakra
+            loadChakras();
+            //MessageBox.Show(bat.printChakras());
         }
 
         private ImageSource load_image(string character)
@@ -67,6 +71,19 @@ namespace ViewWpf
             return new BitmapImage(new Uri("Characters/" + character + "/" + character + "_skill" + number + "_default.png", UriKind.Relative));
         }
 
+        private void loadChakras()
+        {
+            List<int> Chakras = new List<int>();
+            Chakras = bat.returnChakras(1);
+            //Taijutsu;
+            //Bloodline;
+            //Ninjutsu;
+            //Genjutsu;
+            TaijutsuNumber.Content = Chakras[0];
+            BloodlineNumber.Content = Chakras[1];
+            NinjutsuNumber.Content = Chakras[2];
+            GenjutsuNumber.Content = Chakras[3];
+        }
         //MessageBox.Show("Player jogada:" + bat.printturno());
 
 
