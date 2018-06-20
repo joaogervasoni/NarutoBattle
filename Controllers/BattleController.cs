@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Controllers.DAL;
 
 
 
 namespace Controllers
 {
 
-    public class BattleController
+    public class BattleController : Context
     {
 
         public int Turn { get; set; }
@@ -25,6 +26,7 @@ namespace Controllers
         public ChakraController ChakraRed;
         public ChakraController ChakraBlue;
 
+
         public BattleController()
         {
             playc = new PlayerController();
@@ -33,6 +35,16 @@ namespace Controllers
             ChakraBlue = new ChakraController();
             Turn_play = 0;
             
+        }
+
+        public List<string> Skill(string skillNumber, string character)
+        {
+            
+            //retorna numero de chakras da skill
+            List<string> chakras = new List<string>();
+            chakras = Skills(skillNumber, character);
+
+            return chakras;
         }
 
         public List<int> returnChakras(int team)

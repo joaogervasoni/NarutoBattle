@@ -15,6 +15,61 @@ namespace Controllers.DAL
             conn = new SQLiteConnection("Data Source=|DataDirectory|NBDB.db;Version=3;");
         }
 
+        //public List<string> returnSkill_Chakra(string character)
+        //{
+        //    List<string> skillChakra = new List<string>();
+        //    conn.Open();
+        //    string sql = "SELECT Taijutsu, Bloodline, Ninjutsu, Genjutsu FROM Skills WHERE Name = '" + character + "' AND Skill = " + skillNumber;
+        //}
+
+        public List<string> Skills(string skillNumber, string character)
+        {
+
+            List<string> chakras = new List<string>();
+            conn.Open();
+            string sql = "SELECT Taijutsu, Bloodline, Ninjutsu, Genjutsu FROM Skills WHERE Name = '"+ character+ "' AND Skill = "+skillNumber;
+
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+            {
+                using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                {
+                    rdr.Read();
+                    
+                        chakras.Add(rdr["Taijutsu"].ToString());
+                        chakras.Add(rdr["Bloodline"].ToString());
+                        chakras.Add(rdr["Ninjutsu"].ToString());
+                        chakras.Add(rdr["Genjutsu"].ToString());
+                    
+                }
+            }
+
+            conn.Close();
+            return chakras;
+            //List<string> Skills = new List<string>();
+            //List<string> Taijutsu = new List<string>();
+            //List<string> Bloodline = new List<string>();
+            //List<string> Ninjutsu = new List<string>();
+            //List<string> Genjutsu = new List<string>();
+            //conn.Open();
+            //string sql = "SELECT Skill, Taijutsu, Bloodline, Ninjutsu, Genjutsu FROM Skills WHERE Name = Sarada";
+
+            //using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+            //{
+            //    using (SQLiteDataReader rdr = cmd.ExecuteReader())
+            //    {
+            //        while (rdr.Read())
+            //        {
+            //            Skills.Add(rdr["Skill"].ToString());
+            //            Taijutsu.Add(rdr["Taijutsu"].ToString());
+            //            Bloodline.Add(rdr["Bloodline"].ToString());
+            //            Ninjutsu.Add(rdr["Ninjutsu"].ToString());
+            //            Genjutsu.Add(rdr["Genjutsu"].ToString());
+            //        }
+            //    }
+            //}
+
+        }
+
         public List<string> return_Characters()
         {
             List<string> chars = new List<string>();

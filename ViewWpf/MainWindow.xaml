@@ -8,7 +8,7 @@
         Title="MainWindow" Height="493.373" Width="881.108" Cursor="Cursor/Normal_Select.cur">
     <Grid Background="DarkGray">
         <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="111" Margin="561,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="291"/>
-        <Label Content="Select your team" HorizontalAlignment="Left" Height="72" Margin="277,10,0,0" VerticalAlignment="Top" Width="292" FontWeight="Bold" FontSize="36"/>
+        <Label Content="Select your team" HorizontalAlignment="Left" Height="72" Margin="10,10,0,0" VerticalAlignment="Top" Width="292" FontWeight="Bold" FontSize="36"/>
         <Button x:Name="StartButton" Content="Battle" HorizontalAlignment="Center" Margin="637,399,79,0" VerticalAlignment="Top" Width="137" Height="37" Click="StartButton_Click"/>
         <Image x:Name="Character1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="10,243,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select"/>
         <Image x:Name="Character2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="102,243,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select"/>
@@ -27,6 +27,8 @@
         <Image x:Name="CharacterSelect1" Tag="Sarada" Source="Characters/Sarada/Sarada_default.png" HorizontalAlignment="Left" Height="87" Margin="572,295,0,0" VerticalAlignment="Top" Width="87"/>
         <Image x:Name="CharacterSelect2" Tag="Boruto" Source="Characters/Boruto/Boruto_default.png" HorizontalAlignment="Left" Height="87" Margin="664,295,0,0" VerticalAlignment="Top" Width="87"/>
         <Image x:Name="CharacterSelect3" Tag="Mitsuki" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Left" Height="87" Margin="756,295,0,0" VerticalAlignment="Top" Width="87"/>
+
+        <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="245" Margin="562,32,0,0" Stroke="Black" VerticalAlignment="Top" Width="291"/>
 
     </Grid>
 </Window>

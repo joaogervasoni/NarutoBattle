@@ -22,8 +22,10 @@ namespace ViewWpf
     {
 
         int skill_select;
-        string attack_char;
+        string attack_char = "0";
         BattleController bat = new BattleController();
+
+
 
         public BattleWindow(string character1, string character2, string character3)
         {
@@ -55,6 +57,8 @@ namespace ViewWpf
             bat.Character1_red = character1;
             bat.Character2_red = character2;
             bat.Character3_red = character3;
+
+
 
             //Chakra
             loadChakras();
@@ -102,6 +106,8 @@ namespace ViewWpf
         {
             Turn.Content = bat.pass_turn(Turn.Content);
             skill_select = 0;
+            bat.ChakraRed.turnChakra();
+            loadChakras();
         }
 
         //=====================Attack====================
@@ -109,6 +115,12 @@ namespace ViewWpf
         //Receiv number skill
         private void ReceiveSkillNumber(object sender, MouseButtonEventArgs e)
         {
+            //confere quantos chakra usa
+            
+
+            //se tiver habilita a skill para ser utilizada
+
+
             Image image = (Image)sender;
 
             string skillNumber = bat.convert_name_int(image.Name).ToString();
@@ -117,46 +129,91 @@ namespace ViewWpf
             string charNumberString = skillNumber.Remove(skillNumber.Length - 1);
             int charNumber = int.Parse(charNumberString);
 
-            if (charNumber == 1)
+            ///////////
+            List<string> lista = new List<string>();
+            string skill_second = (skillNumber.Last()).ToString();
+
+            lista = bat.Skill(skill_second, bat.Character1_red);
+
+            //MessageBox.Show(lista[0]);
+            //MessageBox.Show(lista[1]);
+            //MessageBox.Show(lista[2]);
+            //MessageBox.Show(lista[3]);
+
+            //Taijutsu
+            //Bloodline
+            //Ninjutsu
+            //Genjutsu
+
+            if (bat.ChakraRed.Taijutsu >= int.Parse(lista[0]) && bat.ChakraRed.Bloodline >= int.Parse(lista[1]) &&
+                bat.ChakraRed.Ninjutsu >= int.Parse(lista[2]) && bat.ChakraRed.Genjutsu >= int.Parse(lista[3]))
             {
-                attack_char = bat.Character1_red;
+                //retira o chakra
+                TaijutsuNumber.Content = (int.Parse(TaijutsuNumber.Content.ToString()) - int.Parse(lista[0])).ToString();
+                BloodlineNumber.Content = (int.Parse(BloodlineNumber.Content.ToString()) - int.Parse(lista[1])).ToString();
+                NinjutsuNumber.Content = (int.Parse(NinjutsuNumber.Content.ToString()) - int.Parse(lista[2])).ToString();
+                GenjutsuNumber.Content = (int.Parse(GenjutsuNumber.Content.ToString()) - int.Parse(lista[3])).ToString();
+                bat.ChakraRed.Taijutsu -= int.Parse(lista[0]);
+                bat.ChakraRed.Bloodline -= int.Parse(lista[1]);
+                bat.ChakraRed.Ninjutsu -= int.Parse(lista[2]);
+                bat.ChakraRed.Genjutsu -= int.Parse(lista[3]);
+
+
+                if (charNumber == 1)
+                {
+                    attack_char = bat.Character1_red;
+                }
+                else if (charNumber == 2)
+                {
+                    attack_char = bat.Character2_red;
+                }
+                else if (charNumber == 3)
+                {
+                    attack_char = bat.Character3_red;
+                }
             }
-            else if (charNumber == 2)
-            {
-                attack_char = bat.Character2_red;
-            }
-            else if (charNumber == 3)
-            {
-                attack_char = bat.Character3_red;
-            }
+            ////////
+
+
    
         }
 
         //Select enemy to atk
         private void Select_Enemy(object sender, MouseButtonEventArgs e)
         {
-            Image image = (Image)sender;
-            int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content, image.Name);
-            
+            if(attack_char == "0")
+            {
 
-            if (characterNumber == 1)
-            {
-                Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content, skill_select, attack_char);
-                dead(sender, Character1_blue_life);
-                teamDead();
             }
-            else if (characterNumber == 2)
+            else
             {
-                Character2_blue_life.Content = bat.attack_red(Character2_blue_life.Content, skill_select, attack_char);
-                dead(sender, Character2_blue_life);
-                teamDead();
+                Image image = (Image)sender;
+                int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content, image.Name);
+
+
+                if (characterNumber == 1)
+                {
+                    Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content, skill_select, attack_char);
+                    dead(sender, Character1_blue_life);
+                    teamDead();
+                }
+                else if (characterNumber == 2)
+                {
+                    Character2_blue_life.Content = bat.attack_red(Character2_blue_life.Content, skill_select, attack_char);
+                    dead(sender, Character2_blue_life);
+                    teamDead();
+                }
+                else if (characterNumber == 3)
+                {
+                    Character3_blue_life.Content = bat.attack_red(Character3_blue_life.Content, skill_select, attack_char);
+                    dead(sender, Character3_blue_life);
+                    teamDead();
+                }
+
+                attack_char = "0";
             }
-            else if (characterNumber == 3)
-            {
-                Character3_blue_life.Content = bat.attack_red(Character3_blue_life.Content, skill_select, attack_char);
-                dead(sender, Character3_blue_life);
-                teamDead();
-            }
+
+            
         }
 
         //=====================Others====================
@@ -261,7 +318,7 @@ namespace ViewWpf
             {
 
             }
-            else if (bat.skill_select(skill_select) == true)
+            else if (bat.skill_select(skill_select) == true && attack_char != "0")
             {
                 image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
             }
@@ -282,6 +339,44 @@ namespace ViewWpf
             {
                 image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
             }
+        }
+
+        private void ShowSkill_MouseEnter(object sender, MouseEventArgs e)
+        {
+            //change imaage
+            Image image = (Image)sender;
+            panelSkillImage.Source = image.Source;
+
+
+            //change chakras number
+            string skillNumber = bat.convert_name_int(image.Name).ToString();
+
+            string charNumberString = skillNumber.Remove(skillNumber.Length - 1);
+            int charNumber = int.Parse(charNumberString);
+
+            ///////////
+            List<string> lista = new List<string>();
+            string skill_second = (skillNumber.Last()).ToString();
+
+            if (charNumber == 1)
+            {
+                lista = bat.Skill(skill_second, bat.Character1_red);
+            }
+            else if (charNumber == 2)
+            {
+                lista = bat.Skill(skill_second, bat.Character2_red);
+            }
+            else if (charNumber == 3)
+            {
+                lista = bat.Skill(skill_second, bat.Character3_red);
+            }
+
+            TaijutsuNumber_Panel.Content = lista[0];
+            BloodlineNumber_Panel.Content = lista[1];
+            NinjutsuNumber_Panel.Content = lista[2];
+            GenjutsuNumber_Panel.Content = lista[3];
+
+
         }
     }
 }

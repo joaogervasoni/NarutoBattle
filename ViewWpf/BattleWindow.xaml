@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewWpf"
         mc:Ignorable="d"
-        Title="BattleWindow" Height="580.048" Width="800">
+        Title="BattleWindow" Height="616.048" Width="800">
     <Grid Cursor="Cursor/Normal_Select.cur">
         <Grid.RowDefinitions>
-            <RowDefinition Height="535*"/>
-            <RowDefinition Height="14*"/>
+            <RowDefinition Height="577*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="Others/background.png" Stretch="Uniform"/>
@@ -18,7 +18,7 @@
         <Rectangle HorizontalAlignment="Left" Height="46" Margin="0,0,-3,0" StrokeMiterLimit="150" VerticalAlignment="Top" Width="795" Stroke="Black" Fill="Black"/>
 
 
-        <Rectangle HorizontalAlignment="Left" Height="60" Margin="-3,491,0,-2" StrokeMiterLimit="150" VerticalAlignment="Top" Width="795" Stroke="Black" Fill="Black" Grid.RowSpan="2"/>
+        <Rectangle HorizontalAlignment="Left" Height="60" Margin="-3,525,0,0" StrokeMiterLimit="150" VerticalAlignment="Top" Width="795" Stroke="Black" Fill="Black" Grid.RowSpan="2"/>
 
 
         <!--Add default img for test-->
@@ -40,42 +40,66 @@
         <Label x:Name="Character3_blue_life" Content="100" Background="Green" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,445,10,0" VerticalAlignment="Top" FontWeight="Bold" Width="107" Height="24"/>
 
         <!--Skills-->
-        <Image x:Name="Character1_red_skill1" Tag="" Source="Characters/Sarada/Sarada_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,81,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character1_red_skill2" Tag="" Source="Characters/Sarada/Sarada_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,81,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="1.649,0.597" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character1_red_skill3" Tag="" Source="Characters/Sarada/Sarada_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,81,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+        <Image x:Name="Character1_red_skill1" Tag="" Source="Characters/Sarada/Sarada_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,81,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber" MouseEnter="ShowSkill_MouseEnter"/>
+        <Image x:Name="Character1_red_skill2" Tag="" Source="Characters/Sarada/Sarada_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,81,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="1.649,0.597" MouseLeftButtonDown="ReceiveSkillNumber" MouseEnter="ShowSkill_MouseEnter"/>
+        <Image x:Name="Character1_red_skill3" Tag="" Source="Characters/Sarada/Sarada_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,81,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber" MouseEnter="ShowSkill_MouseEnter"/>
 
-        <Image x:Name="Character2_red_skill1" Tag="" Source="Characters/Mitsuki/Mitsuki_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character2_red_skill2" Tag="" Source="Characters/Mitsuki/Mitsuki_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character2_red_skill3" Tag="" Source="Characters/Mitsuki/Mitsuki_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+        <Image x:Name="Character2_red_skill1" Tag="" Source="Characters/Mitsuki/Mitsuki_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber" MouseEnter="ShowSkill_MouseEnter"/>
+        <Image x:Name="Character2_red_skill2" Tag="" Source="Characters/Mitsuki/Mitsuki_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber" MouseEnter="ShowSkill_MouseEnter"/>
+        <Image x:Name="Character2_red_skill3" Tag="" Source="Characters/Mitsuki/Mitsuki_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,222,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber" MouseEnter="ShowSkill_MouseEnter" />
 
-        <Image x:Name="Character3_red_skill1" Tag="" Source="Characters/Boruto/Boruto_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character3_red_skill2" Tag="" Source="Characters/Boruto/Boruto_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
-        <Image x:Name="Character3_red_skill3" Tag="" Source="Characters/Boruto/Boruto_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber"/>
+        <Image x:Name="Character3_red_skill1" Tag="" Source="Characters/Boruto/Boruto_skill1_default.png" HorizontalAlignment="Left" Height="77" Margin="122,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber" MouseEnter="ShowSkill_MouseEnter"/>
+        <Image x:Name="Character3_red_skill2" Tag="" Source="Characters/Boruto/Boruto_skill2_default.png" HorizontalAlignment="Left" Height="77" Margin="204,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber" MouseEnter="ShowSkill_MouseEnter"/>
+        <Image x:Name="Character3_red_skill3" Tag="" Source="Characters/Boruto/Boruto_skill3_default.png" HorizontalAlignment="Left" Height="77" Margin="286,363,0,0" VerticalAlignment="Top" Width="77" MouseLeftButtonDown="ReceiveSkillNumber" MouseEnter="ShowSkill_MouseEnter"/>
 
         <!--Hidden-->
         <Image x:Name="Character1_blue_skill1" Source="Characters/Boruto/Boruto_skill1_default.png" Height="77" Margin="0,81,122,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="77" Visibility="Hidden"/>
 
         <!--Others-->
-        <Label Content="Turno:" HorizontalAlignment="Left" Margin="690,4,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Background="White" BorderBrush="#FF060606"/>
-        <Label x:Name="Pass" Content="Pass Turn" HorizontalAlignment="Center" Margin="325,475,321,0" VerticalAlignment="Top" Height="36" Width="146" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Verdana Pro Black" FontSize="20" Background="White" MouseLeftButtonDown="Pass_MouseLeftButtonDown"/>
-        <Label x:Name="Turn" Content="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="760,4,0,0" VerticalAlignment="Top" Background="White"/>
+        <Label Content="Turno:" HorizontalAlignment="Left" Margin="677,4,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Background="White" BorderBrush="#FF060606" Height="37" Width="70"/>
+        <Label x:Name="Pass" Content="Pass Turn" HorizontalAlignment="Center" Margin="526,4,120,0" VerticalAlignment="Top" Height="37" Width="146" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Verdana Pro Black" FontSize="20" Background="White" MouseLeftButtonDown="Pass_MouseLeftButtonDown"/>
+        <Label x:Name="Turn" Content="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="747,4,0,0" VerticalAlignment="Top" Background="White" Height="37" Width="35"/>
 
         <!--Chakras-->
-        <Rectangle Fill="#FF25B825" HorizontalAlignment="Left" Height="14" Margin="24,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
-        <Label Content="Taijutsu" HorizontalAlignment="Left" Margin="38,10,0,0" VerticalAlignment="Top" Foreground="White" Width="77"/>
-        <Label x:Name="TaijutsuNumber" Content="0" HorizontalAlignment="Left" Margin="81,10,0,0" VerticalAlignment="Top" Foreground="White"/>
-        
-        <Rectangle Fill="#FFCF1515" HorizontalAlignment="Left" Height="14" Margin="104,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
-        <Label Content="Bloodline" HorizontalAlignment="Left" Margin="118,10,0,0" VerticalAlignment="Top" Foreground="White" Width="77"/>
-        <Label x:Name="BloodlineNumber" Content="0" HorizontalAlignment="Left" Margin="171,10,0,0" VerticalAlignment="Top" Foreground="White"/>
-        
-        <Rectangle Fill="#FF345AC1" HorizontalAlignment="Left" Height="14" Margin="188,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
-        <Label Content="Ninjutsu" HorizontalAlignment="Left" Margin="202,10,0,0" VerticalAlignment="Top" Foreground="White" Width="77"/>
-        <Label x:Name="NinjutsuNumber" Content="0" HorizontalAlignment="Left" Margin="250,10,0,0" VerticalAlignment="Top" Foreground="White"/>
-        
-        <Rectangle Fill="White" HorizontalAlignment="Left" Height="14" Margin="268,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
-        <Label Content="Genjutsu" HorizontalAlignment="Left" Margin="282,10,0,0" VerticalAlignment="Top" Foreground="White" Width="77"/>
-        <Label x:Name="GenjutsuNumber" Content="0" HorizontalAlignment="Left" Margin="334,10,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Rectangle Fill="#FF25B825" HorizontalAlignment="Left" Height="14" Margin="26,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
+        <Label Content="Taijutsu" HorizontalAlignment="Left" Margin="40,10,0,0" VerticalAlignment="Top" Foreground="White" Width="77" Height="26"/>
+        <Label x:Name="TaijutsuNumber" Content="0" HorizontalAlignment="Left" Margin="83,10,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="23"/>
+
+        <Rectangle Fill="#FFCF1515" HorizontalAlignment="Left" Height="14" Margin="105,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
+        <Label Content="Bloodline" HorizontalAlignment="Left" Margin="119,10,0,0" VerticalAlignment="Top" Foreground="White" Width="77" Height="26"/>
+        <Label x:Name="BloodlineNumber" Content="0" HorizontalAlignment="Left" Margin="172,10,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="24"/>
+
+        <Rectangle Fill="#FF345AC1" HorizontalAlignment="Left" Height="14" Margin="191,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
+        <Label Content="Ninjutsu" HorizontalAlignment="Left" Margin="205,10,0,0" VerticalAlignment="Top" Foreground="White" Width="77" Height="26"/>
+        <Label x:Name="NinjutsuNumber" Content="0" HorizontalAlignment="Left" Margin="253,10,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="22" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.801"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+
+        <Rectangle Fill="White" HorizontalAlignment="Left" Height="14" Margin="273,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
+        <Label Content="Genjutsu" HorizontalAlignment="Left" Margin="287,10,0,0" VerticalAlignment="Top" Foreground="White" Width="77" Height="26"/>
+        <Label x:Name="GenjutsuNumber" Content="0" HorizontalAlignment="Left" Margin="339,10,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="16"/>
+        <Rectangle Fill="#FFDCC2C2" HorizontalAlignment="Left" Height="91" Margin="136,476,0,0" Stroke="Black" StrokeMiterLimit="150" VerticalAlignment="Top" Width="515"/>
+
+
+        <Image x:Name="panelSkillImage" Tag="" Source="Characters/Boruto/Boruto_skill1_default.png" HorizontalAlignment="Left" Margin="148,484,0,0" Width="77" MouseLeftButtonDown="ReceiveSkillNumber" Height="77" VerticalAlignment="Top"/>
+
+        <Rectangle Fill="#FF25B825" HorizontalAlignment="Left" Height="14" Margin="232,487,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
+        <Rectangle Fill="#FFCF1515" HorizontalAlignment="Left" Height="14" Margin="232,506,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
+        <Rectangle Fill="#FF345AC1" HorizontalAlignment="Left" Height="14" Margin="232,525,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
+        <Rectangle Fill="White" HorizontalAlignment="Left" Height="14" Margin="232,544,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
+
+        <Label x:Name="TaijutsuNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="245,482,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="20" FontWeight="Bold" FontSize="11"/>
+        <Label x:Name="BloodlineNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="245,501,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="20" FontWeight="Bold" FontSize="11"/>
+        <Label x:Name="NinjutsuNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="245,520,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="20" FontWeight="Bold" FontSize="11" RenderTransformOrigin="0.492,0.564"/>
+        <Label x:Name="GenjutsuNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="245,539,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="20" FontWeight="Bold" FontSize="11"/>
+        <Label Content="Here is a very nice description of the selected skill..." HorizontalAlignment="Left" Height="71" Margin="270,480,0,0" VerticalAlignment="Top" Width="355"/>
 
 
     </Grid>

@@ -21,6 +21,7 @@ namespace Controllers
 
         }
 
+
         public List<int> returnChakras()
         {
             List<int> Chakras = new List<int>();
@@ -36,6 +37,45 @@ namespace Controllers
         {
             string chakras = ("Taijutsu: " + Taijutsu + ", Ninjutsu: " + Ninjutsu + ", Genjutsu: " + Genjutsu + ", Bloodline: " + Bloodline + "////");
             return chakras;
+        }
+
+        public void turnChakra()
+        {
+            List<int> Chakras = new List<int>();
+            int maxChakra = 3;
+            Random random = new Random();
+
+            //Initialize 5 chakras, no more
+            for (int i = 0; i < 4; i++)
+            {
+
+                int numChakra = random.Next(1, 3);
+
+                if (maxChakra - numChakra > -1)
+                {
+                    Chakras.Add(numChakra);
+                    maxChakra -= numChakra;
+
+
+                }
+                else
+                {
+                    Chakras.Add(0);
+                }
+
+
+            }
+            //if rest
+            if (maxChakra == 1)
+            {
+                int randomNum = random.Next(1, 3);
+                Chakras[randomNum] += 1;
+            }
+
+            Taijutsu += Chakras[0];
+            Bloodline += Chakras[1];
+            Ninjutsu += Chakras[2];
+            Genjutsu += Chakras[3];
         }
 
         public void initialChakra()
