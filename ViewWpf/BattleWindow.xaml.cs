@@ -133,7 +133,19 @@ namespace ViewWpf
             List<string> lista = new List<string>();
             string skill_second = (skillNumber.Last()).ToString();
 
-            lista = bat.Skill(skill_second, bat.Character1_red);
+            if (charNumber == 1)
+            {
+                lista = bat.Skill(skill_second, bat.Character1_red);
+            }
+            else if (charNumber == 2)
+            {
+                lista = bat.Skill(skill_second, bat.Character2_red);
+            }
+            else if (charNumber == 3)
+            {
+                lista = bat.Skill(skill_second, bat.Character3_red);
+            }
+            
 
             //MessageBox.Show(lista[0]);
             //MessageBox.Show(lista[1]);

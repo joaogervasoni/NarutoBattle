@@ -35,18 +35,18 @@ namespace ViewWpf
             charss = context.return_Characters();
 
             //Load characters
-            addChar(Character1, 0);
-            addChar(Character2, 1);
-            addChar(Character3, 2);
-            addChar(Character4, 3);
-            addChar(Character5, 4);
-            addChar(Character6, 5);
-            addChar(Character7, 6);
-            addChar(Character8, 7);
-            addChar(Character9, 8);
-            addChar(Character10, 9);
-            addChar(Character11, 10);
-            addChar(Character12, 11);
+            //addChar(Character1, 0);
+            //addChar(Character2, 1);
+            //addChar(Character3, 2);
+            //addChar(Character4, 3);
+            //addChar(Character5, 4);
+            //addChar(Character6, 5);
+            //addChar(Character7, 6);
+            //addChar(Character8, 7);
+            //addChar(Character9, 8);
+            //addChar(Character10, 9);
+            //addChar(Character11, 10);
+            //addChar(Character12, 11);
         }
 
         //add uri
@@ -87,12 +87,20 @@ namespace ViewWpf
          
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            string char1 = CharacterSelect1.Tag.ToString();
-            string char2 = CharacterSelect2.Tag.ToString();
-            string char3 = CharacterSelect3.Tag.ToString();
 
-            BattleWindow btWin = new BattleWindow(char1, char2, char3);
-            btWin.ShowDialog();
+            if (CharacterSelect1.Tag.ToString() == "" || CharacterSelect2.Tag.ToString() == "" || CharacterSelect3.Tag.ToString() == "")
+            {
+                MessageBox.Show("Select 3 characters");
+            }
+            else
+            {
+                string char1 = CharacterSelect1.Tag.ToString();
+                string char2 = CharacterSelect2.Tag.ToString();
+                string char3 = CharacterSelect3.Tag.ToString();
+                BattleWindow btWin = new BattleWindow(char1, char2, char3);
+                btWin.ShowDialog();
+            }
+
         }
 
         private void Character_Select(object sender, MouseButtonEventArgs e)
@@ -123,5 +131,56 @@ namespace ViewWpf
             }
         }
 
+        private void login_Click(object sender, RoutedEventArgs e)
+        {
+            string login = LoginText.Text;
+            string pass = PassText.Password;
+            bool loginAut = context.loginAuthentication(login, pass);
+
+            if (loginAut == true)
+            {
+                LoginLabel.Visibility = Visibility.Hidden;
+                PassLabel.Visibility = Visibility.Hidden;
+                LoginText.Visibility = Visibility.Hidden;
+                PassText.Visibility = Visibility.Hidden;
+                Login.Visibility = Visibility.Hidden;
+                Pass.Visibility = Visibility.Hidden;
+                WelcomeMessage.Visibility = Visibility.Visible;
+
+                addChar(Character1, 0);
+                addChar(Character2, 1);
+                addChar(Character3, 2);
+                addChar(Character4, 3);
+                addChar(Character5, 4);
+                addChar(Character6, 5);
+                addChar(Character7, 6);
+                addChar(Character8, 7);
+                addChar(Character9, 8);
+                addChar(Character10, 9);
+                addChar(Character11, 10);
+                addChar(Character12, 11);
+            }
+            else if (loginAut == false)
+            {
+                MessageBox.Show("Login or Password incorrect");
+            }
+        }
+
+        private void Pass_Click(object sender, RoutedEventArgs e)
+        {
+            GridLogin.Visibility = Visibility.Hidden;
+            GridRegis.Visibility = Visibility.Visible;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            GridLogin.Visibility = Visibility.Visible;
+            GridRegis.Visibility = Visibility.Hidden;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

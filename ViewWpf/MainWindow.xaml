@@ -24,11 +24,40 @@
         <Image x:Name="Character11" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="378,335,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select"/>
         <Image x:Name="Character12" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="470,335,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select"/>
 
-        <Image x:Name="CharacterSelect1" Tag="Sarada" Source="Characters/Sarada/Sarada_default.png" HorizontalAlignment="Left" Height="87" Margin="572,295,0,0" VerticalAlignment="Top" Width="87"/>
-        <Image x:Name="CharacterSelect2" Tag="Boruto" Source="Characters/Boruto/Boruto_default.png" HorizontalAlignment="Left" Height="87" Margin="664,295,0,0" VerticalAlignment="Top" Width="87"/>
-        <Image x:Name="CharacterSelect3" Tag="Mitsuki" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Left" Height="87" Margin="756,295,0,0" VerticalAlignment="Top" Width="87"/>
+        <Image x:Name="CharacterSelect1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="572,295,0,0" VerticalAlignment="Top" Width="87"/>
+        <Image x:Name="CharacterSelect2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="664,295,0,0" VerticalAlignment="Top" Width="87"/>
+        <Image x:Name="CharacterSelect3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="756,295,0,0" VerticalAlignment="Top" Width="87"/>
 
-        <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="245" Margin="562,32,0,0" Stroke="Black" VerticalAlignment="Top" Width="291"/>
+        <Grid x:Name="GridLogin" Margin="561,32,0,0" Visibility="Visible" HorizontalAlignment="Left" Width="292" Height="245" VerticalAlignment="Top">
+            <Rectangle x:Name="LoginBox"  Fill="Gray" HorizontalAlignment="Left" Height="245" Margin="1,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="291"/>
+            <TextBox x:Name="LoginText" HorizontalAlignment="Left" Height="23" Margin="127,144,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
+            <PasswordBox x:Name="PassText" HorizontalAlignment="Left" Margin="127,190,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
+            <Button x:Name="Login" Content="Login" HorizontalAlignment="Left" Margin="207,218,0,0" VerticalAlignment="Top" Width="75" Click="login_Click"/>
+            <Button x:Name="Pass" Content="Register" HorizontalAlignment="Left" Margin="127,218,0,0" VerticalAlignment="Top" Width="75" Click="Pass_Click"/>
+            <Image Source="Others/logo.png" HorizontalAlignment="Left" Height="100" Margin="11,13,0,0" VerticalAlignment="Top" Width="271"/>
+            <Label Content="K/D: " HorizontalAlignment="Left" Margin="1,162,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="Victories: " HorizontalAlignment="Left" Margin="0,187,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label Content="Loses: " HorizontalAlignment="Left" Margin="1,211,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label x:Name="LoginLabel" Content="Login: " HorizontalAlignment="Left" Margin="184,118,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label x:Name="PassLabel" Content="Password: " HorizontalAlignment="Left" Margin="173,164,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        </Grid>
+
+        <Grid x:Name="GridRegis" Margin="561,32,0,0" Visibility="Hidden" Height="245" VerticalAlignment="Top" HorizontalAlignment="Left" Width="292">
+            <Rectangle  Fill="Gray" HorizontalAlignment="Left" Height="245" Margin="1,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="291"/>
+            <TextBox x:Name="RegisLogin" HorizontalAlignment="Left" Height="23" Margin="75,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
+            <PasswordBox x:Name="RegisPass" HorizontalAlignment="Left" Margin="75,86,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
+            <PasswordBox x:Name="RegisPassCon" HorizontalAlignment="Left" Margin="75,135,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
+            <Button Content="Register" HorizontalAlignment="Left" Margin="54,215,0,0" VerticalAlignment="Top" Width="80"/>
+            <Label  Content="Login: " HorizontalAlignment="Left" Margin="132,14,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label  Content="Password: " HorizontalAlignment="Left" Margin="121,60,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label  Content="Confirm Password: " HorizontalAlignment="Left" Margin="95,109,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Button Content="Return" HorizontalAlignment="Left" Margin="161,215,0,0" VerticalAlignment="Top" Width="80" Click="Button_Click"/>
+
+        </Grid>
+
+        <Label x:Name="WelcomeMessage" Visibility="Hidden" Content="Welcome again  &#xD;&#xA;&#x9;hero !!" HorizontalAlignment="Left" Margin="664,189,0,0" VerticalAlignment="Top" Height="53" Width="165" FontFamily="Verdana Pro SemiBold" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFAA0909" Background="{x:Null}" />
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="778,7,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+
 
     </Grid>
 </Window>
