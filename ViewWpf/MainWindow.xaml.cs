@@ -182,5 +182,32 @@ namespace ViewWpf
         {
             this.Close();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            string name = RegisLogin.Text;
+            string pass = RegisPass.Password;
+            string passCon = RegisPassCon.Password;
+
+            if (pass == passCon)
+            {
+                if (context.registerAccount(name, pass) == true)
+                {
+                    MessageBox.Show("Account created");
+                    GridLogin.Visibility = Visibility.Visible;
+                    GridRegis.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    MessageBox.Show("Change login");
+                }
+                
+            }
+            else if (pass != passCon)
+            {
+                MessageBox.Show("Password dont match");
+            }
+
+        }
     }
 }

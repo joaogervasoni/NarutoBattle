@@ -15,12 +15,24 @@ namespace Controllers.DAL
             conn = new SQLiteConnection("Data Source=|DataDirectory|NBDB.db;Version=3;");
         }
 
-        //public List<string> returnSkill_Chakra(string character)
-        //{
-        //    List<string> skillChakra = new List<string>();
-        //    conn.Open();
-        //    string sql = "SELECT Taijutsu, Bloodline, Ninjutsu, Genjutsu FROM Skills WHERE Name = '" + character + "' AND Skill = " + skillNumber;
-        //}
+        public bool registerAccount(string name, string pass)
+        {
+            conn.Open();
+            string sqlSelect = "SELECT Login FROM Account WHERE Login = '" + name + "'";
+            SQLiteCommand commandSelect = new SQLiteCommand(sqlSelect, conn);
+            SQLiteDataReader reader = commandSelect.ExecuteReader();
+            reader.Read();
+            if (reader["Login"] == null)
+            {
+                string sql = "INSERT INTO Account (Login, Password, Victories, Loses) VALUES ('" + name + "', '" + pass + "', 0,0)";
+                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                command.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+
+            return false;
+        }
 
         public bool loginAuthentication(string login, string pass)
         {
@@ -133,6 +145,7 @@ namespace Controllers.DAL
 
             return reader["Name"];
         }
+
 
     }
 }

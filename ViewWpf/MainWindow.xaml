@@ -47,12 +47,11 @@
             <TextBox x:Name="RegisLogin" HorizontalAlignment="Left" Height="23" Margin="75,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
             <PasswordBox x:Name="RegisPass" HorizontalAlignment="Left" Margin="75,86,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
             <PasswordBox x:Name="RegisPassCon" HorizontalAlignment="Left" Margin="75,135,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
-            <Button Content="Register" HorizontalAlignment="Left" Margin="54,215,0,0" VerticalAlignment="Top" Width="80"/>
             <Label  Content="Login: " HorizontalAlignment="Left" Margin="132,14,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             <Label  Content="Password: " HorizontalAlignment="Left" Margin="121,60,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             <Label  Content="Confirm Password: " HorizontalAlignment="Left" Margin="95,109,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             <Button Content="Return" HorizontalAlignment="Left" Margin="161,215,0,0" VerticalAlignment="Top" Width="80" Click="Button_Click"/>
-
+            <Button Content="Register" HorizontalAlignment="Left" Margin="54,215,0,0" VerticalAlignment="Top" Width="80" Click="Button_Click_2"/>
         </Grid>
 
         <Label x:Name="WelcomeMessage" Visibility="Hidden" Content="Welcome again  &#xD;&#xA;&#x9;hero !!" HorizontalAlignment="Left" Margin="664,189,0,0" VerticalAlignment="Top" Height="53" Width="165" FontFamily="Verdana Pro SemiBold" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFAA0909" Background="{x:Null}" />
