@@ -22,71 +22,126 @@ namespace ViewWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        Context context = new Context();
-        List<string> charss = new List<string>();
-        String Char1 = "";
-        String Char2 = "";
-        String Char3 = "";
-        int atualChanged = 0;
+        Context conn = new Context();
+        List<string> CharacterList = new List<string>();
+        private string Char1 = "";
+        private string Char2 = "";
+        private string Char3 = "";
+        private int atualChanged = 0;
+        private int charLoad = 0;
+        private bool loginCheck = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            charss = context.return_Characters();
-
-            //Load characters
-            //addChar(Character1, 0);
-            //addChar(Character2, 1);
-            //addChar(Character3, 2);
-            //addChar(Character4, 3);
-            //addChar(Character5, 4);
-            //addChar(Character6, 5);
-            //addChar(Character7, 6);
-            //addChar(Character8, 7);
-            //addChar(Character9, 8);
-            //addChar(Character10, 9);
-            //addChar(Character11, 10);
-            //addChar(Character12, 11);
+            CharacterList = conn.return_Characters();
         }
 
-        //add uri
-        public void addChar(Image image, int number)
-        { 
-            
-            if (charss.Count > number)
+        //=====================Character====================
+
+        private void Character_Select(object sender, MouseButtonEventArgs e)
+        {
+            if (loginCheck == false)
             {
-                image.Source = new BitmapImage(new Uri("Characters/" + charss[number] + "/" + charss[number] + "_default.png", UriKind.Relative));
-                image.Tag = charss[number];
+                MessageBox.Show("Login to select a character");
+            }
+            if (e.ClickCount == 2 && loginCheck == true)
+            {
+                //MessageBox.Show("Double");
+                Image image = (Image)sender;
+                atualChanged += 1;
+                if (atualChanged == 1)
+                {
+                    Char1 = image.Tag.ToString();
+                    CharacterSelect1.Source = new BitmapImage(new Uri("Characters/" + Char1 + "/" + Char1 + "_default.png", UriKind.Relative));
+                    CharacterSelect1.Tag = Char1;
+                }
+                else if (atualChanged == 2)
+                {
+                    Char2 = image.Tag.ToString();
+                    CharacterSelect2.Source = new BitmapImage(new Uri("Characters/" + Char2 + "/" + Char2 + "_default.png", UriKind.Relative));
+                    CharacterSelect2.Tag = Char2;
+                }
+                else if (atualChanged == 3)
+                {
+                    Char3 = image.Tag.ToString();
+                    CharacterSelect3.Source = new BitmapImage(new Uri("Characters/" + Char3 + "/" + Char3 + "_default.png", UriKind.Relative));
+                    CharacterSelect3.Tag = Char3;
+                    atualChanged = 0;
+                }
+            }
+        }
+
+        private void Character_Load(object sender, RoutedEventArgs e)
+        {
+            Image Character = (Image)sender;
+            if (CharacterList.Count > charLoad)
+            {
+                Character.Source = new BitmapImage(new Uri("Characters/" + CharacterList[charLoad] + "/" + CharacterList[charLoad] + "_default.png", UriKind.Relative));
+                Character.Tag = CharacterList[charLoad];
+                charLoad += 1;
             }
             else
             {
-                image.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
+                Character.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
             }
-            
         }
 
-        public void addSelectChar()
+        //=====================Account====================
+
+        private void Create_Account(object sender, RoutedEventArgs e)
         {
-            if (atualChanged == 1)
+            string name = RegisLogin.Text;
+            string pass = RegisPass.Password;
+            string passCon = RegisPassCon.Password;
+
+            if (pass == passCon)
             {
-                CharacterSelect1.Source = new BitmapImage(new Uri("Characters/" + Char1 + "/" + Char1 + "_default.png", UriKind.Relative));
-                CharacterSelect1.Tag = Char1;
+                if (conn.registerAccount(name, pass) == true)
+                {
+                    MessageBox.Show("Account created");
+                    Grid_Visibility(1);
+                }
+                else
+                {
+                    MessageBox.Show("Change login");
+                }
             }
-            if (atualChanged == 2)
+            else if (pass != passCon)
             {
-                CharacterSelect2.Source = new BitmapImage(new Uri("Characters/" + Char2 + "/" + Char2 + "_default.png", UriKind.Relative));
-                CharacterSelect2.Tag = Char2;
+                MessageBox.Show("Password dont match");
             }
-            if (atualChanged == 3)
-            {
-                CharacterSelect3.Source = new BitmapImage(new Uri("Characters/" + Char3 + "/" + Char3 + "_default.png", UriKind.Relative));
-                CharacterSelect3.Tag = Char3;
-            }
-                
-        }   
-         
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        }
+
+        private void Login_Account(object sender, RoutedEventArgs e)
         {
+            string login = LoginText.Text;
+            string pass = PassText.Password;
+            if (login == "" || pass == "")
+            {
+                MessageBox.Show("Login or Password incorrect");
+            }
+            else
+            {
+                bool loginAut = conn.loginAuthentication(login, pass);
+                if (loginAut == true)
+                {
+                    Grid_Visibility(sender, e);
+                    StartButton.IsEnabled = true;
+                    loginCheck = true;
+                }
+                else if (loginAut == false)
+                {
+                    MessageBox.Show("Login or Password incorrect");
+                }
+            }
+        }
+
+        //=====================Others====================
+
+        private void Start_Battle(object sender, RoutedEventArgs e)
+        {
+            //precisa estar logado
 
             if (CharacterSelect1.Tag.ToString() == "" || CharacterSelect2.Tag.ToString() == "" || CharacterSelect3.Tag.ToString() == "")
             {
@@ -103,111 +158,50 @@ namespace ViewWpf
 
         }
 
-        private void Character_Select(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ClickCount == 2)
-            {
-                //MessageBox.Show("Double");
-                Image image = (Image)sender;
-                atualChanged += 1;
-                if (atualChanged == 1)
-                {
-                    Char1 = image.Tag.ToString();
-                    addSelectChar();
-                }
-                else if (atualChanged == 2)
-                {
-                    Char2 = image.Tag.ToString();
-                    addSelectChar();
-                }
-                else if (atualChanged == 3)
-                {
-                    Char3 = image.Tag.ToString();
-                    addSelectChar();
-                    atualChanged = 0;
-                }
-                
-
-            }
-        }
-
-        private void login_Click(object sender, RoutedEventArgs e)
-        {
-            string login = LoginText.Text;
-            string pass = PassText.Password;
-            bool loginAut = context.loginAuthentication(login, pass);
-
-            if (loginAut == true)
-            {
-                LoginLabel.Visibility = Visibility.Hidden;
-                PassLabel.Visibility = Visibility.Hidden;
-                LoginText.Visibility = Visibility.Hidden;
-                PassText.Visibility = Visibility.Hidden;
-                Login.Visibility = Visibility.Hidden;
-                Pass.Visibility = Visibility.Hidden;
-                WelcomeMessage.Visibility = Visibility.Visible;
-
-                addChar(Character1, 0);
-                addChar(Character2, 1);
-                addChar(Character3, 2);
-                addChar(Character4, 3);
-                addChar(Character5, 4);
-                addChar(Character6, 5);
-                addChar(Character7, 6);
-                addChar(Character8, 7);
-                addChar(Character9, 8);
-                addChar(Character10, 9);
-                addChar(Character11, 10);
-                addChar(Character12, 11);
-            }
-            else if (loginAut == false)
-            {
-                MessageBox.Show("Login or Password incorrect");
-            }
-        }
-
-        private void Pass_Click(object sender, RoutedEventArgs e)
-        {
-            GridLogin.Visibility = Visibility.Hidden;
-            GridRegis.Visibility = Visibility.Visible;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            GridLogin.Visibility = Visibility.Visible;
-            GridRegis.Visibility = Visibility.Hidden;
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Exit(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Grid_Visibility(int grid /*1 login, 2 regis*/)
         {
-            string name = RegisLogin.Text;
-            string pass = RegisPass.Password;
-            string passCon = RegisPassCon.Password;
-
-            if (pass == passCon)
+            if (grid == 1)
             {
-                if (context.registerAccount(name, pass) == true)
-                {
-                    MessageBox.Show("Account created");
-                    GridLogin.Visibility = Visibility.Visible;
-                    GridRegis.Visibility = Visibility.Hidden;
-                }
-                else
-                {
-                    MessageBox.Show("Change login");
-                }
-                
+                GridLogin.Visibility = Visibility.Visible;
+                GridRegis.Visibility = Visibility.Hidden;
             }
-            else if (pass != passCon)
+            if (grid == 2)
             {
-                MessageBox.Show("Password dont match");
+                GridLogin.Visibility = Visibility.Hidden;
+                GridRegis.Visibility = Visibility.Visible;
+            }
+            if (grid == 3)
+            {
+                SubGridLogin.Visibility = Visibility.Hidden;
+                WelcomeMessage.Visibility = Visibility.Visible;
+                GridCharacters.Visibility = Visibility.Visible;
             }
 
         }
+
+        private void Grid_Visibility(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            string btnContent = btn.Name;
+
+            if (btnContent == "Return")
+            {
+                Grid_Visibility(1);
+            }
+            if (btnContent == "RegisterShow")
+            {
+                Grid_Visibility(2);
+            }
+            if (btnContent == "Login")
+            {
+                Grid_Visibility(3);
+            }
+        }
+
     }
 }

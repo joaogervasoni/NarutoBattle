@@ -36,15 +36,25 @@ namespace Controllers.DAL
 
         public bool loginAuthentication(string login, string pass)
         {
-            conn.Open();
-            string sql = "SELECT Login, Password FROM Account WHERE Login = '"+ login +"' AND Password = '"+ pass+"'";
-            SQLiteCommand command = new SQLiteCommand(sql, conn);
-            SQLiteDataReader reader = command.ExecuteReader();
-            reader.Read();
-            if (login == reader["Login"].ToString() && pass == reader["Password"].ToString())
-            {
-                return true;
+            try
+            {            
+                conn.Open();
+                string sql = "SELECT Login, Password FROM Account WHERE Login = '"+ login +"' AND Password = '"+ pass+"'";
+                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                SQLiteDataReader reader = command.ExecuteReader();
+                reader.Read();
+            
+                if (login == reader["Login"].ToString() && pass == reader["Password"].ToString())
+                {
+                    return true;
+                }
+
             }
+            catch
+            {
+                //return false
+            }
+
             return false;
         }
 
