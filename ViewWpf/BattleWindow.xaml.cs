@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -24,8 +25,8 @@ namespace ViewWpf
         int skill_select;
         string attack_char = "0";
         BattleController bat = new BattleController();
-
-
+        private Timer timer;
+        private int timerzim = 0;
 
         public BattleWindow(string character1, string character2, string character3)
         {
@@ -34,6 +35,10 @@ namespace ViewWpf
             if (bat.initial_turn()== true)
             {
                 ia_play();
+            }
+            else if ( bat.initial_turn() == false)
+            {
+                timerFunction();
             }
             
             //Load character
@@ -58,11 +63,43 @@ namespace ViewWpf
             bat.Character2_red = character2;
             bat.Character3_red = character3;
 
-
+            
 
             //Chakra
             loadChakras();
             //MessageBox.Show(bat.printChakras());
+        }
+
+        private void timerFunction()
+        {
+
+            timer = new Timer(1000);
+            timer.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+            timer.Start();
+        }
+
+        void timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() =>
+            {
+
+                if (pb.Value < 30)
+                {
+                    pb.Value += 1;
+
+                }
+                else
+                {
+
+                    timer.Stop();
+                    pass_turn();
+                    ia_play();
+                }
+
+                
+            }));
+
+            
         }
 
         private ImageSource load_image(string character)
@@ -96,6 +133,7 @@ namespace ViewWpf
         //Pass turn button
         private void Pass_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
             pass_turn();
             ia_play();
             //MessageBox.Show("test: " +  bat.test());
@@ -108,6 +146,17 @@ namespace ViewWpf
             skill_select = 0;
             bat.ChakraRed.turnChakra();
             loadChakras();
+            pb.Value = 0;
+            try
+            {
+                timer.Start();
+            }
+            catch
+            {
+                timerFunction();
+            }
+            
+            
         }
 
         //=====================Attack====================
@@ -355,6 +404,7 @@ namespace ViewWpf
 
         private void ShowSkill_MouseEnter(object sender, MouseEventArgs e)
         {
+
             //change imaage
             Image image = (Image)sender;
             panelSkillImage.Source = image.Source;

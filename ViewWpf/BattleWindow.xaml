@@ -100,6 +100,8 @@
         <Label x:Name="NinjutsuNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="245,520,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="20" FontWeight="Bold" FontSize="11" RenderTransformOrigin="0.492,0.564"/>
         <Label x:Name="GenjutsuNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="245,539,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="20" FontWeight="Bold" FontSize="11"/>
         <Label Content="Here is a very nice description of the selected skill..." HorizontalAlignment="Left" Height="71" Margin="270,480,0,0" VerticalAlignment="Top" Width="355"/>
+        <ProgressBar x:Name="pb" Value="0" Maximum="30" HorizontalAlignment="Left" Height="339" Margin="413,91,0,0" VerticalAlignment="Top" Width="18" Orientation="Vertical" Foreground="#FF3F852F" Background="#FFB2AB9D" BorderBrush="#FFB2AB9D"/>
+        <Label Content="Turn Time" HorizontalAlignment="Left" Margin="388,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.105,0.269" FontWeight="Bold" Background="Transparent" Foreground="Black"/>
 
 
     </Grid>

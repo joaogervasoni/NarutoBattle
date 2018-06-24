@@ -46,12 +46,14 @@ namespace Controllers.DAL
             
                 if (login == reader["Login"].ToString() && pass == reader["Password"].ToString())
                 {
+                    conn.Close();
                     return true;
                 }
 
             }
             catch
             {
+                conn.Close();
                 //return false
             }
 
@@ -60,27 +62,40 @@ namespace Controllers.DAL
 
         public List<string> Skills(string skillNumber, string character)
         {
-
             List<string> chakras = new List<string>();
-            conn.Open();
-            string sql = "SELECT Taijutsu, Bloodline, Ninjutsu, Genjutsu FROM Skills WHERE Name = '"+ character+ "' AND Skill = "+skillNumber;
-
-            using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+            try
             {
-                using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                conn.Open();
+                string sql = "SELECT Taijutsu, Bloodline, Ninjutsu, Genjutsu FROM Skills WHERE Name = '" + character + "' AND Skill = " + skillNumber;
+
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
                 {
-                    rdr.Read();
-                    
+                    using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                    {
+                        rdr.Read();
+
                         chakras.Add(rdr["Taijutsu"].ToString());
                         chakras.Add(rdr["Bloodline"].ToString());
                         chakras.Add(rdr["Ninjutsu"].ToString());
                         chakras.Add(rdr["Genjutsu"].ToString());
-                    
-                }
-            }
 
-            conn.Close();
-            return chakras;
+                    }
+                }
+
+                conn.Close();
+                return chakras;
+            }
+            catch
+            {
+                conn.Close();
+                chakras.Add("0");
+                chakras.Add("0");
+                chakras.Add("0");
+                chakras.Add("0");
+
+                return chakras;
+            }
+           
             //List<string> Skills = new List<string>();
             //List<string> Taijutsu = new List<string>();
             //List<string> Bloodline = new List<string>();
