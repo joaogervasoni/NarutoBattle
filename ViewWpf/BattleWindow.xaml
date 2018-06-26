@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewWpf"
         mc:Ignorable="d"
-        Title="BattleWindow" Height="616.048" Width="800">
+        Title="BattleWindow" Height="616" Width="800">
     <Grid Cursor="Cursor/Normal_Select.cur">
         <Grid.RowDefinitions>
             <RowDefinition Height="577*"/>
@@ -14,17 +14,11 @@
         <Grid.Background>
             <ImageBrush ImageSource="Others/background.png" Stretch="Uniform"/>
         </Grid.Background>
-        <!--Add default img for test-->
-        <Rectangle HorizontalAlignment="Left" Height="46" Margin="0,0,-3,0" StrokeMiterLimit="150" VerticalAlignment="Top" Width="795" Stroke="Black" Fill="Black"/>
-
-
-        <Rectangle HorizontalAlignment="Left" Height="60" Margin="-3,525,0,0" StrokeMiterLimit="150" VerticalAlignment="Top" Width="795" Stroke="Black" Fill="Black" Grid.RowSpan="2"/>
-
 
         <!--Add default img for test-->
-        <Image x:Name="Character1_red" Source="Characters/Sarada/Sarada_default.png" HorizontalAlignment="Left" Height="107" Margin="10,51,0,0" VerticalAlignment="Top" Width="107"/>
-        <Image x:Name="Character2_red" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Left" Height="107" Margin="10,192,0,0" VerticalAlignment="Top" Width="107"/>
-        <Image x:Name="Character3_red" Source="Characters/Boruto/Boruto_default.png" HorizontalAlignment="Left" Height="107" Margin="10,333,0,0" VerticalAlignment="Top" Width="107"/>
+        <Image x:Name="Character1_red" Source="Characters/Sarada/Sarada_default.png" HorizontalAlignment="Left" Height="107" Margin="10,51,0,0" VerticalAlignment="Top" Width="107" MouseLeftButtonDown="Select_Friend" MouseEnter="Generic_mouseEnter" MouseLeave="Generic_mouseLeave"/>
+        <Image x:Name="Character2_red" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Left" Height="107" Margin="10,192,0,0" VerticalAlignment="Top" Width="107" MouseLeftButtonDown="Select_Friend" MouseEnter="Generic_mouseEnter" MouseLeave="Generic_mouseLeave"/>
+        <Image x:Name="Character3_red" Source="Characters/Boruto/Boruto_default.png" HorizontalAlignment="Left" Height="107" Margin="10,333,0,0" VerticalAlignment="Top" Width="107" MouseLeftButtonDown="Select_Friend" MouseEnter="Generic_mouseEnter" MouseLeave="Generic_mouseLeave"/>
 
         <Image x:Name="Character1_blue" Tag="Characters/Boruto/Boruto_default.png" Source="Characters/Boruto/Boruto_default.png" HorizontalAlignment="Right" Height="107" Margin="0,51,10,0" VerticalAlignment="Top" Width="107" MouseEnter="Generic_mouseEnter" MouseLeave="Generic_mouseLeave" MouseLeftButtonDown="Select_Enemy"/>
         <Image x:Name="Character2_blue" Tag="Characters/Mitsuki/Mitsuki_default.png" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Right" Height="107" Margin="0,192,10,0" VerticalAlignment="Top" Width="107" MouseEnter="Generic_mouseEnter" MouseLeave="Generic_mouseLeave" MouseLeftButtonDown="Select_Enemy"/>
@@ -56,6 +50,8 @@
         <Image x:Name="Character1_blue_skill1" Source="Characters/Boruto/Boruto_skill1_default.png" Height="77" Margin="0,81,122,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="77" Visibility="Hidden"/>
 
         <!--Others-->
+        <Rectangle HorizontalAlignment="Left" Height="46" Margin="0,0,-3,0" StrokeMiterLimit="150" VerticalAlignment="Top" Width="795" Stroke="Black" Fill="Black"/>
+        <Rectangle HorizontalAlignment="Left" Height="60" Margin="-3,525,0,0" StrokeMiterLimit="150" VerticalAlignment="Top" Width="795" Stroke="Black" Fill="Black" Grid.RowSpan="2"/>
         <Label Content="Turno:" HorizontalAlignment="Left" Margin="677,4,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Background="White" BorderBrush="#FF060606" Height="37" Width="70"/>
         <Label x:Name="Pass" Content="Pass Turn" HorizontalAlignment="Center" Margin="526,4,120,0" VerticalAlignment="Top" Height="37" Width="146" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Verdana Pro Black" FontSize="20" Background="White" MouseLeftButtonDown="Pass_MouseLeftButtonDown"/>
         <Label x:Name="Turn" Content="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="747,4,0,0" VerticalAlignment="Top" Background="White" Height="37" Width="35"/>
@@ -81,13 +77,12 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-
         <Rectangle Fill="White" HorizontalAlignment="Left" Height="14" Margin="273,17,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
         <Label Content="Genjutsu" HorizontalAlignment="Left" Margin="287,10,0,0" VerticalAlignment="Top" Foreground="White" Width="77" Height="26"/>
         <Label x:Name="GenjutsuNumber" Content="0" HorizontalAlignment="Left" Margin="339,10,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="16"/>
+
+        <!--Skill showing-->
         <Rectangle Fill="#FFDCC2C2" HorizontalAlignment="Left" Height="91" Margin="136,476,0,0" Stroke="Black" StrokeMiterLimit="150" VerticalAlignment="Top" Width="515"/>
-
-
         <Image x:Name="panelSkillImage" Tag="" Source="Characters/Boruto/Boruto_skill1_default.png" HorizontalAlignment="Left" Margin="148,484,0,0" Width="77" MouseLeftButtonDown="ReceiveSkillNumber" Height="77" VerticalAlignment="Top"/>
 
         <Rectangle Fill="#FF25B825" HorizontalAlignment="Left" Height="14" Margin="232,487,0,0" Stroke="Black" VerticalAlignment="Top" Width="14"/>
@@ -100,9 +95,10 @@
         <Label x:Name="NinjutsuNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="245,520,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="20" FontWeight="Bold" FontSize="11" RenderTransformOrigin="0.492,0.564"/>
         <Label x:Name="GenjutsuNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="245,539,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="20" FontWeight="Bold" FontSize="11"/>
         <Label Content="Here is a very nice description of the selected skill..." HorizontalAlignment="Left" Height="71" Margin="270,480,0,0" VerticalAlignment="Top" Width="355"/>
+        
+        <!--Timer-->
         <ProgressBar x:Name="pb" Value="0" Maximum="30" HorizontalAlignment="Left" Height="339" Margin="413,91,0,0" VerticalAlignment="Top" Width="18" Orientation="Vertical" Foreground="#FF3F852F" Background="#FFB2AB9D" BorderBrush="#FFB2AB9D"/>
         <Label Content="Turn Time" HorizontalAlignment="Left" Margin="388,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.105,0.269" FontWeight="Bold" Background="Transparent" Foreground="Black"/>
-
 
     </Grid>
 </Window>

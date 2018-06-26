@@ -203,5 +203,16 @@ namespace ViewWpf
             }
         }
 
+        //private void Character1_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    Character1.Height = 97;
+        //    Character1.Width = 97;
+        //}
+
+        //private void Character1_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    Character1.Height = 87;
+        //    Character1.Width = 87;
+        //}
     }
 }

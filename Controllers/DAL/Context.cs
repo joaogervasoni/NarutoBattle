@@ -60,6 +60,21 @@ namespace Controllers.DAL
             return false;
         }
 
+        public string Skill_Type(string char_select, int skill_select)
+        {
+            conn.Open();
+            string sql = "SELECT Type FROM Skills WHERE Name = '" +char_select+ "' AND Skill = "+skill_select;
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            SQLiteDataReader reader = command.ExecuteReader();
+            reader.Read();
+
+            string type = reader["Type"].ToString();
+
+            conn.Close();
+
+            return type;
+        }
+
         public List<string> Skills(string skillNumber, string character)
         {
             List<string> chakras = new List<string>();
@@ -95,29 +110,7 @@ namespace Controllers.DAL
 
                 return chakras;
             }
-           
-            //List<string> Skills = new List<string>();
-            //List<string> Taijutsu = new List<string>();
-            //List<string> Bloodline = new List<string>();
-            //List<string> Ninjutsu = new List<string>();
-            //List<string> Genjutsu = new List<string>();
-            //conn.Open();
-            //string sql = "SELECT Skill, Taijutsu, Bloodline, Ninjutsu, Genjutsu FROM Skills WHERE Name = Sarada";
-
-            //using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
-            //{
-            //    using (SQLiteDataReader rdr = cmd.ExecuteReader())
-            //    {
-            //        while (rdr.Read())
-            //        {
-            //            Skills.Add(rdr["Skill"].ToString());
-            //            Taijutsu.Add(rdr["Taijutsu"].ToString());
-            //            Bloodline.Add(rdr["Bloodline"].ToString());
-            //            Ninjutsu.Add(rdr["Ninjutsu"].ToString());
-            //            Genjutsu.Add(rdr["Genjutsu"].ToString());
-            //        }
-            //    }
-            //}
+          
 
         }
 
@@ -157,6 +150,21 @@ namespace Controllers.DAL
             conn.Close();
 
             return damage;
+        }
+
+        public string heal_skill(string skill, string name)
+        {
+
+            conn.Open();
+            string sql = "SELECT Heal FROM Skills WHERE Name = '" + name + "' AND Skill ="+ skill;
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            SQLiteDataReader reader = command.ExecuteReader();
+            reader.Read();
+
+            string heal = reader["Heal"].ToString();
+            conn.Close();
+
+            return heal;
         }
 
         public object teste()
