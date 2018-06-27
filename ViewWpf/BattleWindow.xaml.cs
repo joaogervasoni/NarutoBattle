@@ -46,6 +46,9 @@ namespace ViewWpf
             Character1_red.Source = Load_image(character1);
             Character2_red.Source = Load_image(character2);
             Character3_red.Source = Load_image(character3);
+            Character1_red.Tag = "Characters/" + character1 + "/" + character1 + "_default.png";
+            Character2_red.Tag = "Characters/" + character2 + "/" + character2 + "_default.png";
+            Character3_red.Tag = "Characters/" + character3 + "/" + character3 + "_default.png";
 
             //skills
             Character1_red_skill1.Source = Load_skill(character1, 1);
@@ -279,32 +282,50 @@ namespace ViewWpf
         private void Generic_mouseEnter(object sender, MouseEventArgs e)
         {
             Image image = (Image)sender;
+
             string source = image.Tag.ToString();
             source = source.Remove(source.Length - 4);
+            
 
-           if (image.Tag.ToString() == "Others/dead_default.png")
-           {
+            //auth RED
+            string name = image.Name;
+            name = name.Substring(name.Length - 3);
 
-           }
-           else if (skill_select != 0 && attack_char != "")
-           {
-               image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
-           }
+            if (skill_select != 0 && attack_char != "" && image.Tag.ToString() != "Others/dead_default.png")
+            {
+                if (type_skill == "heal" && name == "red")
+                {
+                    image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
+                }
+                else if (type_skill != "heal" && name != "red")
+                {
+                    image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
+                }
+            }
+
         }
 
         private void Generic_mouseLeave(object sender, MouseEventArgs e)
         {
             Image image = (Image)sender;
+
             string source = image.Tag.ToString();
             source = source.Remove(source.Length - 4);
 
-            if (image.Tag.ToString() == "Others/dead_default.png")
-            {
+            //auth RED
+            string name = image.Name;
+            name = name.Substring(name.Length - 3);
 
-            }
-            else if (skill_select != 0)
+            if (skill_select != 0)
             {
-                image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
+                if (type_skill == "heal" && name == "red")
+                {
+                    image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
+                }
+                else if (type_skill != "heal" && name != "red")
+                {
+                    image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
+                }
             }
         }
 
@@ -319,7 +340,7 @@ namespace ViewWpf
             string skillNumber = bat.convert_name_int(image.Name).ToString();
             string skill_second = (skillNumber.Last()).ToString();
             int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
-            skill_select = int.Parse(skillNumber.Substring(0, 1));
+            //skill_select = int.Parse(skillNumber.Substring(0, 1));
 
             List<string> skills = new List<string>();
             skills = bat.Skills(skill_second, char_select);
@@ -328,6 +349,11 @@ namespace ViewWpf
             BloodlineNumber_Panel.Content = skills[1];
             NinjutsuNumber_Panel.Content = skills[2];
             GenjutsuNumber_Panel.Content = skills[3];
+        }
+
+        private void Quit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
         }
 
         //===================== IA ====================
@@ -361,5 +387,29 @@ namespace ViewWpf
             pass_turn();
         }
 
+        //===================== Sound ====================
+
+        private void VolMore_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+            if (Volume.Content.ToString() != "100")
+            {
+                MusicPlayer.Volume = MusicPlayer.Volume + 0.1;
+                Volume.Content = bat.conversion_object_toint(Volume.Content) + 10;
+            }
+               
+        }
+
+        private void VolLess_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+            if (Volume.Content.ToString() != "0")
+            {
+                MusicPlayer.Volume = MusicPlayer.Volume - 0.1;
+                Volume.Content = bat.conversion_object_toint(Volume.Content) - 10;
+            }
+                
+            
+        }
     }
 }
