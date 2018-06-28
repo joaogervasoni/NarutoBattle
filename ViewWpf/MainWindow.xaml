@@ -74,6 +74,7 @@
         <Button Content="Exit" HorizontalAlignment="Left" Margin="778,7,0,0" VerticalAlignment="Top" Width="75" Click="Exit"/>
         <Label Content="Select your team" HorizontalAlignment="Left" Height="72" Margin="10,10,0,0" VerticalAlignment="Top" Width="292" FontWeight="Bold" FontSize="36"/>
         <Button x:Name="StartButton" Content="Battle" IsEnabled="False" HorizontalAlignment="Center" Margin="637,399,79,0" VerticalAlignment="Top" Width="137" Height="37" Click="Start_Battle"/>
+        <Button x:Name="RandomButton" Content="Random" HorizontalAlignment="Left" Margin="561,7,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="Random_Characters"/>
 
     </Grid>
 </Window>

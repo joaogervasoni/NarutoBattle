@@ -128,6 +128,7 @@ namespace ViewWpf
                 {
                     Grid_Visibility(sender, e);
                     StartButton.IsEnabled = true;
+                    RandomButton.IsEnabled = true;
                     loginCheck = true;
                 }
                 else if (loginAut == false)
@@ -201,6 +202,32 @@ namespace ViewWpf
             {
                 Grid_Visibility(3);
             }
+        }
+
+        private void Random_Characters(object sender, RoutedEventArgs e)
+        {
+            int charNumber = CharacterList.Count();
+            Random random = new Random();
+            int randomNum1;
+            int randomNum2;
+            int randomNum3;
+
+            do
+            {
+                randomNum1 = random.Next(0, charNumber);
+                randomNum2 = random.Next(0, charNumber);
+                randomNum3 = random.Next(0, charNumber);
+
+            } while (randomNum1 == randomNum2 || randomNum1 == randomNum3 || randomNum2 == randomNum3);
+
+            CharacterSelect1.Source = new BitmapImage(new Uri("Characters/" + CharacterList[randomNum1] + "/" + CharacterList[randomNum1] + "_default.png", UriKind.Relative));
+            CharacterSelect1.Tag = CharacterList[randomNum1];
+
+            CharacterSelect2.Source = new BitmapImage(new Uri("Characters/" + CharacterList[randomNum2] + "/" + CharacterList[randomNum2] + "_default.png", UriKind.Relative));
+            CharacterSelect2.Tag = CharacterList[randomNum2];
+
+            CharacterSelect3.Source = new BitmapImage(new Uri("Characters/" + CharacterList[randomNum3] + "/" + CharacterList[randomNum3] + "_default.png", UriKind.Relative));
+            CharacterSelect3.Tag = CharacterList[randomNum3];
         }
 
         //private void Character1_MouseEnter(object sender, MouseEventArgs e)
