@@ -21,7 +21,7 @@ namespace ViewWpf
     /// </summary>
     public partial class BattleWindow : Window
     {
-
+        
         int skill_select;
         string attack_char = "0";
         BattleController bat = new BattleController();
@@ -32,7 +32,7 @@ namespace ViewWpf
         public BattleWindow(string character1, string character2, string character3)
         {
             InitializeComponent();
-
+            
             if (bat.initial_turn()== true) //ia
             {
                 ia_play();

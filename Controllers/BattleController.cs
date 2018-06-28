@@ -11,7 +11,7 @@ using Controllers.DAL;
 namespace Controllers
 {
 
-    public class BattleController : Context
+    public class BattleController : Tools
     {
 
         public int Turn { get; set; }
@@ -231,18 +231,7 @@ namespace Controllers
             return false;
         }
 
-        public int convert_name_int(string name)
-        {
 
-            name = String.Join("", System.Text.RegularExpressions.Regex.Split(name, @"[^\d]"));
-            return int.Parse(name);
-        }
-
-        public int conversion_object_toint(object obj)
-        {
-            int obj_int = int.Parse(obj.ToString());
-            return obj_int;
-        }
 
         public string Attack_Char(int char_select)
         {

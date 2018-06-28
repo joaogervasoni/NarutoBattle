@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="493" Width="881" Cursor="Cursor/Normal_Select.cur">
-    
+        Title="MainWindow" Height="493" Width="881" Cursor="Cursor/Normal_Select.cur"
+        KeyDown="Grid_KeyDown" ResizeMode="NoResize">
+
     <Grid Background="DarkGray">
         <!--Characters-->
         <Grid x:Name="GridCharacters" Margin="10,243,0,0" Visibility="Visible" Height="179" VerticalAlignment="Top" HorizontalAlignment="Left" Width="547">
@@ -26,12 +27,12 @@
 
         </Grid>
 
-        
+
         <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="111" Margin="561,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="291"/>
         <Image x:Name="CharacterSelect1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="572,295,0,0" VerticalAlignment="Top" Width="87"/>
         <Image x:Name="CharacterSelect2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="664,295,0,0" VerticalAlignment="Top" Width="87"/>
         <Image x:Name="CharacterSelect3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="756,295,0,0" VerticalAlignment="Top" Width="87"/>
-        
+
         <!--Login-->
         <Grid x:Name="GridLogin" Margin="561,32,0,0" Visibility="Visible" HorizontalAlignment="Left" Width="292" Height="245" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
@@ -39,7 +40,7 @@
                 <ColumnDefinition Width="37*"/>
             </Grid.ColumnDefinitions>
             <Rectangle x:Name="LoginBox"  Fill="Gray" HorizontalAlignment="Left" Height="245" Margin="1,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="291" Grid.ColumnSpan="2"/>
-            
+
             <!--Sub login-->
             <Grid x:Name="SubGridLogin" Grid.ColumnSpan="2" Margin="127,118,10,7">
                 <TextBox x:Name="LoginText" HorizontalAlignment="Left" Height="23" Margin="0,26,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
@@ -49,13 +50,13 @@
                 <Label x:Name="LoginLabel" Content="Login: " HorizontalAlignment="Left" Margin="57,0,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                 <Label x:Name="PassLabel" Content="Password: " HorizontalAlignment="Left" Margin="46,46,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             </Grid>
-            
+
             <Image Source="Others/logo.png" HorizontalAlignment="Left" Height="100" Margin="11,13,0,0" VerticalAlignment="Top" Width="271" Grid.ColumnSpan="2"/>
             <Label Content="K/D: " HorizontalAlignment="Left" Margin="1,162,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             <Label Content="Victories: " HorizontalAlignment="Left" Margin="0,187,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             <Label Content="Loses: " HorizontalAlignment="Left" Margin="1,211,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         </Grid>
-        
+
         <!--Register-->
         <Grid x:Name="GridRegis" Margin="561,32,0,0" Visibility="Hidden" Height="245" VerticalAlignment="Top" HorizontalAlignment="Left" Width="292">
             <Rectangle  Fill="Gray" HorizontalAlignment="Left" Height="245" Margin="1,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="291"/>
@@ -68,13 +69,14 @@
             <Button x:Name="Return" Content="Return" HorizontalAlignment="Left" Margin="161,215,0,0" VerticalAlignment="Top" Width="80" Click="Grid_Visibility"/>
             <Button Content="Register" HorizontalAlignment="Left" Margin="54,215,0,0" VerticalAlignment="Top" Width="80" Click="Create_Account"/>
         </Grid>
-        
+
         <!--Others-->
         <Label x:Name="WelcomeMessage" Visibility="Hidden" Content="Welcome again  &#xD;&#xA;&#x9;hero !!" HorizontalAlignment="Left" Margin="664,189,0,0" VerticalAlignment="Top" Height="53" Width="165" FontFamily="Verdana Pro SemiBold" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFAA0909" Background="{x:Null}" />
         <Button Content="Exit" HorizontalAlignment="Left" Margin="778,7,0,0" VerticalAlignment="Top" Width="75" Click="Exit"/>
         <Label Content="Select your team" HorizontalAlignment="Left" Height="72" Margin="10,10,0,0" VerticalAlignment="Top" Width="292" FontWeight="Bold" FontSize="36"/>
         <Button x:Name="StartButton" Content="Battle" IsEnabled="False" HorizontalAlignment="Center" Margin="637,399,79,0" VerticalAlignment="Top" Width="137" Height="37" Click="Start_Battle"/>
         <Button x:Name="RandomButton" Content="Random" HorizontalAlignment="Left" Margin="561,7,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="Random_Characters"/>
+        <Label Content="Press F5 for menu admin" HorizontalAlignment="Left" Margin="10,432,0,0" VerticalAlignment="Top" Width="146" FontFamily="Segoe UI Black" FontSize="10" Foreground="#FF610909"/>
 
     </Grid>
 </Window>

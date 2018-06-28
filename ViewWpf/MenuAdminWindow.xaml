@@ -1,0 +1,17 @@
+﻿<Window x:Class="ViewWpf.MenuAdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ViewWpf"
+        mc:Ignorable="d"
+        Title="MenuAdminWindow" Height="336.144" Width="534.337">
+    <Grid Background="DarkGray">
+        <Button Content="No Login" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="97" Click="Button_Click"/>
+        <Button Content="Delete account" HorizontalAlignment="Left" Margin="419,9,0,0" VerticalAlignment="Top" Width="97" Click="Button_Click"/>
+        <DataGrid HorizontalAlignment="Left" Height="256" Margin="133,39,0,0" VerticalAlignment="Top" Width="383"/>
+        <Button Content="Change account" HorizontalAlignment="Left" Margin="133,9,0,0" VerticalAlignment="Top" Width="97" Click="Button_Click"/>
+        <Button Content="Infinit Life" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="97" Click="Button_Click"/>
+
+    </Grid>
+</Window>

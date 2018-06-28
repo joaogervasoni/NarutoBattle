@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewWpf"
         mc:Ignorable="d"
-        Title="BattleWindow" Height="657" Width="923">
+        Title="BattleWindow" Height="657" Width="923" ResizeMode="NoResize">
     <Grid Cursor="Cursor/Normal_Select.cur">
         <Grid.Background>
             <ImageBrush ImageSource="Interface/background.jpg"/>

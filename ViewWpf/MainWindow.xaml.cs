@@ -29,7 +29,8 @@ namespace ViewWpf
         private string Char3 = "";
         private int atualChanged = 0;
         private int charLoad = 0;
-        private bool loginCheck = false;
+        public bool loginCheck { get; set; }
+        MenuAdminWindow menuAdmin;
 
         public MainWindow()
         {
@@ -161,6 +162,7 @@ namespace ViewWpf
 
         private void Exit(object sender, RoutedEventArgs e)
         {
+            menuAdmin.Close();
             this.Close();
         }
 
@@ -228,6 +230,15 @@ namespace ViewWpf
 
             CharacterSelect3.Source = new BitmapImage(new Uri("Characters/" + CharacterList[randomNum3] + "/" + CharacterList[randomNum3] + "_default.png", UriKind.Relative));
             CharacterSelect3.Tag = CharacterList[randomNum3];
+        }
+
+        private void Grid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F5)
+            {
+                menuAdmin = new MenuAdminWindow();
+                menuAdmin.Show();
+            }
         }
 
         //private void Character1_MouseEnter(object sender, MouseEventArgs e)
