@@ -162,8 +162,18 @@ namespace ViewWpf
 
         private void Exit(object sender, RoutedEventArgs e)
         {
-            menuAdmin.Close();
-            this.Close();
+            try
+            {
+                menuAdmin.Close();
+                this.Close();
+            }
+            catch
+            {
+                this.Close();
+            }
+            
+
+            
         }
 
         private void Grid_Visibility(int grid /*1 login, 2 regis*/)

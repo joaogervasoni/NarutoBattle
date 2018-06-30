@@ -23,11 +23,12 @@ namespace ViewWpf
     {
         
         int skill_select;
+        string skillNumber = "";
         string attack_char = "0";
         BattleController bat = new BattleController();
         private Timer timer;
-        private int timerzim = 0;
         private string type_skill;
+
 
         public BattleWindow(string character1, string character2, string character3)
         {
@@ -112,6 +113,8 @@ namespace ViewWpf
             skill_select = 0;
             bat.ChakraRed.turnChakra();
             Load_Chakras();
+            Unlock_Character();
+            Receive_SkillsDH();
             pb.Value = 0;
             try
             {
@@ -155,7 +158,7 @@ namespace ViewWpf
             Image image = (Image)sender;
 
             //Numbers
-            string skillNumber = bat.convert_name_int(image.Name).ToString();
+            skillNumber = bat.convert_name_int(image.Name).ToString();
             string skill_second = (skillNumber.Last()).ToString();
             int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
             skill_select = int.Parse(skill_second);
@@ -167,11 +170,14 @@ namespace ViewWpf
 
             if (haveChakra == true)
             {
+                //--- Desativado para new select
+
                 //retira o chakra
                 bat.Withdraw_Chakra(Skills);
 
                 //Change chakras content
                 Load_Chakras();
+
 
                 //pass character to attack char
                 attack_char = bat.Attack_Char(char_select);
@@ -181,6 +187,131 @@ namespace ViewWpf
             }
    
         }
+
+        private void Unlock_Character()
+        {
+            var images = principal.Children.OfType<Image>();
+            foreach (Image element in images)
+            {
+                if (element.Name != null && element.Name != "" && element.Name.Length > 15)
+                {
+                    try
+                    {
+                        if (element.IsEnabled == false)
+                        {
+
+                            element.Opacity = 1;
+                            element.IsEnabled = true;
+                        }
+                    }
+                    catch
+                    { }
+                }
+            }
+        }
+
+        private void Receive_SkillsDH()
+        {
+            var labels = principal.Children.OfType<Image>();
+            foreach (Image element in labels)
+            {
+                string skillP1 = "0";
+                try
+                {
+
+                    int skill = bat.convert_name_int(element.Name);
+
+                    skillP1 = skill.ToString();
+                    skillP1 = skillP1.Substring(0, 1);
+
+                }
+                catch
+                {}
+
+                if (skillP1 == "1" && element.Name.Substring(0,10) == "SkillAdded" && element.Tag.ToString() != "1")
+                {
+                    string damage = element.Tag.ToString();
+                    damage = damage.Substring(1);
+
+                    //passa pra função de dmg
+                    int vida = int.Parse(Character1_blue_life.Content.ToString()) - int.Parse(damage);
+                    Character1_blue_life.Content = vida.ToString();
+
+                    element.Tag = "1";
+                    element.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
+                }
+
+            }
+
+            
+        }
+
+        private void Block_Character(int char_select)
+        {
+            string charn = "0";
+
+            int skills = 1;
+            charn = "Character"+ char_select + "_red_skill" + skills;
+            
+
+            var images = principal.Children.OfType<Image>();
+            foreach (Image element in images)
+            {
+                if (element.Name != null && element.Name != "" && element.Name.Length > 15)
+                {
+                    try
+                    {
+                        if (element.Name.Substring(0, 21) == charn)
+                        {
+                            
+                            element.Opacity = 0.5;
+                            element.IsEnabled = false;
+                            skills += 1;
+                            charn = "Character" + char_select + "_red_skill" + skills;
+                        }
+                    }
+                    catch
+                    {}
+                } 
+            }
+        }
+
+        private void NewSelect_Enemy(object sender, MouseButtonEventArgs e)
+        {
+            if (attack_char != "" && type_skill == "attack")
+            {
+                string skill_second = (skillNumber.Last()).ToString();
+                int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
+
+                Image image = (Image)sender;
+                int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content, image.Name);
+                //List<Label> labels = new List<Label>();
+                var labels = principal.Children.OfType<Image>();
+
+                foreach (Image element in labels)
+                {
+                    if (element.Tag != null)
+                    {
+                        if (element.Tag.ToString() == "1")
+                        {
+                            if (element.Tag.ToString().Substring(0, 1) != "d")
+                            {
+                                element.Source = new BitmapImage(new Uri("Characters/" + attack_char + "/" + attack_char + "_skill" + skill_second + "_default.png", UriKind.Relative));
+                                //Tag is damage >
+                                element.Tag = "d20";
+                            }
+
+                            Block_Character(char_select);
+                            break;
+                        }
+                    }
+
+                }
+
+                attack_char = "";
+            }
+        }
+
 
         //Select enemy to atk
         private void Select_Enemy(object sender, MouseButtonEventArgs e)
@@ -297,7 +428,7 @@ namespace ViewWpf
                 {
                     image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
                 }
-                else if (type_skill != "heal" && name != "red")
+                else if (type_skill == "attack" && name != "red")
                 {
                     image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
                 }
@@ -322,7 +453,7 @@ namespace ViewWpf
                 {
                     image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
                 }
-                else if (type_skill != "heal" && name != "red")
+                else if (type_skill == "attack" && name != "red")
                 {
                     image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
                 }
