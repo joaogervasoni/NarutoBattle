@@ -28,6 +28,7 @@ namespace ViewWpf
         BattleController bat = new BattleController();
         private Timer timer;
         private string type_skill;
+        private string skill_damage;
 
 
         public BattleWindow(string character1, string character2, string character3)
@@ -193,7 +194,7 @@ namespace ViewWpf
             var images = principal.Children.OfType<Image>();
             foreach (Image element in images)
             {
-                if (element.Name != null && element.Name != "" && element.Name.Length > 15)
+                if (element.Name != null && element.Name != "" && element.Name.Length > 15 && element.Tag.ToString() != "dead" )
                 {
                     try
                     {
@@ -228,14 +229,65 @@ namespace ViewWpf
                 catch
                 {}
 
-                if (skillP1 == "1" && element.Name.Substring(0,10) == "SkillAdded" && element.Tag.ToString() != "1")
+                if ((skillP1 == "1" || skillP1 == "2" || skillP1 == "3") && element.Name.Substring(0,10) == "SkillAdded" && element.Tag.ToString() != "1")
                 {
                     string damage = element.Tag.ToString();
-                    damage = damage.Substring(1);
+                    damage = damage.Substring(1); // pega o d25 d20 etc
+                    string typeSkill = element.Tag.ToString().Substring(0, 1); 
+                    //passa pra função de dmg ou heal
 
-                    //passa pra função de dmg
-                    int vida = int.Parse(Character1_blue_life.Content.ToString()) - int.Parse(damage);
-                    Character1_blue_life.Content = vida.ToString();
+                    if (skillP1 == "1")
+                    {
+                        if (typeSkill == "d")
+                        {
+                            int vida = int.Parse(Character1_blue_life.Content.ToString()) - int.Parse(damage);
+                            Character1_blue_life.Content = vida.ToString();
+                            Dead(Character1_blue, Character1_blue_life);
+                            teamDead();
+                        }
+                        else if (typeSkill == "h")
+                        {
+                            int vida = int.Parse(Character1_red_life.Content.ToString()) + int.Parse(damage);
+                            if (vida > 100)
+                                vida = 100;
+                            Character1_red_life.Content = vida.ToString();
+                        }
+                    }
+                    else if (skillP1 == "2")
+                    {
+                        if (typeSkill == "d")
+                        {
+                            int vida = int.Parse(Character2_blue_life.Content.ToString()) - int.Parse(damage);
+                            Character2_blue_life.Content = vida.ToString();
+                            Dead(Character2_blue, Character2_blue_life);
+                            teamDead();
+                        }
+                        else if (typeSkill == "h")
+                        {
+                            int vida = int.Parse(Character2_red_life.Content.ToString()) + int.Parse(damage);
+                            if (vida > 100)
+                                vida = 100;
+                            Character2_red_life.Content = vida.ToString();
+                        }
+                    }
+                    else if (skillP1 == "3")
+                    {
+                        if (typeSkill == "d")
+                        {
+                            int vida = int.Parse(Character3_blue_life.Content.ToString()) - int.Parse(damage);
+                            Character3_blue_life.Content = vida.ToString();
+                            Dead(Character3_blue, Character3_blue_life);
+                            teamDead();
+                        }
+                        else if (typeSkill == "h")
+                        {
+
+                            int vida = int.Parse(Character3_red_life.Content.ToString()) + int.Parse(damage);
+                            if (vida > 100)
+                                vida = 100;
+                            Character3_red_life.Content = vida.ToString();
+                        }
+                    }
 
                     element.Tag = "1";
                     element.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
@@ -257,7 +309,7 @@ namespace ViewWpf
             var images = principal.Children.OfType<Image>();
             foreach (Image element in images)
             {
-                if (element.Name != null && element.Name != "" && element.Name.Length > 15)
+                if (element.Name != null && element.Name != "" && element.Name.Length > 14)
                 {
                     try
                     {
@@ -287,18 +339,75 @@ namespace ViewWpf
                 int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content, image.Name);
                 //List<Label> labels = new List<Label>();
                 var labels = principal.Children.OfType<Image>();
+                string ado = "";
+
+                if (characterNumber == 1)
+                    ado = "SkillAdded1_blue";
+                if (characterNumber == 2)
+                    ado = "SkillAdded2_blue";
+                if (characterNumber == 3)
+                    ado = "SkillAdded3_blue";
 
                 foreach (Image element in labels)
                 {
-                    if (element.Tag != null)
-                    {
-                        if (element.Tag.ToString() == "1")
+                    // element.Name.Substring(0, 11) == "SkillAdded1"
+
+
+                        if (element.Tag != null && element.Name != null)
                         {
-                            if (element.Tag.ToString().Substring(0, 1) != "d")
+                            if (element.Tag.ToString() == "1" && element.Name.Substring(0, 16) == ado)
+                            {
+                                if (element.Tag.ToString().Substring(0, 1) != "d")
+                                {
+                                    element.Source = new BitmapImage(new Uri("Characters/" + attack_char + "/" + attack_char + "_skill" + skill_second + "_default.png", UriKind.Relative));
+                                    //Tag is damage >
+
+                                    element.Tag = "d" + bat.damage_skill(skill_second, attack_char);
+                                }
+
+                                Block_Character(char_select);
+                                break;
+                            }
+                        }
+
+                }
+
+                attack_char = "";
+            }
+        }
+
+        private void NewSelect_Friend(object sender, MouseButtonEventArgs e)
+        {
+            if (attack_char != "" && type_skill == "heal")
+            {
+                string skill_second = (skillNumber.Last()).ToString();
+                int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
+
+                Image image = (Image)sender;
+                int characterNumber = bat.attack_choose(skill_select, Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content, image.Name);
+                //List<Label> labels = new List<Label>();
+                var labels = principal.Children.OfType<Image>();
+                string ado = "";
+
+                if (characterNumber == 1)
+                    ado = "SkillAdded1_red";
+                if (characterNumber == 2)
+                    ado = "SkillAdded2_red";
+                if (characterNumber == 3)
+                    ado = "SkillAdded3_red";
+
+                foreach (Image element in labels)
+                {
+                    if (element.Tag != null && element.Name != null)
+                    {
+                        if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == ado)
+                        {
+                            if (element.Tag.ToString().Substring(0, 1) != "h")
                             {
                                 element.Source = new BitmapImage(new Uri("Characters/" + attack_char + "/" + attack_char + "_skill" + skill_second + "_default.png", UriKind.Relative));
                                 //Tag is damage >
-                                element.Tag = "d20";
+
+                                element.Tag = "h" + bat.heal_skill(skill_second, attack_char);
                             }
 
                             Block_Character(char_select);
@@ -345,31 +454,31 @@ namespace ViewWpf
         }
         
         //Select friendly to heal
-        private void Select_Friend(object sender, MouseButtonEventArgs e)
-        {
-            if (attack_char != "" && type_skill == "heal")
-            {
-                Image image = (Image)sender;
-                int characterNumber = bat.attack_choose(skill_select, Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content, image.Name);
+        //private void Select_Friend(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (attack_char != "" && type_skill == "heal")
+        //    {
+        //        Image image = (Image)sender;
+        //        int characterNumber = bat.attack_choose(skill_select, Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content, image.Name);
 
-                if (characterNumber == 1)
-                {
-                    Character1_red_life.Content = bat.attack_red(Character1_red_life.Content, skill_select, attack_char, type_skill);
-                }
-                else if (characterNumber == 2)
-                {
-                    Character2_red_life.Content = bat.attack_red(Character2_red_life.Content, skill_select, attack_char, type_skill);
+        //        if (characterNumber == 1)
+        //        {
+        //            Character1_red_life.Content = bat.attack_red(Character1_red_life.Content, skill_select, attack_char, type_skill);
+        //        }
+        //        else if (characterNumber == 2)
+        //        {
+        //            Character2_red_life.Content = bat.attack_red(Character2_red_life.Content, skill_select, attack_char, type_skill);
 
-                }
-                else if (characterNumber == 3)
-                {
-                    Character3_red_life.Content = bat.attack_red(Character3_red_life.Content, skill_select, attack_char, type_skill);
+        //        }
+        //        else if (characterNumber == 3)
+        //        {
+        //            Character3_red_life.Content = bat.attack_red(Character3_red_life.Content, skill_select, attack_char, type_skill);
 
-                }
+        //        }
 
-                attack_char = "";
-            }
-        }
+        //        attack_char = "";
+        //    }
+        //}
 
         //===================== Death ====================
 
@@ -399,12 +508,58 @@ namespace ViewWpf
             Label label = (Label)life;
 
             bool confimation = bat.dead_confirmation(label.Content);
+
+
+            //12 - 14
             if (confimation == true)
             {
+                if (label.Name.Substring(11) == "red_life")
+                {
+                    if (bat.convert_name_int(label.Name) == 1)
+                    {
+                        Character1_red_skill1.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                        Character1_red_skill2.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                        Character1_red_skill3.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                        Character1_red_skill1.IsEnabled = false;
+                        Character1_red_skill2.IsEnabled = false;
+                        Character1_red_skill3.IsEnabled = false;
+                        Character1_red_skill1.Tag = "dead";
+                        Character1_red_skill2.Tag = "dead";
+                        Character1_red_skill3.Tag = "dead";
+                    }
+                    else if (bat.convert_name_int(label.Name) == 2)
+                    {
+                        Character2_red_skill1.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                        Character2_red_skill2.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                        Character2_red_skill3.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                        Character2_red_skill1.IsEnabled = false;
+                        Character2_red_skill2.IsEnabled = false;
+                        Character2_red_skill3.IsEnabled = false;
+                        Character2_red_skill1.Tag = "dead";
+                        Character2_red_skill2.Tag = "dead";
+                        Character2_red_skill3.Tag = "dead";
+                    }
+                    else if (bat.convert_name_int(label.Name) == 3)
+                    {
+                        Character3_red_skill1.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                        Character3_red_skill2.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                        Character3_red_skill3.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                        Character3_red_skill1.IsEnabled = false;
+                        Character3_red_skill2.IsEnabled = false;
+                        Character3_red_skill3.IsEnabled = false;
+                        Character3_red_skill1.Tag = "dead";
+                        Character3_red_skill2.Tag = "dead";
+                        Character3_red_skill3.Tag = "dead";
+                    }
+                }
+                
+                 
+
                 image.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
                 image.Tag = "Others/dead_default.png";
                 image.IsEnabled = false;
                 label.Content = "0";
+                
             }
         }
 
