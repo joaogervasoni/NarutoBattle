@@ -110,38 +110,41 @@
             </Label.Background>
         </Label>
         <Image Source="Interface/sasuke.png" HorizontalAlignment="Left" Height="175" Margin="165,451,0,0" VerticalAlignment="Top" Width="171" Stretch="UniformToFill"/>
+        
+        <Grid x:Name="SkillAdded" Margin="378,63,124,188">
+
+            <Image x:Name="SkillAdded1_red_1" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded1_red_2" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="0,29,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded1_red_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="0,58,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded1_red_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="29,29,0,0" VerticalAlignment="Top" Width="24" />
+
+            <Image x:Name="SkillAdded2_red_1" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="0,141,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded2_red_2" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="0,170,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded2_red_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="0,199,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded2_red_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="29,170,0,0" VerticalAlignment="Top" Width="24" />
+
+            <Image x:Name="SkillAdded3_red_1" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="0,282,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded3_red_2" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="0,311,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded3_red_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="0,340,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded3_red_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="29,311,0,0" VerticalAlignment="Top" Width="24" />
+
+            <Image x:Name="SkillAdded1_blue_1" Tag="1" Source="Others/invalid_default.png" Height="24" VerticalAlignment="Top" HorizontalAlignment="Right" Width="24" />
+            <Image x:Name="SkillAdded1_blue_2" Tag="1" Source="Others/invalid_default.png" Height="24" Margin="0,29,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="24" />
+            <Image x:Name="SkillAdded1_blue_3" Tag="1" Source="Others/invalid_default.png" Height="24" Margin="0,58,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="24" />
+            <Image x:Name="SkillAdded1_blue_4" Tag="1" Source="Others/invalid_default.png" Height="24" Margin="0,29,29,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="24" />
+
+            <Image x:Name="SkillAdded2_blue_1" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,141,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded2_blue_2" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,170,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded2_blue_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,199,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded2_blue_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,170,29,0" VerticalAlignment="Top" Width="24" />
+
+            <Image x:Name="SkillAdded3_blue_1" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,282,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded3_blue_2" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,311,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded3_blue_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,340,0,0" VerticalAlignment="Top" Width="24" />
+            <Image x:Name="SkillAdded3_blue_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,311,29,0" VerticalAlignment="Top" Width="24" />
 
 
-
-        <Image x:Name="SkillAdded1_red_1" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="378,63,0,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded1_red_2" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="378,92,0,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded1_red_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="378,121,0,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded1_red_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="407,92,0,0" VerticalAlignment="Top" Width="24" />
-
-        <Image x:Name="SkillAdded2_red_1" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="378,204,0,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded2_red_2" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="378,233,0,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded2_red_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="378,262,0,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded2_red_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="407,233,0,0" VerticalAlignment="Top" Width="24" />
-
-        <Image x:Name="SkillAdded3_red_1" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="378,345,0,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded3_red_2" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="378,374,0,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded3_red_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="378,403,0,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded3_red_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="24" Margin="407,374,0,0" VerticalAlignment="Top" Width="24" />
-
-        <Image x:Name="SkillAdded1_blue_1" Tag="1" Source="Others/invalid_default.png" Height="24" Margin="0,63,124,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="24" />
-        <Image x:Name="SkillAdded1_blue_2" Tag="1" Source="Others/invalid_default.png" Height="24" Margin="0,92,124,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="24" />
-        <Image x:Name="SkillAdded1_blue_3" Tag="1" Source="Others/invalid_default.png" Height="24" Margin="0,121,124,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="24" />
-        <Image x:Name="SkillAdded1_blue_4" Tag="1" Source="Others/invalid_default.png" Height="24" Margin="0,92,153,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="24" />
-
-        <Image x:Name="SkillAdded2_blue_1" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,204,124,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded2_blue_2" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,233,124,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded2_blue_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,262,124,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded2_blue_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,233,153,0" VerticalAlignment="Top" Width="24" />
-
-        <Image x:Name="SkillAdded3_blue_1" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,345,124,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded3_blue_2" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,374,124,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded3_blue_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,403,124,0" VerticalAlignment="Top" Width="24" />
-        <Image x:Name="SkillAdded3_blue_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,374,153,0" VerticalAlignment="Top" Width="24" />
+        </Grid>
 
 
     </Grid>

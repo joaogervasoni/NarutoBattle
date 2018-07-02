@@ -15,6 +15,39 @@ namespace Controllers.DAL
             conn = new SQLiteConnection("Data Source=|DataDirectory|NBDB.db;Version=3;");
         }
 
+
+        public List<string> Account_Status(string account)
+        {
+            conn.Open();
+            List<string> status = new List<string>();
+            string sql = "SELECT Victories, Loses FROM Account WHERE Login ='"+account+"'";
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            SQLiteDataReader reader = command.ExecuteReader();
+            reader.Read();
+
+            status.Add(reader["Victories"].ToString());
+            status.Add(reader["Loses"].ToString());
+
+            conn.Close();
+            return status;
+        }
+
+
+        public void WL(string account, string result)
+        {
+            string sql = "";
+            conn.Open();
+
+            if (result == "Winner")
+                sql = "UPDATE Account SET Victories = (Victories + 1) WHERE Login = '" + account + "'";
+            else if (result == "Loser")
+                sql = "UPDATE Account SET Loses =(Loses + 1) WHERE Login ='" + account + "'";
+
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+
         public bool registerAccount(string name, string pass)
         {
             conn.Open();
@@ -31,6 +64,7 @@ namespace Controllers.DAL
                 return true;
             }
 
+            conn.Close();
             return false;
         }
 
@@ -166,19 +200,6 @@ namespace Controllers.DAL
 
             return heal;
         }
-
-        public object teste()
-        {
-            conn.Open();
-            string sql = "SELECT Name FROM Character";
-            SQLiteCommand command = new SQLiteCommand(sql, conn);
-            SQLiteDataReader reader = command.ExecuteReader();
-            reader.Read();
-            //dbConnection.Close();
-
-            return reader["Name"];
-        }
-
 
     }
 }

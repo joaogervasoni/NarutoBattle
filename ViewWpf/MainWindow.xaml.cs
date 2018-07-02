@@ -30,6 +30,8 @@ namespace ViewWpf
         private int atualChanged = 0;
         private int charLoad = 0;
         public bool loginCheck { get; set; }
+        private string account = "";
+        private bool searchCheck = false;
         MenuAdminWindow menuAdmin;
 
         public MainWindow()
@@ -131,12 +133,24 @@ namespace ViewWpf
                     StartButton.IsEnabled = true;
                     RandomButton.IsEnabled = true;
                     loginCheck = true;
+                    account = LoginText.Text;
+                    Account_Status();
                 }
                 else if (loginAut == false)
                 {
                     MessageBox.Show("Login or Password incorrect");
                 }
             }
+        }
+
+        private void Account_Status()
+        {
+            List<string> status = new List<string>();
+            status = conn.Account_Status(account);
+            victoriesValue.Content = status[0];
+            losesValue.Content = status[1];
+            float kd = (float.Parse(status[0]) / float.Parse(status[1]));
+            wlValue.Content = kd.ToString();
         }
 
         //=====================Others====================
@@ -154,8 +168,9 @@ namespace ViewWpf
                 string char1 = CharacterSelect1.Tag.ToString();
                 string char2 = CharacterSelect2.Tag.ToString();
                 string char3 = CharacterSelect3.Tag.ToString();
-                BattleWindow btWin = new BattleWindow(char1, char2, char3);
+                BattleWindow btWin = new BattleWindow(char1, char2, char3, account);
                 btWin.ShowDialog();
+                searchCheck = false;
             }
 
         }
@@ -248,6 +263,19 @@ namespace ViewWpf
             {
                 menuAdmin = new MenuAdminWindow();
                 menuAdmin.Show();
+            }
+        }
+
+
+        private void Grid_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (searchCheck != true)
+            {
+                if (loginCheck == true)
+                {
+                    Account_Status();
+                    searchCheck = true;
+                }
             }
         }
 

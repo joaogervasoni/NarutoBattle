@@ -29,12 +29,14 @@ namespace ViewWpf
         private Timer timer;
         private string type_skill;
         private string skill_damage;
+        private string account;
 
 
-        public BattleWindow(string character1, string character2, string character3)
+        public BattleWindow(string character1, string character2, string character3, string account)
         {
             InitializeComponent();
-            
+
+            this.account = account;
             if (bat.initial_turn()== true) //ia
             {
                 ia_play();
@@ -213,7 +215,7 @@ namespace ViewWpf
 
         private void Receive_SkillsDH()
         {
-            var labels = principal.Children.OfType<Image>();
+            var labels = SkillAdded.Children.OfType<Image>();
             foreach (Image element in labels)
             {
                 string skillP1 = "0";
@@ -243,7 +245,7 @@ namespace ViewWpf
                             int vida = int.Parse(Character1_blue_life.Content.ToString()) - int.Parse(damage);
                             Character1_blue_life.Content = vida.ToString();
                             Dead(Character1_blue, Character1_blue_life);
-                            teamDead();
+
                         }
                         else if (typeSkill == "h")
                         {
@@ -260,7 +262,7 @@ namespace ViewWpf
                             int vida = int.Parse(Character2_blue_life.Content.ToString()) - int.Parse(damage);
                             Character2_blue_life.Content = vida.ToString();
                             Dead(Character2_blue, Character2_blue_life);
-                            teamDead();
+
                         }
                         else if (typeSkill == "h")
                         {
@@ -277,7 +279,7 @@ namespace ViewWpf
                             int vida = int.Parse(Character3_blue_life.Content.ToString()) - int.Parse(damage);
                             Character3_blue_life.Content = vida.ToString();
                             Dead(Character3_blue, Character3_blue_life);
-                            teamDead();
+
                         }
                         else if (typeSkill == "h")
                         {
@@ -338,7 +340,7 @@ namespace ViewWpf
                 Image image = (Image)sender;
                 int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content, image.Name);
                 //List<Label> labels = new List<Label>();
-                var labels = principal.Children.OfType<Image>();
+                var labels = SkillAdded.Children.OfType<Image>();
                 string ado = "";
 
                 if (characterNumber == 1)
@@ -386,7 +388,7 @@ namespace ViewWpf
                 Image image = (Image)sender;
                 int characterNumber = bat.attack_choose(skill_select, Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content, image.Name);
                 //List<Label> labels = new List<Label>();
-                var labels = principal.Children.OfType<Image>();
+                var labels = SkillAdded.Children.OfType<Image>();
                 string ado = "";
 
                 if (characterNumber == 1)
@@ -434,19 +436,19 @@ namespace ViewWpf
                 {
                     Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content, skill_select, attack_char, type_skill);
                     Dead(sender, Character1_blue_life);
-                    teamDead();
+
                 }
                 else if (characterNumber == 2)
                 {
                     Character2_blue_life.Content = bat.attack_red(Character2_blue_life.Content, skill_select, attack_char, type_skill);
                     Dead(sender, Character2_blue_life);
-                    teamDead();
+
                 }
                 else if (characterNumber == 3)
                 {
                     Character3_blue_life.Content = bat.attack_red(Character3_blue_life.Content, skill_select, attack_char, type_skill);
                     Dead(sender, Character3_blue_life);
-                    teamDead();
+
                 }
 
                 attack_char = "";
@@ -489,15 +491,19 @@ namespace ViewWpf
             string result = "";
             if (dead == 2)
             {
-                result = "Ganhou";
-                MessageBox.Show("Você " + result);
+                result = "Winner";
+                timer.Close();
                 Close();
+                bat.WL(account, result);
+                MessageBox.Show(result);
             }
             else if (dead == 1)
             {
-                result = "Perdeu";
-                MessageBox.Show("Você " + result);
+                result = "Loser";
+                timer.Close();
                 Close();
+                bat.WL(account, result);
+                MessageBox.Show(result);
             }
 
         }
