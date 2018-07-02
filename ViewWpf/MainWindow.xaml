@@ -83,11 +83,22 @@
         <Button x:Name="StartButton" Content="Battle" IsEnabled="False" HorizontalAlignment="Center" Margin="637,399,79,0" VerticalAlignment="Top" Width="137" Height="37" Click="Start_Battle"/>
         <Label Content="Press F5 for menu admin" HorizontalAlignment="Left" Margin="10,432,0,0" VerticalAlignment="Top" Width="146" FontFamily="Segoe UI Black" FontSize="10" Foreground="#FF610909"/>
 
-        <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="206" Margin="430,32,0,0" Stroke="Black" VerticalAlignment="Top" Width="126"/>
-        <Button x:Name="RandomButton" Content="Random" HorizontalAlignment="Left" Margin="457,67,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="Random_Characters"/>
-        <Button Content="Reset Status" HorizontalAlignment="Left" Margin="457,106,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
-        <Label Content="Account options" HorizontalAlignment="Left" Margin="430,32,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="126" HorizontalContentAlignment="Center"/>
-        <Button Content="Delete account" HorizontalAlignment="Left" Margin="447,206,0,0" VerticalAlignment="Top" Width="98" IsEnabled="False" />
+        <Grid x:Name="AccountOptions" Margin="430,32,0,0" Visibility="Hidden" HorizontalAlignment="Left" Width="131" Height="211" VerticalAlignment="Top">
+
+            <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="206" Stroke="Black" VerticalAlignment="Top" Width="126"/>
+            <Button x:Name="RandomButton" Content="Random" HorizontalAlignment="Left" Margin="27,35,0,0" VerticalAlignment="Top" Width="75" Click="Random_Characters"/>
+            <Button Content="Reset Status" HorizontalAlignment="Left" Margin="27,73,0,0" VerticalAlignment="Top" Width="75" Click="Reset_Account"/>
+            <Label Content="Account options" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="126" HorizontalContentAlignment="Center"/>
+            <Button Content="Delete account" HorizontalAlignment="Left" Margin="17,174,0,0" VerticalAlignment="Top" Width="98" Click="Delete_Account"/>
+            <Button Content="Change Pass" HorizontalAlignment="Left" Margin="27,110,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password_Show"/>
+
+        </Grid>
+        <Button x:Name="Loggout" Content="Loggout" HorizontalAlignment="Left" Margin="561,7,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="Loggout_Account" />
+        <Label x:Name="NewPassLabel" Content="New Password: " HorizontalAlignment="Left" Margin="718,196,0,0" VerticalAlignment="Top" FontWeight="Bold" Visibility="Hidden"/>
+        <PasswordBox x:Name="NewPassText" HorizontalAlignment="Left" Margin="689,222,0,0" VerticalAlignment="Top" Width="155" Height="23" Visibility="Hidden"/>
+        <Button x:Name="NewPass" Content="Reset pass" HorizontalAlignment="Left" Margin="769,250,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password" Visibility="Hidden"/>
+        <Button x:Name="NewPassReturn" Content="Return" HorizontalAlignment="Left" Margin="689,250,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password_Close" Visibility="Hidden"/>
+
 
     </Grid>
 </Window>

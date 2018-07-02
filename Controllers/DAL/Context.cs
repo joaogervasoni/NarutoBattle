@@ -9,12 +9,69 @@ namespace Controllers.DAL
 {
     public class Context
     {
-        SQLiteConnection conn;
+        public SQLiteConnection conn;
         public Context()
         {
             conn = new SQLiteConnection("Data Source=|DataDirectory|NBDB.db;Version=3;");
         }
 
+        public bool Reset_Pass_Account(string account, string password)
+        {
+            try
+            {
+                conn.Open();
+                string sql = "UPDATE Account SET Password='"+ password +"' WHERE Login='" + account + "'";
+                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                command.ExecuteNonQuery();
+
+                conn.Close();
+                return true;
+            }
+            catch
+            {
+                conn.Close();
+            }
+            return false;
+        }
+
+        public bool Delete_Account(string account)
+        {
+            try
+            {
+                conn.Open();
+                string sql = "DELETE FROM Account WHERE Login='" + account + "'";
+                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                command.ExecuteNonQuery();
+
+                conn.Close();
+                return true;
+            }
+            catch
+            {
+                conn.Close();
+            }
+            return false;
+        }
+
+        public bool Reset_Account(string account)
+        {
+            try
+            {
+                conn.Open();
+                string sql = "UPDATE Account SET Victories=0,Loses=0 WHERE Login='" + account + "'";
+                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                command.ExecuteNonQuery();
+
+                conn.Close();
+                return true;
+            }
+            catch
+            {
+                conn.Close();
+            }
+            return false;
+
+        }
 
         public List<string> Account_Status(string account)
         {
@@ -53,9 +110,8 @@ namespace Controllers.DAL
             conn.Open();
             string sqlSelect = "SELECT Login FROM Account WHERE Login = '" + name + "'";
             SQLiteCommand commandSelect = new SQLiteCommand(sqlSelect, conn);
-            SQLiteDataReader reader = commandSelect.ExecuteReader();
-            reader.Read();
-            if (reader["Login"] == null)
+            int rows = commandSelect.ExecuteNonQuery();
+            if (rows < 1)
             {
                 string sql = "INSERT INTO Account (Login, Password, Victories, Loses) VALUES ('" + name + "', '" + pass + "', 0,0)";
                 SQLiteCommand command = new SQLiteCommand(sql, conn);
@@ -91,6 +147,7 @@ namespace Controllers.DAL
                 //return false
             }
 
+            conn.Close();
             return false;
         }
 
@@ -200,6 +257,7 @@ namespace Controllers.DAL
 
             return heal;
         }
+
 
     }
 }
