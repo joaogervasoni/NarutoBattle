@@ -150,7 +150,15 @@ namespace ViewWpf
             victoriesValue.Content = status[0];
             losesValue.Content = status[1];
             float kd = (float.Parse(status[0]) / float.Parse(status[1]));
-            wlValue.Content = kd.ToString();
+            try
+            {
+                wlValue.Content = kd.ToString().Substring(0, 4);
+            }
+            catch
+            {
+                wlValue.Content = kd.ToString();
+            }
+
         }
 
         private void Loggout_Account_Function()

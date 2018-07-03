@@ -173,7 +173,6 @@ namespace ViewWpf
 
             if (haveChakra == true)
             {
-                //--- Desativado para new select
 
                 //retira o chakra
                 bat.Withdraw_Chakra(Skills);
@@ -423,67 +422,6 @@ namespace ViewWpf
             }
         }
 
-
-        //Select enemy to atk
-        private void Select_Enemy(object sender, MouseButtonEventArgs e)
-        {
-            if(attack_char != "" && type_skill == "attack")
-            {
-                Image image = (Image)sender;
-                int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content, image.Name);
-
-                if (characterNumber == 1)
-                {
-                    Character1_blue_life.Content = bat.attack_red(Character1_blue_life.Content, skill_select, attack_char, type_skill);
-                    Dead(sender, Character1_blue_life);
-
-                }
-                else if (characterNumber == 2)
-                {
-                    Character2_blue_life.Content = bat.attack_red(Character2_blue_life.Content, skill_select, attack_char, type_skill);
-                    Dead(sender, Character2_blue_life);
-
-                }
-                else if (characterNumber == 3)
-                {
-                    Character3_blue_life.Content = bat.attack_red(Character3_blue_life.Content, skill_select, attack_char, type_skill);
-                    Dead(sender, Character3_blue_life);
-
-                }
-
-                attack_char = "";
-            }    
-        }
-        
-        //Select friendly to heal
-        //private void Select_Friend(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (attack_char != "" && type_skill == "heal")
-        //    {
-        //        Image image = (Image)sender;
-        //        int characterNumber = bat.attack_choose(skill_select, Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content, image.Name);
-
-        //        if (characterNumber == 1)
-        //        {
-        //            Character1_red_life.Content = bat.attack_red(Character1_red_life.Content, skill_select, attack_char, type_skill);
-        //        }
-        //        else if (characterNumber == 2)
-        //        {
-        //            Character2_red_life.Content = bat.attack_red(Character2_red_life.Content, skill_select, attack_char, type_skill);
-
-        //        }
-        //        else if (characterNumber == 3)
-        //        {
-        //            Character3_red_life.Content = bat.attack_red(Character3_red_life.Content, skill_select, attack_char, type_skill);
-
-        //        }
-
-        //        attack_char = "";
-        //    }
-        //}
-
-        //===================== Death ====================
-
         private void teamDead()
         {
             int dead = bat.confirmation_teamDead(Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content,
@@ -643,9 +581,18 @@ namespace ViewWpf
             GenjutsuNumber_Panel.Content = skills[3];
         }
 
-        private void Quit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Surrender(object sender, MouseButtonEventArgs e)
         {
             this.Close();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            string result = "Loser";
+            timer.Close();
+            Close();
+            bat.WL(account, result);
+            MessageBox.Show(result);
         }
 
         //===================== IA ====================
@@ -653,29 +600,47 @@ namespace ViewWpf
         //Jogada da IA
         private void ia_play()
         {
-            Random rand = new Random();
-            int characterNumber = rand.Next(1, 4);
             //MessageBox.Show("" + characterNumber);
+            int playRandom = 0;
 
-            if (characterNumber == 1)
+            do
             {
-                Character1_red_life.Content = bat.attack_blue(Character1_red_life.Content);
-                Dead(Character1_red, Character1_red_life);
-                teamDead();
-            }
-            else if (characterNumber == 2)
-            {
-                Character2_red_life.Content = bat.attack_blue(Character2_red_life.Content);
-                Dead(Character2_red, Character2_red_life);
-                teamDead();
-            }
-            else if (characterNumber == 3)
-            {
-                Character3_red_life.Content = bat.attack_blue(Character3_red_life.Content);
-                Dead(Character3_red, Character3_red_life);
-                teamDead();
-            }
 
+                Random rand = new Random();
+                int characterNumber = rand.Next(1, 4);
+                if (characterNumber == 1 && Character1_red_life.Content.ToString() != "0")
+                {
+
+                        Character1_red_life.Content = bat.attack_blue(Character1_red_life.Content);
+                        Dead(Character1_red, Character1_red_life);
+                        teamDead();
+                        playRandom = 1;
+ 
+
+                }
+                else if (characterNumber == 2 && Character2_red_life.Content.ToString() != "0")
+                {
+
+                        Character2_red_life.Content = bat.attack_blue(Character2_red_life.Content);
+                        Dead(Character2_red, Character2_red_life);
+                        teamDead();
+                        playRandom = 1;
+
+
+                }
+                else if (characterNumber == 3 && Character3_red_life.Content.ToString() != "0")
+                {
+
+                        Character3_red_life.Content = bat.attack_blue(Character3_red_life.Content);
+                        Dead(Character3_red, Character3_red_life);
+                        teamDead();
+                        playRandom = 1;
+                    
+
+                }
+
+
+            } while (playRandom == 0);
             pass_turn();
         }
 
@@ -703,5 +668,6 @@ namespace ViewWpf
                 
             
         }
+
     }
 }

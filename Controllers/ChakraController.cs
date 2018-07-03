@@ -12,13 +12,16 @@ namespace Controllers
         public int Bloodline { get; set; }
         public int Ninjutsu { get; set; }
         public int Genjutsu { get; set; }
-
+        private static int ChakraRoll;
 
 
         public ChakraController()
         {
             initialChakra();
 
+            Random random = new Random();
+
+            ChakraRoll = random.Next(1, 3);
         }
 
 
@@ -72,10 +75,23 @@ namespace Controllers
                 Chakras[randomNum] += 1;
             }
 
-            Taijutsu += Chakras[0];
-            Bloodline += Chakras[1];
-            Ninjutsu += Chakras[2];
-            Genjutsu += Chakras[3];
+            if (ChakraRoll == 1)
+            {
+                Taijutsu += Chakras[0];
+                Bloodline += Chakras[1];
+                Ninjutsu += Chakras[2];
+                Genjutsu += Chakras[3];
+                ChakraRoll = 2;
+            }
+            else if (ChakraRoll == 2)
+            {
+                Taijutsu += Chakras[3];
+                Bloodline += Chakras[2];
+                Ninjutsu += Chakras[1];
+                Genjutsu += Chakras[0];
+                ChakraRoll = 1;
+            }
+
         }
 
         public void initialChakra()
