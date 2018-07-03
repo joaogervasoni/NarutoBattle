@@ -5,12 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewWpf"
         mc:Ignorable="d"
-        Title="MenuAdminWindow" Height="336.144" Width="534.337">
+        Title="MenuAdminWindow" Height="341.444" Width="699.709">
     <Grid Background="DarkGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="291*"/>
+            <ColumnDefinition Width="55*"/>
+        </Grid.ColumnDefinitions>
         <Button Content="No Login" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="97" Click="Button_Click"/>
-        <Button Content="Delete account" HorizontalAlignment="Left" Margin="419,9,0,0" VerticalAlignment="Top" Width="97" Click="Button_Click"/>
-        <DataGrid HorizontalAlignment="Left" Height="256" Margin="133,39,0,0" VerticalAlignment="Top" Width="383"/>
-        <Button Content="Change account" HorizontalAlignment="Left" Margin="133,9,0,0" VerticalAlignment="Top" Width="97" Click="Button_Click"/>
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="419,9,0,0" VerticalAlignment="Top" Width="97" Click="Button_Click_2"/>
+        <DataGrid x:Name="Grid1" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="256" Margin="133,39,0,0" VerticalAlignment="Top" Width="383" SelectionChanged="Grid1_SelectionChanged"/>
+        <ComboBox x:Name="ComboBox" HorizontalAlignment="Left" Margin="273,9,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem IsSelected="True">Account</ComboBoxItem>
+            <ComboBoxItem Content="Skills"></ComboBoxItem>
+            <ComboBoxItem>Character</ComboBoxItem>
+        </ComboBox>
+
+        <Label Content="Others" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Width="97" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+
+        <Grid x:Name="AccountChangeGrid" Margin="541,33,0,0" HorizontalAlignment="Left" Width="120" Height="259" VerticalAlignment="Top" Visibility="Visible" Grid.ColumnSpan="2">
+            <TextBox x:Name="login" HorizontalAlignment="Left" Height="23" Margin="0,21,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="pass" HorizontalAlignment="Left" Height="23" Margin="0,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Password" HorizontalAlignment="Left" Margin="0,44,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="victories" HorizontalAlignment="Left" Height="23" Margin="0,109,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Victories" HorizontalAlignment="Left" Margin="0,88,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="loses" HorizontalAlignment="Left" Height="23" Margin="0,153,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Loses" HorizontalAlignment="Left" Margin="0,132,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="type" HorizontalAlignment="Left" Height="23" Margin="0,197,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Type" HorizontalAlignment="Left" Margin="0,176,0,0" VerticalAlignment="Top"/>
+            <Button Content="Change" HorizontalAlignment="Left" Margin="20,229,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+
+        </Grid>
 
     </Grid>
 </Window>

@@ -145,20 +145,29 @@ namespace ViewWpf
 
         private void Account_Status()
         {
-            List<string> status = new List<string>();
-            status = tools.Account_Status(account);
-            victoriesValue.Content = status[0];
-            losesValue.Content = status[1];
-            float kd = (float.Parse(status[0]) / float.Parse(status[1]));
             try
             {
-                wlValue.Content = kd.ToString().Substring(0, 4);
+                List<string> status = new List<string>();
+                status = tools.Account_Status(account);
+                victoriesValue.Content = status[0];
+                losesValue.Content = status[1];
+                float kd = (float.Parse(status[0]) / float.Parse(status[1]));
+                try
+                {
+                    wlValue.Content = kd.ToString().Substring(0, 4);
+                }
+                catch
+                {
+                    wlValue.Content = kd.ToString();
+                }
             }
             catch
             {
-                wlValue.Content = kd.ToString();
+                wlValue.Content = "error";
+                victoriesValue.Content = "error";
+                losesValue.Content = "error";
             }
-
+            
         }
 
         private void Loggout_Account_Function()

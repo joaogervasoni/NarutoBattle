@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Data;
 
 namespace Controllers.DAL
 {
@@ -13,6 +14,40 @@ namespace Controllers.DAL
         public Context()
         {
             conn = new SQLiteConnection("Data Source=|DataDirectory|NBDB.db;Version=3;");
+        }
+
+        public void Change_Account(string account, string login, string pass, string victories, string loses, string type)
+        {
+            conn.Open();
+            string sql = "UPDATE Account SET Login = '"+login+ "', Password ='"+pass+ "', Victories ="+victories+ ", Loses ="+loses+ ", Type = '"+type+"' WHERE Login = '" + account+"'";
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            command.ExecuteNonQuery();
+            conn.Close();
+
+        }
+
+        public DataTable Grid_DataTable(string type)
+        {
+            string sql = "";
+            conn.Open();
+            if (type == "Account")
+                sql = "SELECT Login, Password, Victories, Loses, Type FROM Account";
+            else if (type == "Skills")
+                sql = "SELECT Name, Skill, Type, Damage, Heal, Taijutsu, Bloodline, Ninjutsu, Genjutsu FROM Skills";
+            else if (type == "Character")
+                sql = "SELECT Name FROM Character";
+
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            command.ExecuteNonQuery();
+
+            SQLiteDataAdapter data = new SQLiteDataAdapter(command);
+            DataTable dt = new DataTable("Account");
+            data.Fill(dt);
+
+            data.Update(dt);
+
+            conn.Close();
+            return dt;
         }
 
         public bool Reset_Pass_Account(string account, string password)
@@ -75,18 +110,28 @@ namespace Controllers.DAL
 
         public List<string> Account_Status(string account)
         {
-            conn.Open();
-            List<string> status = new List<string>();
-            string sql = "SELECT Victories, Loses FROM Account WHERE Login ='"+account+"'";
-            SQLiteCommand command = new SQLiteCommand(sql, conn);
-            SQLiteDataReader reader = command.ExecuteReader();
-            reader.Read();
+            try
+            {
+                conn.Open();
+                List<string> status = new List<string>();
+                string sql = "SELECT Victories, Loses FROM Account WHERE Login ='" + account + "'";
+                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                SQLiteDataReader reader = command.ExecuteReader();
+                reader.Read();
 
-            status.Add(reader["Victories"].ToString());
-            status.Add(reader["Loses"].ToString());
+                status.Add(reader["Victories"].ToString());
+                status.Add(reader["Loses"].ToString());
 
-            conn.Close();
-            return status;
+                conn.Close();
+                return status;
+            }
+            catch
+            {
+                conn.Close();
+            }
+            
+
+            return null;
         }
 
 
