@@ -21,7 +21,6 @@ namespace Controllers
         public string Character3_red { get; set; }
 
 
-        private PlayerController playc;
         private IAController iac;
         public ChakraController ChakraRed;
         public ChakraController ChakraBlue;
@@ -29,7 +28,6 @@ namespace Controllers
 
         public BattleController()
         {
-            playc = new PlayerController();
             iac = new IAController();
             ChakraRed = new ChakraController();
             ChakraBlue = new ChakraController();
@@ -187,30 +185,30 @@ namespace Controllers
             return Skill_Type(character, skill_select);
         }
 
-        public int attack_red(object life, int skillSelect, string attackChar, string type_skill)
-        {
-            int life_int;
-            if (type_skill == "attack")
-            {
-                if (Turn_play == 1)
-                {
-                    life_int = conversion_object_toint(life);
-                    return playc.attack(life_int, skillSelect, attackChar);
-                }
+        //public int attack_red(object life, int skillSelect, string attackChar, string type_skill)
+        //{
+        //    int life_int;
+        //    if (type_skill == "attack")
+        //    {
+        //        if (Turn_play == 1)
+        //        {
+        //            life_int = conversion_object_toint(life);
+        //            return playc.attack(life_int, skillSelect, attackChar);
+        //        }
 
-            }
-            else if (type_skill == "heal")
-            {
-                if (Turn_play == 1)
-                {
-                    life_int = conversion_object_toint(life);
-                    return playc.heal(life_int, skillSelect, attackChar);
-                }
-            }
+        //    }
+        //    else if (type_skill == "heal")
+        //    {
+        //        if (Turn_play == 1)
+        //        {
+        //            life_int = conversion_object_toint(life);
+        //            return playc.heal(life_int, skillSelect, attackChar);
+        //        }
+        //    }
 
-            life_int = conversion_object_toint(life);
-            return life_int;
-        }
+        //    life_int = conversion_object_toint(life);
+        //    return life_int;
+        //}
 
         public int attack_blue(object life)
         {
