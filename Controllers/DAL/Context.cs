@@ -273,34 +273,55 @@ namespace Controllers.DAL
         public string damage_skill(string skill, string name)
         {
             
-            int skillnumber = int.Parse(skill);
-            skill = "Skill" + skill;
+            //int skillnumber = int.Parse(skill);
+            //skill = "Skill" + skill;
 
             conn.Open();
-            string sql = "SELECT "+ skill +" FROM Character WHERE Name = '" + name + "'";
+            string sql = "SELECT Damage FROM Skills WHERE Name = '" + name + "' AND Skill = '"+skill+"'";
             SQLiteCommand command = new SQLiteCommand(sql, conn);
             SQLiteDataReader reader = command.ExecuteReader();
             reader.Read();
 
-            string damage = reader[skill].ToString();
-            conn.Close();
+            try
+            {
+                string damage = reader["Damage"].ToString();
+                conn.Close();
 
-            return damage;
+                if (damage == "")
+                    damage = "0";
+                return damage;
+            }
+            catch
+            {
+                conn.Close();
+                return "0"; 
+            }
+
         }
 
         public string heal_skill(string skill, string name)
         {
 
             conn.Open();
-            string sql = "SELECT Heal FROM Skills WHERE Name = '" + name + "' AND Skill ="+ skill;
+            string sql = "SELECT Heal FROM Skills WHERE Name = '" + name + "' AND Skill = '" + skill + "'";
             SQLiteCommand command = new SQLiteCommand(sql, conn);
             SQLiteDataReader reader = command.ExecuteReader();
             reader.Read();
 
-            string heal = reader["Heal"].ToString();
-            conn.Close();
+            try
+            {
+                string heal = reader["Heal"].ToString();
+                conn.Close();
+                if (heal == "")
+                    heal = "0";
+                return heal;
+            }
+            catch
+            {
+                conn.Close();
+                return "0";
+            }
 
-            return heal;
         }
 
 

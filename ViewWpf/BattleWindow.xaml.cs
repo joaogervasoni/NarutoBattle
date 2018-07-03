@@ -579,6 +579,17 @@ namespace ViewWpf
             BloodlineNumber_Panel.Content = skills[1];
             NinjutsuNumber_Panel.Content = skills[2];
             GenjutsuNumber_Panel.Content = skills[3];
+
+            string charshow = "";
+            if (char_select == 1)
+                charshow = bat.Character1_red;
+            else if (char_select == 2)
+                charshow = bat.Character2_red;
+            else if (char_select == 3)
+                charshow = bat.Character3_red;
+
+            DamageNumber_Panel.Content = bat.damage_skill(skill_second, charshow);
+            HealNumber_Panel.Content = bat.heal_skill(skill_second, charshow);
         }
 
         private void Surrender(object sender, MouseButtonEventArgs e)
