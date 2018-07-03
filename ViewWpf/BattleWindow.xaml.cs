@@ -28,9 +28,7 @@ namespace ViewWpf
         BattleController bat = new BattleController();
         private Timer timer;
         private string type_skill;
-        private string skill_damage;
         private string account;
-
 
         public BattleWindow(string character1, string character2, string character3, string account)
         {
@@ -127,6 +125,7 @@ namespace ViewWpf
             {
                 Timer_Function();
             }
+            Change_Life_GlobalColor();
         }
 
         private void Timer_Function()
@@ -220,12 +219,10 @@ namespace ViewWpf
                 string skillP1 = "0";
                 try
                 {
-
                     int skill = bat.convert_name_int(element.Name);
 
                     skillP1 = skill.ToString();
                     skillP1 = skillP1.Substring(0, 1);
-
                 }
                 catch
                 {}
@@ -295,8 +292,6 @@ namespace ViewWpf
                 }
 
             }
-
-            
         }
 
         private void Block_Character(int char_select)
@@ -453,7 +448,6 @@ namespace ViewWpf
 
             bool confimation = bat.dead_confirmation(label.Content);
 
-
             //12 - 14
             if (confimation == true)
             {
@@ -508,6 +502,24 @@ namespace ViewWpf
         }
 
         //===================== Others ====================
+
+        private void Change_Life_GlobalColor()
+        {
+            Change_Life_Color(Character1_red_life);
+            Change_Life_Color(Character2_red_life);
+            Change_Life_Color(Character3_red_life);
+            Change_Life_Color(Character1_blue_life);
+            Change_Life_Color(Character2_blue_life);
+            Change_Life_Color(Character3_blue_life);
+        }
+
+        private void Change_Life_Color(Label label)
+        {
+            if (int.Parse(label.Content.ToString()) < 50)
+                label.Background = Brushes.Orange;
+            if (int.Parse(label.Content.ToString()) < 20)
+                label.Background = Brushes.Red;
+        }
 
         private void Generic_mouseEnter(object sender, MouseEventArgs e)
         {

@@ -90,7 +90,7 @@ namespace ViewWpf
             }
         }
 
-        //=====================Account====================
+        //===================== Account ====================
 
         private void Create_Account(object sender, RoutedEventArgs e)
         {
@@ -163,6 +163,7 @@ namespace ViewWpf
             }
             catch
             {
+                //Dont load
                 wlValue.Content = "error";
                 victoriesValue.Content = "error";
                 losesValue.Content = "error";
@@ -273,12 +274,11 @@ namespace ViewWpf
             }
         }
 
-        //=====================Others====================
+        //===================== Others ====================
 
         private void Start_Battle(object sender, RoutedEventArgs e)
         {
-            //precisa estar logado
-
+            //Need login
             if (CharacterSelect1.Tag.ToString() == "" || CharacterSelect2.Tag.ToString() == "" || CharacterSelect3.Tag.ToString() == "")
             {
                 MessageBox.Show("Select 3 characters");
@@ -292,7 +292,6 @@ namespace ViewWpf
                 btWin.ShowDialog();
                 searchCheck = false;
             }
-
         }
 
         private void Exit(object sender, RoutedEventArgs e)
@@ -306,9 +305,6 @@ namespace ViewWpf
             {
                 this.Close();
             }
-            
-
-            
         }
 
         private void Grid_Visibility(int grid /*1 login, 2 regis*/)
@@ -335,7 +331,6 @@ namespace ViewWpf
                 WelcomeMessage.Visibility = Visibility.Hidden;
                 AccountOptions.Visibility = Visibility.Hidden;
             }
-
         }
 
         private void Grid_Visibility(object sender, RoutedEventArgs e)
@@ -396,8 +391,7 @@ namespace ViewWpf
             }
         }
 
-
-        private void Grid_MouseMove(object sender, MouseEventArgs e)
+        private void Refresh_Status(object sender, MouseEventArgs e)
         {
             if (searchCheck != true)
             {
@@ -408,19 +402,5 @@ namespace ViewWpf
                 }
             }
         }
-
-
-
-        //private void Character1_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    Character1.Height = 97;
-        //    Character1.Width = 97;
-        //}
-
-        //private void Character1_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    Character1.Height = 87;
-        //    Character1.Width = 87;
-        //}
     }
 }

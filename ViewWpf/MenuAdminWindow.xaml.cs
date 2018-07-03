@@ -32,7 +32,7 @@ namespace ViewWpf
            
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void No_Login(object sender, RoutedEventArgs e)
         {
             Form.StartButton.IsEnabled = true;
             Form.RandomButton.IsEnabled = true;
@@ -56,9 +56,7 @@ namespace ViewWpf
                 }
                 catch
                 {}
-
             }
-
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -71,7 +69,7 @@ namespace ViewWpf
             catch { item = "Account"; }
 
             Table_Refresh(item);
-
+            //save global
             selected = item;
 
             try
@@ -91,7 +89,6 @@ namespace ViewWpf
             }
             catch
             {}
-
         }
 
         private void Table_Refresh(string item)
@@ -101,15 +98,46 @@ namespace ViewWpf
             Grid1.ItemsSource = dataTable.DefaultView;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Change_Account(object sender, RoutedEventArgs e)
         {
-            tools.Change_Account(account, login.Text, pass.Text, victories.Text, loses.Text, type.Text);
+            bool aut = tools.Change_Account(account, login.Text, pass.Text, victories.Text, loses.Text, type.Text);
+
+            if (aut == true)
+            {
+                MessageBox.Show("Changed");
+            }
+            else if (aut == false)
+            {
+                MessageBox.Show("Error");
+            }
             Table_Refresh(selected);
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Delete_Account(object sender, RoutedEventArgs e)
         {
-            tools.Delete_Account(account);
+            bool aut = tools.Delete_Account(account);
+            if (aut == true)
+            {
+                MessageBox.Show("Deleted");
+            }
+            else if (aut == false)
+            {
+                MessageBox.Show("Error");
+            }
+            Table_Refresh(selected);
+        }
+
+        private void Register_Account(object sender, RoutedEventArgs e)
+        {
+            bool aut = tools.registerAccount(login.Text, pass.Text, victories.Text, loses.Text, type.Text);
+            if (aut == true)
+            {
+                MessageBox.Show("Created");
+            }
+            else if (aut == false)
+            {
+                MessageBox.Show("Error");
+            }
             Table_Refresh(selected);
         }
     }

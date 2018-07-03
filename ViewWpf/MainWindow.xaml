@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="493" Width="881" Cursor="Cursor/Normal_Select.cur"
+        Title="Launcher" Height="493" Width="881" Cursor="Cursor/Normal_Select.cur"
         KeyDown="Grid_KeyDown" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
-    <Grid Background="DarkGray" MouseMove="Grid_MouseMove">
+    <Grid Background="DarkGray" MouseMove="Refresh_Status">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="56*"/>
             <ColumnDefinition Width="69*"/>
         </Grid.ColumnDefinitions>
+
         <!--Characters-->
         <Grid x:Name="GridCharacters" Margin="10,243,0,0" Visibility="Visible" Height="179" VerticalAlignment="Top" HorizontalAlignment="Left" Width="547" Grid.ColumnSpan="2">
             <Image x:Name="Character1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
@@ -28,9 +29,7 @@
             <Image x:Name="Character10" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="276,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
             <Image x:Name="Character11" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="368,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
             <Image x:Name="Character12" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="460,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-
         </Grid>
-
 
         <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="111" Margin="169,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="291" Grid.Column="1"/>
         <Image x:Name="CharacterSelect1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="180,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
@@ -54,17 +53,18 @@
                 <Label x:Name="LoginLabel" Content="Login: " HorizontalAlignment="Left" Margin="57,0,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                 <Label x:Name="PassLabel" Content="Password: " HorizontalAlignment="Left" Margin="46,46,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             </Grid>
+            
+            <!--Others Login-->
+            <Image Source="Others/logoOld.png" HorizontalAlignment="Left" Height="100" Margin="11,13,0,0" VerticalAlignment="Top" Width="271" Grid.ColumnSpan="2"/>
+            <Image Source="Others/logoBlack.png" HorizontalAlignment="Left" Height="100" Margin="30,13,0,0" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2"/>
 
-            <Image Source="Others/logo.png" HorizontalAlignment="Left" Height="100" Margin="11,13,0,0" VerticalAlignment="Top" Width="271" Grid.ColumnSpan="2"/>
-
-
+            <!--Status-->
             <Label Content="W/L: " HorizontalAlignment="Left" Margin="1,162,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             <Label Content="Victories: " HorizontalAlignment="Left" Margin="0,187,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="66"/>
             <Label Content="Loses: " HorizontalAlignment="Left" Margin="1,211,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             <Label x:Name="wlValue" Content="0" HorizontalAlignment="Left" Margin="40,162,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="49" />
             <Label x:Name="victoriesValue" Content="0" HorizontalAlignment="Left" Margin="61,188,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="37"/>
             <Label x:Name="losesValue" Content="0" HorizontalAlignment="Left" Margin="42,212,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="47"/>
-
         </Grid>
 
         <!--Register-->
@@ -86,23 +86,21 @@
         <Label Content="Select your team" HorizontalAlignment="Left" Height="72" Margin="10,10,0,0" VerticalAlignment="Top" Width="292" FontWeight="Bold" FontSize="36"/>
         <Button x:Name="StartButton" Content="Battle" IsEnabled="False" HorizontalAlignment="Center" Margin="256,399,90,0" VerticalAlignment="Top" Width="137" Height="37" Click="Start_Battle" Grid.Column="1"/>
         <Label Content="Press F5 for menu admin" HorizontalAlignment="Left" Margin="10,432,0,0" VerticalAlignment="Top" Width="146" FontFamily="Segoe UI Black" FontSize="10" Foreground="#FF610909"/>
-
-        <Grid x:Name="AccountOptions" Margin="38,32,0,0" Visibility="Hidden" HorizontalAlignment="Left" Width="131" Height="211" VerticalAlignment="Top" Grid.Column="1">
-
-            <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="206" Stroke="Black" VerticalAlignment="Top" Width="126"/>
-            <Button x:Name="RandomButton" Content="Random" HorizontalAlignment="Left" Margin="27,35,0,0" VerticalAlignment="Top" Width="75" Click="Random_Characters"/>
-            <Button Content="Reset Status" HorizontalAlignment="Left" Margin="27,73,0,0" VerticalAlignment="Top" Width="75" Click="Reset_Account"/>
-            <Label Content="Account options" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="126" HorizontalContentAlignment="Center"/>
-            <Button Content="Delete account" HorizontalAlignment="Left" Margin="17,174,0,0" VerticalAlignment="Top" Width="98" Click="Delete_Account"/>
-            <Button Content="Change Pass" HorizontalAlignment="Left" Margin="27,110,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password_Show"/>
-
-        </Grid>
         <Button x:Name="Loggout" Content="Loggout" HorizontalAlignment="Left" Margin="169,7,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="Loggout_Account" Grid.Column="1" />
         <Label x:Name="NewPassLabel" Content="New Password: " HorizontalAlignment="Left" Margin="326,196,0,0" VerticalAlignment="Top" FontWeight="Bold" Visibility="Hidden" Grid.Column="1"/>
         <PasswordBox x:Name="NewPassText" HorizontalAlignment="Left" Margin="297,222,0,0" VerticalAlignment="Top" Width="155" Height="23" Visibility="Hidden" Grid.Column="1"/>
         <Button x:Name="NewPass" Content="Reset pass" HorizontalAlignment="Left" Margin="377,250,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password" Visibility="Hidden" Grid.Column="1"/>
         <Button x:Name="NewPassReturn" Content="Return" HorizontalAlignment="Left" Margin="297,250,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password_Close" Visibility="Hidden" Grid.Column="1"/>
 
+        <!--Account Options-->
+        <Grid x:Name="AccountOptions" Margin="38,32,0,0" Visibility="Hidden" HorizontalAlignment="Left" Width="131" Height="211" VerticalAlignment="Top" Grid.Column="1">
+            <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="206" Stroke="Black" VerticalAlignment="Top" Width="126"/>
+            <Button x:Name="RandomButton" Content="Random" HorizontalAlignment="Left" Margin="27,35,0,0" VerticalAlignment="Top" Width="75" Click="Random_Characters"/>
+            <Button Content="Reset Status" HorizontalAlignment="Left" Margin="27,73,0,0" VerticalAlignment="Top" Width="75" Click="Reset_Account"/>
+            <Label Content="Account options" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="126" HorizontalContentAlignment="Center"/>
+            <Button Content="Delete account" HorizontalAlignment="Left" Margin="17,174,0,0" VerticalAlignment="Top" Width="98" Click="Delete_Account"/>
+            <Button Content="Change Pass" HorizontalAlignment="Left" Margin="27,110,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password_Show"/>
+        </Grid>
 
     </Grid>
 </Window>

@@ -16,38 +16,24 @@ namespace Controllers.DAL
             conn = new SQLiteConnection("Data Source=|DataDirectory|NBDB.db;Version=3;");
         }
 
-        public void Change_Account(string account, string login, string pass, string victories, string loses, string type)
+        //===================== Account =====================
+
+        public bool Change_Account(string account, string login, string pass, string victories, string loses, string type)
         {
-            conn.Open();
-            string sql = "UPDATE Account SET Login = '"+login+ "', Password ='"+pass+ "', Victories ="+victories+ ", Loses ="+loses+ ", Type = '"+type+"' WHERE Login = '" + account+"'";
-            SQLiteCommand command = new SQLiteCommand(sql, conn);
-            command.ExecuteNonQuery();
-            conn.Close();
-
-        }
-
-        public DataTable Grid_DataTable(string type)
-        {
-            string sql = "";
-            conn.Open();
-            if (type == "Account")
-                sql = "SELECT Login, Password, Victories, Loses, Type FROM Account";
-            else if (type == "Skills")
-                sql = "SELECT Name, Skill, Type, Damage, Heal, Taijutsu, Bloodline, Ninjutsu, Genjutsu FROM Skills";
-            else if (type == "Character")
-                sql = "SELECT Name FROM Character";
-
-            SQLiteCommand command = new SQLiteCommand(sql, conn);
-            command.ExecuteNonQuery();
-
-            SQLiteDataAdapter data = new SQLiteDataAdapter(command);
-            DataTable dt = new DataTable("Account");
-            data.Fill(dt);
-
-            data.Update(dt);
-
-            conn.Close();
-            return dt;
+            try
+            {
+                conn.Open();
+                string sql = "UPDATE Account SET Login = '" + login + "', Password ='" + pass + "', Victories =" + victories + ", Loses =" + loses + ", Type = '" + type + "' WHERE Login = '" + account + "'";
+                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                command.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            catch
+            {
+                conn.Close();
+                return false;
+            }
         }
 
         public bool Reset_Pass_Account(string account, string password)
@@ -55,7 +41,7 @@ namespace Controllers.DAL
             try
             {
                 conn.Open();
-                string sql = "UPDATE Account SET Password='"+ password +"' WHERE Login='" + account + "'";
+                string sql = "UPDATE Account SET Password='" + password + "' WHERE Login='" + account + "'";
                 SQLiteCommand command = new SQLiteCommand(sql, conn);
                 command.ExecuteNonQuery();
 
@@ -92,13 +78,16 @@ namespace Controllers.DAL
         {
             try
             {
-                conn.Open();
-                string sql = "UPDATE Account SET Victories=0,Loses=0 WHERE Login='" + account + "'";
-                SQLiteCommand command = new SQLiteCommand(sql, conn);
-                command.ExecuteNonQuery();
+                using (SQLiteConnection conn2 = new SQLiteConnection("Data Source=|DataDirectory|NBDB.db;Version=3;"))
+                {
+                    conn2.Open();
+                    string sql = "UPDATE Account SET Victories=0,Loses=0 WHERE Login='" + account + "'";
+                    SQLiteCommand command = new SQLiteCommand(sql, conn2);
+                    command.ExecuteNonQuery();
 
-                conn.Close();
-                return true;
+                    conn2.Close();
+                    return true;
+                }
             }
             catch
             {
@@ -129,25 +118,7 @@ namespace Controllers.DAL
             {
                 conn.Close();
             }
-            
-
             return null;
-        }
-
-
-        public void WL(string account, string result)
-        {
-            string sql = "";
-            conn.Open();
-
-            if (result == "Winner")
-                sql = "UPDATE Account SET Victories = (Victories + 1) WHERE Login = '" + account + "'";
-            else if (result == "Loser")
-                sql = "UPDATE Account SET Loses =(Loses + 1) WHERE Login ='" + account + "'";
-
-            SQLiteCommand command = new SQLiteCommand(sql, conn);
-            command.ExecuteNonQuery();
-            conn.Close();
         }
 
         public bool registerAccount(string name, string pass)
@@ -169,43 +140,37 @@ namespace Controllers.DAL
             return false;
         }
 
-        public bool loginAuthentication(string login, string pass)
+        public bool registerAccount(string login, string pass, string victories, string loses, string type)
         {
-            try
-            {            
-                conn.Open();
-                string sql = "SELECT Login, Password FROM Account WHERE Login = '"+ login +"' AND Password = '"+ pass+"'";
-                SQLiteCommand command = new SQLiteCommand(sql, conn);
-                SQLiteDataReader reader = command.ExecuteReader();
-                reader.Read();
-            
-                if (login == reader["Login"].ToString() && pass == reader["Password"].ToString())
-                {
-                    conn.Close();
-                    return true;
-                }
-
-            }
-            catch
+            conn.Open();
+            string sqlSelect = "SELECT Login FROM Account WHERE Login = '" + login + "'";
+            SQLiteCommand commandSelect = new SQLiteCommand(sqlSelect, conn);
+            int rows = commandSelect.ExecuteNonQuery();
+            if (rows < 1)
             {
+                string sql = "INSERT INTO Account (Login, Password, Victories, Loses, Type) VALUES ('" + login + "', '" + pass + "', " + victories + "," + loses + ", " + type + "'')";
+                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                command.ExecuteNonQuery();
                 conn.Close();
-                //return false
+                return true;
             }
 
             conn.Close();
             return false;
         }
 
+        //===================== Others =====================
+
         public string Skill_Type(string char_select, int skill_select)
         {
+
             conn.Open();
-            string sql = "SELECT Type FROM Skills WHERE Name = '" +char_select+ "' AND Skill = "+skill_select;
+            string sql = "SELECT Type FROM Skills WHERE Name = '" + char_select + "' AND Skill = " + skill_select;
             SQLiteCommand command = new SQLiteCommand(sql, conn);
             SQLiteDataReader reader = command.ExecuteReader();
             reader.Read();
 
             string type = reader["Type"].ToString();
-
             conn.Close();
 
             return type;
@@ -229,7 +194,6 @@ namespace Controllers.DAL
                         chakras.Add(rdr["Bloodline"].ToString());
                         chakras.Add(rdr["Ninjutsu"].ToString());
                         chakras.Add(rdr["Genjutsu"].ToString());
-
                     }
                 }
 
@@ -246,8 +210,119 @@ namespace Controllers.DAL
 
                 return chakras;
             }
-          
+        }
 
+        public string damage_skill(string skill, string name)
+        {
+            conn.Open();
+            string sql = "SELECT Damage FROM Skills WHERE Name = '" + name + "' AND Skill = '" + skill + "'";
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            SQLiteDataReader reader = command.ExecuteReader();
+            reader.Read();
+
+            try
+            {
+                string damage = reader["Damage"].ToString();
+                conn.Close();
+
+                if (damage == "")
+                    damage = "0";
+                return damage;
+            }
+            catch
+            {
+                conn.Close();
+                return "0";
+            }
+
+        }
+
+        public string heal_skill(string skill, string name)
+        {
+            conn.Open();
+            string sql = "SELECT Heal FROM Skills WHERE Name = '" + name + "' AND Skill = '" + skill + "'";
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            SQLiteDataReader reader = command.ExecuteReader();
+            reader.Read();
+
+            try
+            {
+                string heal = reader["Heal"].ToString();
+                conn.Close();
+                if (heal == "")
+                    heal = "0";
+                return heal;
+            }
+            catch
+            {
+                conn.Close();
+                return "0";
+            }
+        }
+
+        //===================== Others =====================
+
+        public DataTable Grid_DataTable(string type)
+        {
+            string sql = "";
+            conn.Open();
+            if (type == "Account")
+                sql = "SELECT Login, Password, Victories, Loses, Type FROM Account";
+            else if (type == "Skills")
+                sql = "SELECT Name, Skill, Type, Damage, Heal, Taijutsu, Bloodline, Ninjutsu, Genjutsu FROM Skills";
+            else if (type == "Character")
+                sql = "SELECT Name FROM Character";
+
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            command.ExecuteNonQuery();
+
+            SQLiteDataAdapter data = new SQLiteDataAdapter(command);
+            DataTable dt = new DataTable("Account");
+            data.Fill(dt);
+            data.Update(dt);
+
+            conn.Close();
+            return dt;
+        }
+  
+        public void WL(string account, string result)
+        {
+            string sql = "";
+            conn.Open();
+
+            if (result == "Winner")
+                sql = "UPDATE Account SET Victories = (Victories + 1) WHERE Login = '" + account + "'";
+            else if (result == "Loser")
+                sql = "UPDATE Account SET Loses =(Loses + 1) WHERE Login ='" + account + "'";
+
+            SQLiteCommand command = new SQLiteCommand(sql, conn);
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public bool loginAuthentication(string login, string pass)
+        {
+            try
+            {            
+                conn.Open();
+                string sql = "SELECT Login, Password FROM Account WHERE Login = '"+ login +"' AND Password = '"+ pass+"'";
+                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                SQLiteDataReader reader = command.ExecuteReader();
+                reader.Read();
+            
+                if (login == reader["Login"].ToString() && pass == reader["Password"].ToString())
+                {
+                    conn.Close();
+                    return true;
+                }
+            }
+            catch
+            {
+                conn.Close();
+            }
+
+            conn.Close();
+            return false;
         }
 
         public List<string> return_Characters()
@@ -269,61 +344,6 @@ namespace Controllers.DAL
             conn.Close();
             return chars;
         }
-
-        public string damage_skill(string skill, string name)
-        {
-            
-            //int skillnumber = int.Parse(skill);
-            //skill = "Skill" + skill;
-
-            conn.Open();
-            string sql = "SELECT Damage FROM Skills WHERE Name = '" + name + "' AND Skill = '"+skill+"'";
-            SQLiteCommand command = new SQLiteCommand(sql, conn);
-            SQLiteDataReader reader = command.ExecuteReader();
-            reader.Read();
-
-            try
-            {
-                string damage = reader["Damage"].ToString();
-                conn.Close();
-
-                if (damage == "")
-                    damage = "0";
-                return damage;
-            }
-            catch
-            {
-                conn.Close();
-                return "0"; 
-            }
-
-        }
-
-        public string heal_skill(string skill, string name)
-        {
-
-            conn.Open();
-            string sql = "SELECT Heal FROM Skills WHERE Name = '" + name + "' AND Skill = '" + skill + "'";
-            SQLiteCommand command = new SQLiteCommand(sql, conn);
-            SQLiteDataReader reader = command.ExecuteReader();
-            reader.Read();
-
-            try
-            {
-                string heal = reader["Heal"].ToString();
-                conn.Close();
-                if (heal == "")
-                    heal = "0";
-                return heal;
-            }
-            catch
-            {
-                conn.Close();
-                return "0";
-            }
-
-        }
-
 
     }
 }
