@@ -101,6 +101,17 @@
             <Button Content="Delete account" HorizontalAlignment="Left" Margin="17,174,0,0" VerticalAlignment="Top" Width="98" Click="Delete_Account"/>
             <Button Content="Change Pass" HorizontalAlignment="Left" Margin="27,110,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password_Show"/>
         </Grid>
+        <Image x:Name="Next" HorizontalAlignment="Left" Height="33" Margin="318,202,0,0" VerticalAlignment="Top" Width="40" Source="Interface/NextOriginal.png" MouseLeftButtonDown="Next_List" Stretch="Fill"/>
+        <Image x:Name="Back" HorizontalAlignment="Left" Height="33" Margin="273,202,0,0" VerticalAlignment="Top" Width="40" Source="Interface/NextOriginal.png" MouseLeftButtonDown="Back_List" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
 
     </Grid>
 </Window>

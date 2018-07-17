@@ -24,6 +24,7 @@ namespace ViewWpf
     {
         Tools tools = new Tools();
         List<string> CharacterList = new List<string>();
+        List<string> CharacterListRandom = new List<string>();
         private string Char1 = "";
         private string Char2 = "";
         private string Char3 = "";
@@ -32,12 +33,15 @@ namespace ViewWpf
         public bool loginCheck { get; set; }
         private string account = "";
         private bool searchCheck = false;
+        private int page = 1;
         MenuAdminWindow menuAdmin;
 
         public MainWindow()
         {
             InitializeComponent();
             CharacterList = tools.return_Characters();
+            CharacterListRandom = tools.return_Characters();
+            Character_Load_Page();
         }
 
         //=====================Character====================
@@ -77,17 +81,17 @@ namespace ViewWpf
 
         private void Character_Load(object sender, RoutedEventArgs e)
         {
-            Image Character = (Image)sender;
-            if (CharacterList.Count > charLoad)
-            {
-                Character.Source = new BitmapImage(new Uri("Characters/" + CharacterList[charLoad] + "/" + CharacterList[charLoad] + "_default.png", UriKind.Relative));
-                Character.Tag = CharacterList[charLoad];
-                charLoad += 1;
-            }
-            else
-            {
-                Character.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
-            }
+            //Image Character = (Image)sender;
+            //if (CharacterList.Count > charLoad)
+            //{
+            //    Character.Source = new BitmapImage(new Uri("Characters/" + CharacterList[charLoad] + "/" + CharacterList[charLoad] + "_default.png", UriKind.Relative));
+            //    Character.Tag = CharacterList[charLoad];
+            //    charLoad += 1;
+            //}
+            //else
+            //{
+            //    Character.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
+            //}
         }
 
         //===================== Account ====================
@@ -367,7 +371,7 @@ namespace ViewWpf
 
         private void Random_Characters(object sender, RoutedEventArgs e)
         {
-            int charNumber = CharacterList.Count();
+            int charNumber = CharacterListRandom.Count();
             Random random = new Random();
             int randomNum1;
             int randomNum2;
@@ -381,14 +385,14 @@ namespace ViewWpf
 
             } while (randomNum1 == randomNum2 || randomNum1 == randomNum3 || randomNum2 == randomNum3);
 
-            CharacterSelect1.Source = new BitmapImage(new Uri("Characters/" + CharacterList[randomNum1] + "/" + CharacterList[randomNum1] + "_default.png", UriKind.Relative));
-            CharacterSelect1.Tag = CharacterList[randomNum1];
+            CharacterSelect1.Source = new BitmapImage(new Uri("Characters/" + CharacterListRandom[randomNum1] + "/" + CharacterListRandom[randomNum1] + "_default.png", UriKind.Relative));
+            CharacterSelect1.Tag = CharacterListRandom[randomNum1];
 
-            CharacterSelect2.Source = new BitmapImage(new Uri("Characters/" + CharacterList[randomNum2] + "/" + CharacterList[randomNum2] + "_default.png", UriKind.Relative));
-            CharacterSelect2.Tag = CharacterList[randomNum2];
+            CharacterSelect2.Source = new BitmapImage(new Uri("Characters/" + CharacterListRandom[randomNum2] + "/" + CharacterListRandom[randomNum2] + "_default.png", UriKind.Relative));
+            CharacterSelect2.Tag = CharacterListRandom[randomNum2];
 
-            CharacterSelect3.Source = new BitmapImage(new Uri("Characters/" + CharacterList[randomNum3] + "/" + CharacterList[randomNum3] + "_default.png", UriKind.Relative));
-            CharacterSelect3.Tag = CharacterList[randomNum3];
+            CharacterSelect3.Source = new BitmapImage(new Uri("Characters/" + CharacterListRandom[randomNum3] + "/" + CharacterListRandom[randomNum3] + "_default.png", UriKind.Relative));
+            CharacterSelect3.Tag = CharacterListRandom[randomNum3];
         }
 
         private void Grid_KeyDown(object sender, KeyEventArgs e)
@@ -410,6 +414,57 @@ namespace ViewWpf
                     searchCheck = true;
                 }
             }
+        }
+
+
+        private void Character_Load_Page()
+        {
+            var images = GridCharacters.Children.OfType<Image>();
+            foreach (Image element in images)
+            {
+                if (CharacterList.Count > charLoad)
+                {
+                    element.Source = new BitmapImage(new Uri("Characters/" + CharacterList[charLoad] + "/" + CharacterList[charLoad] + "_default.png", UriKind.Relative));
+                    element.Tag = CharacterList[charLoad];
+                    charLoad += 1;
+                }
+                else
+                {
+                    element.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
+                }
+                
+            }
+        }
+
+
+        private void Next_List(object sender, MouseButtonEventArgs e)
+        {
+            if (CharacterList.Count > 12)
+            {
+                CharacterList.RemoveRange(0, 12);
+                charLoad = 0;
+                Character_Load_Page();
+                page += 1;
+                if (CharacterList.Count < 12)
+                {
+                    Next.Visibility = Visibility.Hidden;
+                }
+            }
+
+            //foreach (string element in CharacterList)
+            //    MessageBox.Show(element);
+        }
+
+        private void Back_List(object sender, MouseButtonEventArgs e)
+        {
+            if (Next.Visibility == Visibility.Hidden)
+            {
+                Next.Visibility = Visibility.Visible;
+            }
+            CharacterList = tools.return_Characters();
+            charLoad = 0;
+            Character_Load_Page();
+            page -= 1;
         }
     }
 }
