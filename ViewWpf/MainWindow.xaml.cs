@@ -100,7 +100,11 @@ namespace ViewWpf
 
             if (pass == passCon)
             {
-                if (tools.registerAccount(name, pass) == true)
+                if (name.Substring(0, 1) == " " || pass.Substring(0, 1) == " " || passCon.Substring(0, 1) == " ")
+                {
+                    MessageBox.Show("Invalid Name or Password");
+                }
+                else if (tools.registerAccount(name, pass) == true)
                 {
                     MessageBox.Show("Account created");
                     Grid_Visibility(1);
@@ -183,6 +187,11 @@ namespace ViewWpf
                 StartButton.IsEnabled = false;
                 Loggout.Visibility = Visibility.Hidden;
                 Grid_Visibility(4);
+
+                NewPass.Visibility = Visibility.Hidden;
+                NewPassText.Visibility = Visibility.Hidden;
+                NewPassLabel.Visibility = Visibility.Hidden;
+                NewPassReturn.Visibility = Visibility.Hidden;
             }
         }
 

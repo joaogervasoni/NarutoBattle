@@ -31,13 +31,13 @@
             <Image x:Name="Character12" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="460,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
         </Grid>
 
-        <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="111" Margin="169,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="291" Grid.Column="1"/>
-        <Image x:Name="CharacterSelect1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="180,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
-        <Image x:Name="CharacterSelect2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="272,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
-        <Image x:Name="CharacterSelect3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="364,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
+        <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="111" Margin="178,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="291" Grid.Column="1"/>
+        <Image x:Name="CharacterSelect1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="189,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
+        <Image x:Name="CharacterSelect2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="281,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
+        <Image x:Name="CharacterSelect3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="373,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
 
         <!--Login-->
-        <Grid x:Name="GridLogin" Margin="169,32,0,0" Visibility="Visible" HorizontalAlignment="Left" Width="292" Height="245" VerticalAlignment="Top" Grid.Column="1">
+        <Grid x:Name="GridLogin" Margin="177,32,0,0" Visibility="Visible" HorizontalAlignment="Left" Width="292" Height="245" VerticalAlignment="Top" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="255*"/>
                 <ColumnDefinition Width="37*"/>
@@ -53,7 +53,7 @@
                 <Label x:Name="LoginLabel" Content="Login: " HorizontalAlignment="Left" Margin="57,0,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                 <Label x:Name="PassLabel" Content="Password: " HorizontalAlignment="Left" Margin="46,46,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
             </Grid>
-            
+
             <!--Others Login-->
             <Image Source="Others/logoOld.png" HorizontalAlignment="Left" Height="100" Margin="11,13,0,0" VerticalAlignment="Top" Width="271" Grid.ColumnSpan="2"/>
             <Image Source="Others/logoBlack.png" HorizontalAlignment="Left" Height="100" Margin="30,13,0,0" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2"/>
@@ -82,9 +82,9 @@
 
         <!--Others-->
         <Label x:Name="WelcomeMessage" Visibility="Hidden" Content="Welcome again  &#xD;&#xA;&#x9;hero !!" HorizontalAlignment="Left" Margin="272,189,0,0" VerticalAlignment="Top" Height="53" Width="165" FontFamily="Verdana Pro SemiBold" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFAA0909" Background="{x:Null}" Grid.Column="1" />
-        <Button Content="Exit" HorizontalAlignment="Left" Margin="386,7,0,0" VerticalAlignment="Top" Width="75" Click="Exit" Grid.Column="1"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="394,7,0,0" VerticalAlignment="Top" Width="75" Click="Exit" Grid.Column="1"/>
         <Label Content="Select your team" HorizontalAlignment="Left" Height="72" Margin="10,10,0,0" VerticalAlignment="Top" Width="292" FontWeight="Bold" FontSize="36"/>
-        <Button x:Name="StartButton" Content="Battle" IsEnabled="False" HorizontalAlignment="Center" Margin="256,399,90,0" VerticalAlignment="Top" Width="137" Height="37" Click="Start_Battle" Grid.Column="1"/>
+        <Button x:Name="StartButton" Content="Battle" IsEnabled="False" HorizontalAlignment="Center" Margin="257,399,89,0" VerticalAlignment="Top" Width="137" Height="37" Click="Start_Battle" Grid.Column="1"/>
         <Label Content="Press F5 for menu admin" HorizontalAlignment="Left" Margin="10,432,0,0" VerticalAlignment="Top" Width="146" FontFamily="Segoe UI Black" FontSize="10" Foreground="#FF610909"/>
         <Button x:Name="Loggout" Content="Loggout" HorizontalAlignment="Left" Margin="169,7,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="Loggout_Account" Grid.Column="1" />
         <Label x:Name="NewPassLabel" Content="New Password: " HorizontalAlignment="Left" Margin="326,196,0,0" VerticalAlignment="Top" FontWeight="Bold" Visibility="Hidden" Grid.Column="1"/>
