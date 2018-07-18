@@ -1,6 +1,7 @@
 ﻿using Controllers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,6 @@ namespace ViewWpf
     /// </summary>
     public partial class BattleWindow : Window
     {
-        
         int skill_select;
         string skillNumber = "";
         string attack_char = "0";
@@ -170,22 +170,31 @@ namespace ViewWpf
             Skills = bat.Skills(skill_second, char_select);
             bool haveChakra = bat.Have_Chakra(Skills);
 
-            if (haveChakra == true)
+            if(attack_char == "" || attack_char == "0" || attack_char == null)
             {
+                if (haveChakra == true)
+                {
+                    //retira o chakra
+                    bat.Withdraw_Chakra(Skills);
 
-                //retira o chakra
-                bat.Withdraw_Chakra(Skills);
+                    //Change chakras content
+                    Load_Chakras();
 
-                //Change chakras content
-                Load_Chakras();
+                    //pass character to attack char
+                    attack_char = bat.Attack_Char(char_select);
+
+                    //search skill type
+                    type_skill = bat.Skill_Type(char_select, skill_select);
 
 
-                //pass character to attack char
-                attack_char = bat.Attack_Char(char_select);
+                    var info = Application.GetResourceStream(new Uri("Cursor/Skill_Select.ani", UriKind.Relative));
+                    var cursor = new Cursor(info.Stream);
 
-                //search skill type
-                type_skill = bat.Skill_Type(char_select, skill_select);
+                    principal.Cursor = cursor;                       
+
+                }
             }
+           
    
         }
 
@@ -369,6 +378,10 @@ namespace ViewWpf
                 }
 
                 attack_char = "";
+                var info = Application.GetResourceStream(new Uri("Cursor/Normal_Select.cur", UriKind.Relative));
+                var cursor = new Cursor(info.Stream);
+
+                principal.Cursor = cursor;
             }
         }
 
@@ -414,6 +427,10 @@ namespace ViewWpf
                 }
 
                 attack_char = "";
+                var info = Application.GetResourceStream(new Uri("Cursor/Normal_Select.cur", UriKind.Relative));
+                var cursor = new Cursor(info.Stream);
+
+                principal.Cursor = cursor;
             }
         }
 

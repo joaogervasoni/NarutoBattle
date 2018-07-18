@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewWpf"
         mc:Ignorable="d"
-        Title="Launcher" Height="493" Width="881" Cursor="Cursor/Normal_Select.cur"
+        Title="Launcher" Height="493" Width="913" Cursor="Cursor/Normal_Select.cur"
         KeyDown="Grid_KeyDown" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Grid Background="DarkGray" MouseMove="Refresh_Status">
@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Characters-->
-        <Grid x:Name="GridCharacters" Margin="10,243,0,0" Visibility="Visible" Height="179" VerticalAlignment="Top" HorizontalAlignment="Left" Width="547" Grid.ColumnSpan="2">
+        <Grid x:Name="GridCharacters" Margin="24,243,0,0" Visibility="Visible" Height="179" VerticalAlignment="Top" HorizontalAlignment="Left" Width="547" Grid.ColumnSpan="2">
             <Image x:Name="Character1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
             <Image x:Name="Character2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="92,0,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
             <Image x:Name="Character3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="184,0,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
@@ -31,13 +31,13 @@
             <Image x:Name="Character12" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="460,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
         </Grid>
 
-        <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="111" Margin="178,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="291" Grid.Column="1"/>
-        <Image x:Name="CharacterSelect1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="189,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
-        <Image x:Name="CharacterSelect2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="281,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
-        <Image x:Name="CharacterSelect3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="373,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
+        <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="111" Margin="193,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="291" Grid.Column="1"/>
+        <Image x:Name="CharacterSelect1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="204,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
+        <Image x:Name="CharacterSelect2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="296,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
+        <Image x:Name="CharacterSelect3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="388,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
 
         <!--Login-->
-        <Grid x:Name="GridLogin" Margin="177,32,0,0" Visibility="Visible" HorizontalAlignment="Left" Width="292" Height="245" VerticalAlignment="Top" Grid.Column="1">
+        <Grid x:Name="GridLogin" Margin="192,32,0,0" Visibility="Visible" HorizontalAlignment="Left" Width="292" Height="245" VerticalAlignment="Top" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="255*"/>
                 <ColumnDefinition Width="37*"/>
@@ -82,11 +82,11 @@
 
         <!--Others-->
         <Label x:Name="WelcomeMessage" Visibility="Hidden" Content="Welcome again  &#xD;&#xA;&#x9;hero !!" HorizontalAlignment="Left" Margin="272,189,0,0" VerticalAlignment="Top" Height="53" Width="165" FontFamily="Verdana Pro SemiBold" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFAA0909" Background="{x:Null}" Grid.Column="1" />
-        <Button Content="Exit" HorizontalAlignment="Left" Margin="394,7,0,0" VerticalAlignment="Top" Width="75" Click="Exit" Grid.Column="1"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="409,7,0,0" VerticalAlignment="Top" Width="75" Click="Exit" Grid.Column="1"/>
         <Label Content="Select your team" HorizontalAlignment="Left" Height="72" Margin="10,10,0,0" VerticalAlignment="Top" Width="292" FontWeight="Bold" FontSize="36"/>
-        <Button x:Name="StartButton" Content="Battle" IsEnabled="False" HorizontalAlignment="Center" Margin="257,399,89,0" VerticalAlignment="Top" Width="137" Height="37" Click="Start_Battle" Grid.Column="1"/>
-        <Label Content="Press F5 for menu admin" HorizontalAlignment="Left" Margin="10,432,0,0" VerticalAlignment="Top" Width="146" FontFamily="Segoe UI Black" FontSize="10" Foreground="#FF610909"/>
-        <Button x:Name="Loggout" Content="Loggout" HorizontalAlignment="Left" Margin="169,7,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="Loggout_Account" Grid.Column="1" />
+        <Button x:Name="StartButton" Content="Battle" IsEnabled="False" HorizontalAlignment="Center" Margin="280,399,83,0" VerticalAlignment="Top" Width="138" Height="37" Click="Start_Battle" Grid.Column="1"/>
+        <Label Content="Press F5 for menu admin" HorizontalAlignment="Left" Margin="24,432,0,0" VerticalAlignment="Top" Width="146" FontFamily="Segoe UI Black" FontSize="10" Foreground="#FF610909"/>
+        <Button x:Name="Loggout" Content="Loggout" HorizontalAlignment="Left" Margin="192,7,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="Loggout_Account" Grid.Column="1" />
         <Label x:Name="NewPassLabel" Content="New Password: " HorizontalAlignment="Left" Margin="326,196,0,0" VerticalAlignment="Top" FontWeight="Bold" Visibility="Hidden" Grid.Column="1"/>
         <PasswordBox x:Name="NewPassText" HorizontalAlignment="Left" Margin="297,222,0,0" VerticalAlignment="Top" Width="155" Height="23" Visibility="Hidden" Grid.Column="1"/>
         <Button x:Name="NewPass" Content="Reset pass" HorizontalAlignment="Left" Margin="377,250,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password" Visibility="Hidden" Grid.Column="1"/>
@@ -101,16 +101,73 @@
             <Button Content="Delete account" HorizontalAlignment="Left" Margin="17,174,0,0" VerticalAlignment="Top" Width="98" Click="Delete_Account"/>
             <Button Content="Change Pass" HorizontalAlignment="Left" Margin="27,110,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password_Show"/>
         </Grid>
-        <Image x:Name="Next" HorizontalAlignment="Left" Height="33" Margin="318,202,0,0" VerticalAlignment="Top" Width="40" Source="Interface/NextOriginal.png" MouseLeftButtonDown="Next_List" Stretch="Fill"/>
-        <Image x:Name="Back" HorizontalAlignment="Left" Height="33" Margin="273,202,0,0" VerticalAlignment="Top" Width="40" Source="Interface/NextOriginal.png" MouseLeftButtonDown="Back_List" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+        <Image x:Name="Next" HorizontalAlignment="Left" Height="33" Margin="145,314,0,0" VerticalAlignment="Top" Width="40" Source="Interface/NextOriginal.png" MouseLeftButtonDown="Next_List" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+            <Image.RenderTransform>
+
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="NextScale"/>
+
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+
+            </Image.RenderTransform>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX"
+                                          Storyboard.TargetName="NextScale" To="1.3"
+                                          Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY"
+                                          Storyboard.TargetName="NextScale" To="1.3"          
+                                          Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX"
+                                          Storyboard.TargetName="NextScale" To="1" 
+                                          Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY"
+                                          Storyboard.TargetName="NextScale" To="1" 
+                                          Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+        <Image x:Name="Back" HorizontalAlignment="Left" Height="33" Margin="4,315,0,0" VerticalAlignment="Top" Width="40" Source="Interface/NextOriginal.png" MouseLeftButtonDown="Back_List" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="BackScale" />
                     <ScaleTransform ScaleX="-1"/>
                     <SkewTransform/>
                     <RotateTransform/>
                     <TranslateTransform/>
                 </TransformGroup>
             </Image.RenderTransform>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="BackScale" To="1.3" Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="BackScale" To="1.3" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="BackScale" To="1" Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="BackScale" To="1" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
         </Image>
 
     </Grid>

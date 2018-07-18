@@ -52,7 +52,8 @@ namespace ViewWpf
             {
                 MessageBox.Show("Login to select a character");
             }
-            if (e.ClickCount == 2 && loginCheck == true)
+            //if (e.ClickCount == 2 && loginCheck == true)
+            if (loginCheck == true)
             {
                 //MessageBox.Show("Double");
                 Image image = (Image)sender;

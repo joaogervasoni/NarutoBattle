@@ -79,8 +79,56 @@
         <MediaElement x:Name="MusicPlayer" Source="Sounds/OST1.mp3" HorizontalAlignment="Left" Height="39" Margin="136,451,0,0" VerticalAlignment="Top" Width="54" LoadedBehavior="Play" Volume="0.5" Position="0:0:1" />
         <Image Source="Interface/ScrollMedium.png" HorizontalAlignment="Left" Height="65" Margin="40,491,0,0" VerticalAlignment="Top" Width="150" Stretch="Fill"/>
         <Label x:Name="Volume" Content="50" HorizontalAlignment="Center" Margin="102,515,157.392,0" VerticalAlignment="Top" Height="25" Width="45" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Global Sans Serif" FontSize="14" Background="{x:Null}"/>
-        <Label x:Name="VolMore" Content="+" HorizontalAlignment="Left" Margin="70,511,0,0" VerticalAlignment="Top" Height="25" Width="26" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Global Sans Serif" FontSize="20" Background="{x:Null}" MouseLeftButtonDown="VolMore_MouseLeftButtonDown"/>
-        <Label x:Name="VolLess" Content="-" HorizontalAlignment="Center" Margin="147,510,129.392,0" VerticalAlignment="Top" Height="25" Width="28" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Global Sans Serif" FontSize="20" Background="{x:Null}" MouseLeftButtonDown="VolLess_MouseLeftButtonDown"/>
+        <Label x:Name="VolMore" Content="+" HorizontalAlignment="Left" Margin="70,508,0,0" VerticalAlignment="Top" Height="31" Width="32" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Global Sans Serif" FontSize="20" Background="{x:Null}" MouseLeftButtonDown="VolMore_MouseLeftButtonDown" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="VolMoreScale" />
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="VolMoreScale" To="1.3" Duration="0:0:0.3" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="VolMoreScale" To="1.3" Duration="0:0:0.3" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="VolMoreScale" To="1" Duration="0:0:0.3" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="VolMoreScale" To="1" Duration="0:0:0.3" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Label.Triggers>
+        </Label>
+        <Label x:Name="VolLess" Content="-" HorizontalAlignment="Center" Margin="147,508,124,0" VerticalAlignment="Top" Height="30" Width="33" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Global Sans Serif" FontSize="20" Background="{x:Null}" MouseLeftButtonDown="VolLess_MouseLeftButtonDown" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="VolLessScale" />
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="VolLessScale" To="1.3" Duration="0:0:0.3" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="VolLessScale" To="1.3" Duration="0:0:0.3" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="VolLessScale" To="1" Duration="0:0:0.3" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="VolLessScale" To="1" Duration="0:0:0.3" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Label.Triggers>
+        </Label>
         <Label Content="Volume" HorizontalAlignment="Center" Margin="73,502,129.392,0" VerticalAlignment="Top" Height="21" Width="102" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Global Sans Serif" Background="{x:Null}"/>
         <Image Source="Interface/ScrollExtended.png" HorizontalAlignment="Left" Height="162" Margin="259,455,0,0" VerticalAlignment="Top" Width="646" Stretch="Fill" Grid.ColumnSpan="2"/>
 
@@ -110,16 +158,62 @@
                 <ImageBrush ImageSource="Interface/ScrollExtended2.png"/>
             </Label.Background>
         </Label>
-        <Label x:Name="Pass" Content="Pass Turn" HorizontalAlignment="Right" Margin="0,10,103.392,0" VerticalAlignment="Top" Height="37" Width="201" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Verdana Pro Black" FontSize="20" MouseLeftButtonDown="Pass_MouseLeftButtonDown" BorderThickness="1">
+        <Label x:Name="Pass" Content="Pass Turn" HorizontalAlignment="Right" Margin="0,10,103.392,0" VerticalAlignment="Top" Height="37" Width="201" HorizontalContentAlignment="Center" FontWeight="Bold" FontFamily="Verdana Pro Black" FontSize="20" MouseLeftButtonDown="Pass_MouseLeftButtonDown" RenderTransformOrigin="0.5,0.5">
             <Label.Background>
                 <ImageBrush ImageSource="Interface/ScrollExtended2.png"/>
             </Label.Background>
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="PassScale" />
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="PassScale" To="1.1" Duration="0:0:0.5" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="PassScale" To="1.1" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="PassScale" To="1" Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="PassScale" To="1" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Label.Triggers>
         </Label>
         <Label x:Name="Turn" Content="0" FontWeight="Bold" FontSize="20" Margin="547.608,6,0,0" BorderThickness="1" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Width="52" Background="{x:Null}" Grid.Column="1"/>
-        <Label x:Name="Quit" Content="Surrender" HorizontalAlignment="Left" Margin="10,553,0,0" VerticalAlignment="Top" Height="65" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" MouseLeftButtonDown="Surrender" FontFamily="Global Sans Serif" FontWeight="Bold">
+        <Label x:Name="Quit" Content="Surrender" HorizontalAlignment="Left" Margin="10,553,0,0" VerticalAlignment="Top" Height="65" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" MouseLeftButtonDown="Surrender" FontFamily="Global Sans Serif" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
             <Label.Background>
                 <ImageBrush ImageSource="Interface/ScrollMedium.png"/>
             </Label.Background>
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="QuitScale" />
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="QuitScale" To="1.1" Duration="0:0:0.5" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="QuitScale" To="1.1" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="QuitScale" To="1" Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="QuitScale" To="1" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Label.Triggers>
         </Label>
         <Image Source="Interface/sasuke.png" HorizontalAlignment="Left" Height="175" Margin="165,451,0,0" VerticalAlignment="Top" Width="171" Stretch="UniformToFill" Grid.ColumnSpan="2"/>
 
