@@ -325,12 +325,12 @@ namespace ViewWpf
         {
             if (grid == 1)
             {
-                GridLogin.Visibility = Visibility.Visible;
+                SubGridLogin.Visibility = Visibility.Visible;
                 GridRegis.Visibility = Visibility.Hidden;
             }
             if (grid == 2)
             {
-                GridLogin.Visibility = Visibility.Hidden;
+                SubGridLogin.Visibility = Visibility.Hidden;
                 GridRegis.Visibility = Visibility.Visible;
             }
             if (grid == 3)
@@ -349,7 +349,8 @@ namespace ViewWpf
 
         private void Grid_Visibility(object sender, RoutedEventArgs e)
         {
-            Button btn = (Button)sender;
+            //Button btn = (Button)sender;
+            Label btn = (Label)sender;
             string btnContent = btn.Name;
 
             if (btnContent == "Return")

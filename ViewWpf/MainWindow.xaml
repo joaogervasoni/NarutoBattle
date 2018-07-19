@@ -5,142 +5,170 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewWpf"
         mc:Ignorable="d"
-        Title="Launcher" Height="493" Width="913" Cursor="Cursor/Normal_Select.cur"
+        Title="Launcher" Height="544" Width="992" Cursor="Cursor/Normal_Select.cur"
         KeyDown="Grid_KeyDown" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
-    <Grid Background="DarkGray" MouseMove="Refresh_Status">
+    <Grid MouseMove="Refresh_Status">
+        <Grid.Background>
+            <ImageBrush ImageSource="Interface/backgroundMain2.jpg"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="56*"/>
-            <ColumnDefinition Width="69*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!--Characters-->
-        <Grid x:Name="GridCharacters" Margin="24,243,0,0" Visibility="Visible" Height="179" VerticalAlignment="Top" HorizontalAlignment="Left" Width="547" Grid.ColumnSpan="2">
-            <Image x:Name="Character1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-            <Image x:Name="Character2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="92,0,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-            <Image x:Name="Character3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="184,0,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-            <Image x:Name="Character4" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="276,0,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-            <Image x:Name="Character5" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="368,0,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-            <Image x:Name="Character6" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="460,0,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+        <Image x:Name="BackGroundChar" Margin="10,248,0,0" Source="Interface/ScrollOriginalExtended.png" HorizontalAlignment="Left" Width="956" Height="253" VerticalAlignment="Top"/>
 
-            <Image x:Name="Character7" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="0,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-            <Image x:Name="Character8" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="92,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-            <Image x:Name="Character9" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="184,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-            <Image x:Name="Character10" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="276,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-            <Image x:Name="Character11" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="368,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
-            <Image x:Name="Character12" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="460,92,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+        <!--Characters-->
+        <Grid x:Name="GridCharacters" Margin="30,273,0,0" Visibility="Visible" Height="192" VerticalAlignment="Top" HorizontalAlignment="Left" Width="594">
+            <Image x:Name="Character1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load" Margin="42,10,0,0"/>
+            <Image x:Name="Character2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="134,10,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+            <Image x:Name="Character3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="226,10,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+            <Image x:Name="Character4" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="318,10,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+            <Image x:Name="Character5" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="410,10,0,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+            <Image x:Name="Character6" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="502,10,-42,0" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+
+            <Image x:Name="Character7" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="42,102,0,-10" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+            <Image x:Name="Character8" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="134,102,0,-10" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+            <Image x:Name="Character9" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="226,102,0,-10" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+            <Image x:Name="Character10" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="318,102,0,-10" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+            <Image x:Name="Character11" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="410,102,0,-10" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
+            <Image x:Name="Character12" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="502,102,-42,-10" VerticalAlignment="Top" Width="87" MouseLeftButtonDown="Character_Select" Loaded="Character_Load"/>
         </Grid>
 
-        <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="111" Margin="193,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="291" Grid.Column="1"/>
-        <Image x:Name="CharacterSelect1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="204,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
-        <Image x:Name="CharacterSelect2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="296,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
-        <Image x:Name="CharacterSelect3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="388,295,0,0" VerticalAlignment="Top" Width="87" Grid.Column="1"/>
+        <!--Characters Select-->
+        <Grid x:Name="GridCharactersSelect" Margin="640,328,0,0" Height="87" VerticalAlignment="Top" HorizontalAlignment="Left" Width="271">
+            <Image x:Name="CharacterSelect1" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="87"/>
+            <Image x:Name="CharacterSelect2" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="92,0,0,0" VerticalAlignment="Top" Width="87"/>
+            <Image x:Name="CharacterSelect3" Tag="" Source="Others/invalid_default.png" HorizontalAlignment="Left" Height="87" Margin="184,0,0,0" VerticalAlignment="Top" Width="87"/>
+        </Grid>
+
+        <!--Principal Background-->
+        <Image HorizontalAlignment="Left" Height="245" Margin="664,12,0,0" VerticalAlignment="Top" Width="299" Source="Interface/ScrollExtended2.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
 
         <!--Login-->
-        <Grid x:Name="GridLogin" Margin="192,32,0,0" Visibility="Visible" HorizontalAlignment="Left" Width="292" Height="245" VerticalAlignment="Top" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="255*"/>
-                <ColumnDefinition Width="37*"/>
-            </Grid.ColumnDefinitions>
-            <Rectangle x:Name="LoginBox"  Fill="Gray" HorizontalAlignment="Left" Height="245" Margin="1,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="291" Grid.ColumnSpan="2"/>
-
+        <Grid x:Name="GridLogin" Margin="675,10,0,0" Visibility="Visible" HorizontalAlignment="Left" Width="292" Height="245" VerticalAlignment="Top">
             <!--Sub login-->
-            <Grid x:Name="SubGridLogin" Grid.ColumnSpan="2" Margin="127,118,10,7">
-                <TextBox x:Name="LoginText" HorizontalAlignment="Left" Height="23" Margin="0,26,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
-                <PasswordBox x:Name="PassText" HorizontalAlignment="Left" Margin="0,72,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
-                <Button x:Name="Login" Content="Login" HorizontalAlignment="Left" Margin="80,100,0,0" VerticalAlignment="Top" Width="75" Click="Login_Account"/>
-                <Button x:Name="RegisterShow" Content="Register" HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Width="75" Click="Grid_Visibility"/>
-                <Label x:Name="LoginLabel" Content="Login: " HorizontalAlignment="Left" Margin="57,0,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                <Label x:Name="PassLabel" Content="Password: " HorizontalAlignment="Left" Margin="46,46,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Grid x:Name="SubGridLogin" Margin="47,45,37,38" Visibility="Visible">
+                <Label x:Name="LoginLabel" Content="Login: " HorizontalAlignment="Left" Margin="80,20,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                <TextBox x:Name="LoginText" HorizontalAlignment="Left" Height="23" Margin="23,46,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
+                <Label x:Name="PassLabel" Content="Password: " HorizontalAlignment="Left" Margin="69,66,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                <PasswordBox x:Name="PassText" HorizontalAlignment="Left" Margin="23,92,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
+
+                <Label x:Name="RegisterShow" Content="Register" HorizontalAlignment="Left" Margin="23,123,0,0" VerticalAlignment="Top" Height="29" Width="64" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="10" MouseLeftButtonDown="Grid_Visibility" FontFamily="Global Sans Serif" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                    <Label.Background>
+                        <ImageBrush ImageSource="Interface/ScrollExtended2.png"/>
+                    </Label.Background>
+                </Label>
+                <Label x:Name="Login" TabIndex="3" Content="Login" HorizontalAlignment="Left" Margin="114,123,0,0" VerticalAlignment="Top" Height="29" Width="64" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="10" MouseLeftButtonDown="Login_Account" FontFamily="Global Sans Serif" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                    <Label.Background>
+                        <ImageBrush ImageSource="Interface/ScrollExtended2.png"/>
+                    </Label.Background>
+                </Label>
             </Grid>
 
-            <!--Others Login-->
-            <Image Source="Others/logoOld.png" HorizontalAlignment="Left" Height="100" Margin="11,13,0,0" VerticalAlignment="Top" Width="271" Grid.ColumnSpan="2"/>
-            <Image Source="Others/logoBlack.png" HorizontalAlignment="Left" Height="100" Margin="30,13,0,0" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2"/>
-
             <!--Status-->
-            <Label Content="W/L: " HorizontalAlignment="Left" Margin="1,162,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-            <Label Content="Victories: " HorizontalAlignment="Left" Margin="0,187,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="66"/>
-            <Label Content="Loses: " HorizontalAlignment="Left" Margin="1,211,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-            <Label x:Name="wlValue" Content="0" HorizontalAlignment="Left" Margin="40,162,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="49" />
-            <Label x:Name="victoriesValue" Content="0" HorizontalAlignment="Left" Margin="61,188,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="37"/>
-            <Label x:Name="losesValue" Content="0" HorizontalAlignment="Left" Margin="42,212,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="47"/>
+            <Label Content="W/L: " HorizontalAlignment="Left" Margin="-34,280,0,-61" VerticalAlignment="Top" FontWeight="Bold" Height="26" Width="40" RenderTransformOrigin="-0.25,1.115"/>
+            <Label Content="Victories: " HorizontalAlignment="Left" Margin="57,279,0,-60" VerticalAlignment="Top" FontWeight="Bold" Width="66" Height="26"/>
+            <Label Content="Loses: " HorizontalAlignment="Left" Margin="160,279,0,-60" VerticalAlignment="Top" FontWeight="Bold" Height="26" Width="47"/>
+            <Label x:Name="wlValue" Content="0" HorizontalAlignment="Left" Margin="5,280,0,-61" VerticalAlignment="Top" FontWeight="Bold" Width="49" Height="26" />
+            <Label x:Name="victoriesValue" Content="0" HorizontalAlignment="Left" Margin="118,280,0,-61" VerticalAlignment="Top" FontWeight="Bold" Width="37" Height="26"/>
+            <Label x:Name="losesValue" Content="0" HorizontalAlignment="Left" Margin="201,280,0,-61" VerticalAlignment="Top" FontWeight="Bold" Width="47" Height="26"/>
         </Grid>
 
         <!--Register-->
-        <Grid x:Name="GridRegis" Margin="169,32,0,0" Visibility="Hidden" Height="245" VerticalAlignment="Top" HorizontalAlignment="Left" Width="292" Grid.Column="1">
-            <Rectangle  Fill="Gray" HorizontalAlignment="Left" Height="245" Margin="1,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="291"/>
-            <TextBox x:Name="RegisLogin" HorizontalAlignment="Left" Height="23" Margin="75,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
-            <PasswordBox x:Name="RegisPass" HorizontalAlignment="Left" Margin="75,86,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
-            <PasswordBox x:Name="RegisPassCon" HorizontalAlignment="Left" Margin="75,135,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
-            <Label  Content="Login: " HorizontalAlignment="Left" Margin="132,14,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-            <Label  Content="Password: " HorizontalAlignment="Left" Margin="121,60,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-            <Label  Content="Confirm Password: " HorizontalAlignment="Left" Margin="95,109,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-            <Button x:Name="Return" Content="Return" HorizontalAlignment="Left" Margin="161,215,0,0" VerticalAlignment="Top" Width="80" Click="Grid_Visibility"/>
-            <Button Content="Register" HorizontalAlignment="Left" Margin="54,215,0,0" VerticalAlignment="Top" Width="80" Click="Create_Account"/>
+        <Grid x:Name="GridRegis" Margin="709,18,0,0" Visibility="Hidden" Height="242" VerticalAlignment="Top" HorizontalAlignment="Left" Width="215">
+            <TextBox x:Name="RegisLogin" HorizontalAlignment="Left" Height="23" Margin="31,45,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
+            <PasswordBox x:Name="RegisPass" HorizontalAlignment="Left" Margin="31,91,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
+            <PasswordBox x:Name="RegisPassCon" HorizontalAlignment="Left" Margin="31,140,0,0" VerticalAlignment="Top" Width="155" Height="23"/>
+            <Label  Content="Login: " HorizontalAlignment="Left" Margin="88,19,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label  Content="Password: " HorizontalAlignment="Left" Margin="77,65,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label  Content="Confirm Password: " HorizontalAlignment="Left" Margin="51,114,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+            <Label x:Name="Register" Content="Register" HorizontalAlignment="Left" Margin="122,173,0,0" VerticalAlignment="Top" Height="29" Width="64" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="10" MouseLeftButtonDown="Create_Account" FontFamily="Global Sans Serif" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                <Label.Background>
+                    <ImageBrush ImageSource="Interface/ScrollExtended2.png"/>
+                </Label.Background>
+            </Label>
+            <Label x:Name="Return" Content="Return" HorizontalAlignment="Left" Margin="31,173,0,0" VerticalAlignment="Top" Height="29" Width="64" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="10" MouseLeftButtonDown="Grid_Visibility" FontFamily="Global Sans Serif" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                <Label.Background>
+                    <ImageBrush ImageSource="Interface/ScrollExtended2.png"/>
+                </Label.Background>
+            </Label>
         </Grid>
+
+        <!--New Password-->
+        <Label x:Name="NewPassLabel" Content="New Password: " HorizontalAlignment="Left" Margin="773,112,0,0" VerticalAlignment="Top" FontWeight="Bold" Visibility="Hidden"/>
+        <PasswordBox x:Name="NewPassText" HorizontalAlignment="Left" Margin="744,138,0,0" VerticalAlignment="Top" Width="155" Height="23" Visibility="Hidden"/>
+        <Label x:Name="NewPass" Visibility="Hidden" Content="Register" HorizontalAlignment="Left" Margin="835,169,0,0" VerticalAlignment="Top" Height="29" Width="64" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="10" MouseLeftButtonDown="Change_Password" FontFamily="Global Sans Serif" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+            <Label.Background>
+                <ImageBrush ImageSource="Interface/ScrollExtended2.png"/>
+            </Label.Background>
+        </Label>
+        <Label x:Name="NewPassReturn" Visibility="Hidden" Content="Return" HorizontalAlignment="Left" Margin="744,169,0,0" VerticalAlignment="Top" Height="29" Width="64" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="10" MouseLeftButtonDown="Change_Password_Close" FontFamily="Global Sans Serif" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+            <Label.Background>
+                <ImageBrush ImageSource="Interface/ScrollExtended2.png"/>
+            </Label.Background>
+        </Label>
 
         <!--Others-->
-        <Label x:Name="WelcomeMessage" Visibility="Hidden" Content="Welcome again  &#xD;&#xA;&#x9;hero !!" HorizontalAlignment="Left" Margin="272,189,0,0" VerticalAlignment="Top" Height="53" Width="165" FontFamily="Verdana Pro SemiBold" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFAA0909" Background="{x:Null}" Grid.Column="1" />
-        <Button Content="Exit" HorizontalAlignment="Left" Margin="409,7,0,0" VerticalAlignment="Top" Width="75" Click="Exit" Grid.Column="1"/>
-        <Label Content="Select your team" HorizontalAlignment="Left" Height="72" Margin="10,10,0,0" VerticalAlignment="Top" Width="292" FontWeight="Bold" FontSize="36"/>
-        <Button x:Name="StartButton" Content="Battle" IsEnabled="False" HorizontalAlignment="Center" Margin="280,399,83,0" VerticalAlignment="Top" Width="138" Height="37" Click="Start_Battle" Grid.Column="1"/>
-        <Label Content="Press F5 for menu admin" HorizontalAlignment="Left" Margin="24,432,0,0" VerticalAlignment="Top" Width="146" FontFamily="Segoe UI Black" FontSize="10" Foreground="#FF610909"/>
-        <Button x:Name="Loggout" Content="Loggout" HorizontalAlignment="Left" Margin="192,7,0,0" VerticalAlignment="Top" Width="75" Visibility="Hidden" Click="Loggout_Account" Grid.Column="1" />
-        <Label x:Name="NewPassLabel" Content="New Password: " HorizontalAlignment="Left" Margin="326,196,0,0" VerticalAlignment="Top" FontWeight="Bold" Visibility="Hidden" Grid.Column="1"/>
-        <PasswordBox x:Name="NewPassText" HorizontalAlignment="Left" Margin="297,222,0,0" VerticalAlignment="Top" Width="155" Height="23" Visibility="Hidden" Grid.Column="1"/>
-        <Button x:Name="NewPass" Content="Reset pass" HorizontalAlignment="Left" Margin="377,250,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password" Visibility="Hidden" Grid.Column="1"/>
-        <Button x:Name="NewPassReturn" Content="Return" HorizontalAlignment="Left" Margin="297,250,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password_Close" Visibility="Hidden" Grid.Column="1"/>
+        <Label x:Name="WelcomeMessage" Visibility="Hidden" Content="Welcome again  &#xD;&#xA;&#x9;hero !!" HorizontalAlignment="Left" Margin="734,133,0,0" VerticalAlignment="Top" Height="53" Width="165" FontFamily="Verdana Pro SemiBold" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFAA0909" />
+        <Label Content="Select your team" HorizontalAlignment="Left" Height="34" Margin="709,426,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold" FontSize="16"/>
+        <Image HorizontalAlignment="Left" Height="83" Margin="618,19,0,0" VerticalAlignment="Top" Width="207" Source="Others/logoBlack.png" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="-23.717"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
 
         <!--Account Options-->
-        <Grid x:Name="AccountOptions" Margin="38,32,0,0" Visibility="Hidden" HorizontalAlignment="Left" Width="131" Height="211" VerticalAlignment="Top" Grid.Column="1">
-            <Rectangle Fill="Gray" HorizontalAlignment="Left" Height="206" Stroke="Black" VerticalAlignment="Top" Width="126"/>
+        <Grid x:Name="AccountOptions" Margin="522,11,0,0" Visibility="Hidden" HorizontalAlignment="Left" Width="131" Height="184" VerticalAlignment="Top">
+            <Image HorizontalAlignment="Left" Height="144" Margin="-23,16,-22,0" VerticalAlignment="Top" Width="176" Source="Interface/ScrollLarge.png" StretchDirection="DownOnly" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+
             <Button x:Name="RandomButton" Content="Random" HorizontalAlignment="Left" Margin="27,35,0,0" VerticalAlignment="Top" Width="75" Click="Random_Characters"/>
             <Button Content="Reset Status" HorizontalAlignment="Left" Margin="27,73,0,0" VerticalAlignment="Top" Width="75" Click="Reset_Account"/>
-            <Label Content="Account options" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="126" HorizontalContentAlignment="Center"/>
-            <Button Content="Delete account" HorizontalAlignment="Left" Margin="17,174,0,0" VerticalAlignment="Top" Width="98" Click="Delete_Account"/>
+            <Button Content="Delete account" HorizontalAlignment="Left" Margin="10,144,0,0" VerticalAlignment="Top" Width="111" Click="Delete_Account"/>
             <Button Content="Change Pass" HorizontalAlignment="Left" Margin="27,110,0,0" VerticalAlignment="Top" Width="75" Click="Change_Password_Show"/>
         </Grid>
-        <Image x:Name="Next" HorizontalAlignment="Left" Height="33" Margin="145,314,0,0" VerticalAlignment="Top" Width="40" Source="Interface/NextOriginal.png" MouseLeftButtonDown="Next_List" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
-            <Image.RenderTransform>
 
+        <Image x:Name="Next" HorizontalAlignment="Left" Height="33" Margin="585,436,0,0" VerticalAlignment="Top" Width="40" Source="Interface/NextOriginal.png" MouseLeftButtonDown="Next_List" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="1" ScaleY="1" x:Name="NextScale"/>
-
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
                 </TransformGroup>
-
             </Image.RenderTransform>
             <Image.Triggers>
                 <EventTrigger RoutedEvent="MouseEnter">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="ScaleX"
-                                          Storyboard.TargetName="NextScale" To="1.3"
-                                          Duration="0:0:1" />
-                            <DoubleAnimation Storyboard.TargetProperty="ScaleY"
-                                          Storyboard.TargetName="NextScale" To="1.3"          
-                                          Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="NextScale" To="1.3" Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="NextScale" To="1.3" Duration="0:0:1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
                 <EventTrigger RoutedEvent="MouseLeave">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="ScaleX"
-                                          Storyboard.TargetName="NextScale" To="1" 
-                                          Duration="0:0:1" />
-                            <DoubleAnimation Storyboard.TargetProperty="ScaleY"
-                                          Storyboard.TargetName="NextScale" To="1" 
-                                          Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="NextScale" To="1" Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="NextScale" To="1" Duration="0:0:1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image x:Name="Back" HorizontalAlignment="Left" Height="33" Margin="4,315,0,0" VerticalAlignment="Top" Width="40" Source="Interface/NextOriginal.png" MouseLeftButtonDown="Back_List" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+
+        <Image x:Name="Back" HorizontalAlignment="Left" Height="33" Margin="64,436,0,0" VerticalAlignment="Top" Width="40" Source="Interface/NextOriginal.png" MouseLeftButtonDown="Back_List" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="1" ScaleY="1" x:Name="BackScale" />
@@ -169,6 +197,94 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
+
+        <!--Principal Buttons-->
+        <Label x:Name="StartButton" Content="Battle" HorizontalAlignment="Left" Margin="80,191,0,0" VerticalAlignment="Top" Height="65" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" MouseLeftButtonDown="Start_Battle" FontFamily="Global Sans Serif" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+            <Label.Background>
+                <ImageBrush ImageSource="Interface/ScrollMedium.png"/>
+            </Label.Background>
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="BattleScale" />
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="BattleScale" To="1.1" Duration="0:0:0.5" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="BattleScale" To="1.1" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="BattleScale" To="1" Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="BattleScale" To="1" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Label.Triggers>
+        </Label>
+
+        <Label x:Name="Quit" Content="Quit" HorizontalAlignment="Left" Margin="503,191,0,0" VerticalAlignment="Top" Height="65" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" MouseLeftButtonDown="Exit" FontFamily="Global Sans Serif" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+            <Label.Background>
+                <ImageBrush ImageSource="Interface/ScrollMedium.png"/>
+            </Label.Background>
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="QuitScale" />
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="QuitScale" To="1.1" Duration="0:0:0.5" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="QuitScale" To="1.1" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="QuitScale" To="1" Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="QuitScale" To="1" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Label.Triggers>
+        </Label>
+
+        <Label x:Name="Loggout" Visibility="Hidden" Content="Loggout" HorizontalAlignment="Left" Margin="298,191,0,0" VerticalAlignment="Top" Height="65" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" MouseLeftButtonDown="Loggout_Account" FontFamily="Global Sans Serif" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+            <Label.Background>
+                <ImageBrush ImageSource="Interface/ScrollMedium.png"/>
+            </Label.Background>
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1" x:Name="LoggoutScale" />
+                </TransformGroup>
+            </Label.RenderTransform>
+            <Label.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="LoggoutScale" To="1.1" Duration="0:0:0.5" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="LoggoutScale" To="1.1" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="LoggoutScale" To="1" Duration="0:0:1" />
+                            <DoubleAnimation Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="LoggoutScale" To="1" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Label.Triggers>
+        </Label>
 
     </Grid>
 </Window>

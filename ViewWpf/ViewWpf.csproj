@@ -234,6 +234,9 @@
     <Resource Include="Characters\Sasuke%28S%29\Sasuke%28S%29_skill2_default.png" />
     <Resource Include="Characters\Sasuke%28S%29\Sasuke%28S%29_skill3_default.png" />
     <Resource Include="Interface\NextOriginal.png" />
+    <Resource Include="Interface\ScrollOriginal.png" />
+    <Resource Include="Interface\ScrollOriginalExtended.png" />
+    <Resource Include="Interface\backgroundMain2.jpg" />
     <Content Include="Sounds\OST1.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
