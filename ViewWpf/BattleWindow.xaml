@@ -25,13 +25,13 @@
         <Image Source="Interface/ScrollExtended2.png" HorizontalAlignment="Left" Height="107" Margin="28,333,0,0" VerticalAlignment="Top" Width="348" Stretch="Fill" Grid.ColumnSpan="2"/>
 
         <!--Characters-->
-        <Image x:Name="Character1_red" Tag="" Source="Characters/Sarada/Sarada_default.png" HorizontalAlignment="Left" Height="107" Margin="10,51,0,0" VerticalAlignment="Top" Width="107" MouseLeftButtonDown="NewSelect_Friend" MouseLeave="Generic_mouseLeave" MouseEnter="Generic_mouseEnter" />
-        <Image x:Name="Character2_red" Tag="" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Left" Height="107" Margin="10,192,0,0" VerticalAlignment="Top" Width="107" MouseLeftButtonDown="NewSelect_Friend" MouseLeave="Generic_mouseLeave" MouseEnter="Generic_mouseEnter"/>
-        <Image x:Name="Character3_red" Tag="" Source="Characters/Boruto/Boruto_default.png" HorizontalAlignment="Left" Height="107" Margin="10,333,0,0" VerticalAlignment="Top" Width="107" MouseLeftButtonDown="NewSelect_Friend" MouseLeave="Generic_mouseLeave" MouseEnter="Generic_mouseEnter" />
+        <Image x:Name="Character1_red" Tag="" Source="Characters/Sarada/Sarada_default.png" HorizontalAlignment="Left" Height="107" Margin="10,51,0,0" VerticalAlignment="Top" Width="107" MouseLeftButtonDown="GeralSelect" MouseLeave="Generic_mouseLeave" MouseEnter="Generic_mouseEnter" />
+        <Image x:Name="Character2_red" Tag="" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Left" Height="107" Margin="10,192,0,0" VerticalAlignment="Top" Width="107" MouseLeftButtonDown="GeralSelect" MouseLeave="Generic_mouseLeave" MouseEnter="Generic_mouseEnter"/>
+        <Image x:Name="Character3_red" Tag="" Source="Characters/Boruto/Boruto_default.png" HorizontalAlignment="Left" Height="107" Margin="10,333,0,0" VerticalAlignment="Top" Width="107" MouseLeftButtonDown="GeralSelect" MouseLeave="Generic_mouseLeave" MouseEnter="Generic_mouseEnter" />
 
-        <Image x:Name="Character1_blue" Tag="Characters/Boruto/Boruto_default.png" Source="Characters/Boruto/Boruto_default.png" HorizontalAlignment="Right" Height="107" Margin="0,51,10,0" VerticalAlignment="Top" Width="107" MouseEnter="Generic_mouseEnter" MouseLeave="Generic_mouseLeave" MouseLeftButtonDown="NewSelect_Enemy" Grid.Column="1"/>
-        <Image x:Name="Character2_blue" Tag="Characters/Mitsuki/Mitsuki_default.png" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Right" Height="107" Margin="0,192,10,0" VerticalAlignment="Top" Width="107" MouseEnter="Generic_mouseEnter" MouseLeave="Generic_mouseLeave" MouseLeftButtonDown="NewSelect_Enemy" Grid.Column="1"/>
-        <Image x:Name="Character3_blue" Tag="Characters/Sarada/Sarada_default.png"  Source="Characters/Sarada/Sarada_default.png" HorizontalAlignment="Right" Height="107" Margin="0,333,10,0" VerticalAlignment="Top" Width="107" MouseLeave="Generic_mouseLeave" MouseEnter="Generic_mouseEnter" MouseLeftButtonDown="NewSelect_Enemy" Grid.Column="1"/>
+        <Image x:Name="Character1_blue" Tag="Characters/Boruto/Boruto_default.png" Source="Characters/Boruto/Boruto_default.png" HorizontalAlignment="Right" Height="107" Margin="0,51,10,0" VerticalAlignment="Top" Width="107" MouseEnter="Generic_mouseEnter" MouseLeave="Generic_mouseLeave" MouseLeftButtonDown="GeralSelect" Grid.Column="1"/>
+        <Image x:Name="Character2_blue" Tag="Characters/Mitsuki/Mitsuki_default.png" Source="Characters/Mitsuki/Mitsuki_default.png" HorizontalAlignment="Right" Height="107" Margin="0,192,10,0" VerticalAlignment="Top" Width="107" MouseEnter="Generic_mouseEnter" MouseLeave="Generic_mouseLeave" MouseLeftButtonDown="GeralSelect" Grid.Column="1"/>
+        <Image x:Name="Character3_blue" Tag="Characters/Sarada/Sarada_default.png"  Source="Characters/Sarada/Sarada_default.png" HorizontalAlignment="Right" Height="107" Margin="0,333,10,0" VerticalAlignment="Top" Width="107" MouseLeave="Generic_mouseLeave" MouseEnter="Generic_mouseEnter" MouseLeftButtonDown="GeralSelect" Grid.Column="1"/>
 
         <!--Life-->
         <Label x:Name="Character1_red_life" Content="100" Background="Green" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="107" Height="24" BorderBrush="Black" BorderThickness="1" FontSize="11"/>
@@ -147,10 +147,16 @@
         <Label x:Name="GenjutsuNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="96.608,548,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="20" FontWeight="Bold" FontSize="11" Grid.Column="1"/>
         <Label Content="Here is a very nice description of the selected skill..." HorizontalAlignment="Left" Height="57" Margin="136.608,493,0,0" VerticalAlignment="Top" Width="429" Background="#FFC5A8A8" FontFamily="Global Sans Serif" FontWeight="Bold" Grid.Column="1"/>
 
-        <Label Content="Damage: " HorizontalAlignment="Left" Margin="195.608,551,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="55" FontWeight="Bold" FontSize="11" Grid.Column="1"/>
-        <Label x:Name="DamageNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="250.608,551,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="22" FontWeight="Bold" FontSize="11" Grid.Column="1"/>
-        <Label Content="Heal: " HorizontalAlignment="Left" Margin="277.608,553,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="39" FontWeight="Bold" FontSize="11" FontFamily="Global Sans Serif" RenderTransformOrigin="0.564,0.692" Grid.Column="1"/>
-        <Label x:Name="HealNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="315.608,551,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="26" FontWeight="Bold" FontSize="11" RenderTransformOrigin="0.545,0.423" Grid.Column="1"/>
+        <Label Content="Damage: " HorizontalAlignment="Left" Margin="137,553,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="58" FontWeight="Bold" FontSize="11" Grid.Column="1"/>
+        <Label x:Name="DamageNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="195,553,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="22" FontWeight="Bold" FontSize="11" Grid.Column="1"/>
+        <Label Content="Heal: " HorizontalAlignment="Left" Margin="222,555,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="39" FontWeight="Bold" FontSize="11" FontFamily="Global Sans Serif" RenderTransformOrigin="0.564,0.692" Grid.Column="1"/>
+        <Label x:Name="HealNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="260,553,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="26" FontWeight="Bold" FontSize="11" RenderTransformOrigin="0.545,0.423" Grid.Column="1"/>
+        <Label Content="Defense: " HorizontalAlignment="Left" Margin="295,554,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="58" FontWeight="Bold" FontSize="11" FontFamily="Global Sans Serif" RenderTransformOrigin="0.564,0.692" Grid.Column="1"/>
+        <Label x:Name="DefenseNumber_Panel" Content="0" HorizontalAlignment="Left" Margin="353,553,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="26" FontWeight="Bold" FontSize="11" RenderTransformOrigin="0.545,0.423" Grid.Column="1"/>
+        <Label Content="Self: " HorizontalAlignment="Left" Margin="382,554,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="38" FontWeight="Bold" FontSize="11" FontFamily="Global Sans Serif" RenderTransformOrigin="0.564,0.692" Grid.Column="1"/>
+        <Label x:Name="SelfNumber_Panel" Content="No" HorizontalAlignment="Left" Margin="415,553,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="26" FontWeight="Bold" FontSize="11" RenderTransformOrigin="0.545,0.423" Grid.Column="1"/>
+        <Label Content="Area: " HorizontalAlignment="Left" Margin="447,554,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="38" FontWeight="Bold" FontSize="11" FontFamily="Global Sans Serif" RenderTransformOrigin="0.564,0.692" Grid.Column="1"/>
+        <Label x:Name="AreaNumber_Panel" Content="No" HorizontalAlignment="Left" Margin="484,553,0,0" VerticalAlignment="Top" Foreground="Black" Height="26" Width="26" FontWeight="Bold" FontSize="11" RenderTransformOrigin="0.545,0.423" Grid.Column="1"/>
 
         <!--Others-->
         <Label Content="Turn:" Margin="479.608,4,0,0" FontSize="20" FontWeight="Bold" BorderThickness="1" Height="43" VerticalAlignment="Top" HorizontalAlignment="Left" Width="133" Grid.Column="1">
@@ -249,6 +255,6 @@
             <Image x:Name="SkillAdded3_blue_3" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,340,0,0" VerticalAlignment="Top" Width="24" />
             <Image x:Name="SkillAdded3_blue_4" Tag="1" Source="Others/invalid_default.png" HorizontalAlignment="Right" Height="24" Margin="0,311,29,0" VerticalAlignment="Top" Width="24" />
         </Grid>
-
+        
     </Grid>
 </Window>

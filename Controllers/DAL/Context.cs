@@ -251,9 +251,33 @@ namespace Controllers.DAL
                 }
 
             }
+        }
 
+        public string Defense_Skill(string skill, string name)
+        {
+            conn.Open();
+            string sql = "SELECT Defense, Turn FROM Skills WHERE Name = '" + name + "' AND Skill = '" + skill + "'";
+            using (SQLiteCommand command = new SQLiteCommand(sql, conn))
+            {
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    reader.Read();
 
+                    string defense = reader["Defense"].ToString();
+                    if (defense == "")
+                    {
+                        defense = "0";
+                    }
+                    else
+                    {
+                        defense = defense +"t" + reader["Turn"].ToString();
+                    }
+                        
+                    conn.Close();
+                    return defense;
+                }
 
+            }
         }
 
         public string heal_skill(string skill, string name)
