@@ -22,74 +22,50 @@ namespace ViewWpf
     /// </summary>
     public partial class BattleWindow : Window
     {
-        //Infos
-        /*d = damage
-          da = damage area
-          ---------------
-          h = heal
-          y = self heal
-          ha = heal area
-          ---------------
-          q = defense
-          r = self defense
-          ---------------
-          w = debuff defense
-          a = area
-          */
+        BattleController Btc = new BattleController();
+        private Timer Tmr;
 
-        int skill_select;
-        string skillNumber = "";
-        string attack_char = "0";
-        BattleController bat = new BattleController();
-        private Timer timer;
-        private string type_skill;
-        private string account;
-
-        public BattleWindow(string character1, string character2, string character3, string account)
+        public BattleWindow(string Char1, string Char2, string Char3, string Account)
         {
             InitializeComponent();
+            Btc.Account = Account;
+            Btc.Set_Characters_Red(Char1, Char2, Char3);
+            Load_Chakras();
+            Btc.Initial_Turn();
 
-            this.account = account;
-            if (bat.initial_turn()== true) //ia
+            //Initialize Turn
+            if (Btc.Return_Turn_Play() == "IA")
             {
-                ia_play();
+                Ia_Play();
             }
-            else if (bat.initial_turn() == false) //player
+            else if (Btc.Return_Turn_Play() == "Player")
             {
                 Timer_Function();
             }
-            
+
             //Load character
-            Character1_red.Source = Load_image(character1);
-            Character2_red.Source = Load_image(character2);
-            Character3_red.Source = Load_image(character3);
-            Character1_red.Tag = "Characters/" + character1 + "/" + character1 + "_default.png";
-            Character2_red.Tag = "Characters/" + character2 + "/" + character2 + "_default.png";
-            Character3_red.Tag = "Characters/" + character3 + "/" + character3 + "_default.png";
+            Character1_red.Source = Load_image(Char1);
+            Character2_red.Source = Load_image(Char2);
+            Character3_red.Source = Load_image(Char3);
+            Character1_red.Tag = "Characters/" + Char1 + "/" + Char1 + "_default.png";
+            Character2_red.Tag = "Characters/" + Char2 + "/" + Char2 + "_default.png";
+            Character3_red.Tag = "Characters/" + Char3 + "/" + Char3 + "_default.png";
 
             //skills
-            Character1_red_skill1.Source = Load_skill(character1, 1);
-            Character1_red_skill2.Source = Load_skill(character1, 2);
-            Character1_red_skill3.Source = Load_skill(character1, 3);
-                                           
-            Character2_red_skill1.Source = Load_skill(character2, 1);
-            Character2_red_skill2.Source = Load_skill(character2, 2);
-            Character2_red_skill3.Source = Load_skill(character2, 3);
-                                           
-            Character3_red_skill1.Source = Load_skill(character3, 1);
-            Character3_red_skill2.Source = Load_skill(character3, 2);
-            Character3_red_skill3.Source = Load_skill(character3, 3);
-
-            bat.Character1_red = character1;
-            bat.Character2_red = character2;
-            bat.Character3_red = character3;
-
-            //Chakra
-            Load_Chakras();
+            Character1_red_skill1.Source = Load_skill(Char1, 1);
+            Character1_red_skill2.Source = Load_skill(Char1, 2);
+            Character1_red_skill3.Source = Load_skill(Char1, 3);
+                                                      
+            Character2_red_skill1.Source = Load_skill(Char2, 1);
+            Character2_red_skill2.Source = Load_skill(Char2, 2);
+            Character2_red_skill3.Source = Load_skill(Char2, 3);
+                                                      
+            Character3_red_skill1.Source = Load_skill(Char3, 1);
+            Character3_red_skill2.Source = Load_skill(Char3, 2);
+            Character3_red_skill3.Source = Load_skill(Char3, 3);
         }
 
         //=====================Loaders=====================
-
 
         private ImageSource Load_image(string character)
         {
@@ -101,11 +77,10 @@ namespace ViewWpf
             return new BitmapImage(new Uri("Characters/" + character + "/" + character + "_skill" + number + "_default.png", UriKind.Relative));
         }
 
-        //load red chakra
         private void Load_Chakras()
         {
             List<int> Chakras = new List<int>();
-            Chakras = bat.Return_Chakras(1);
+            Chakras = Btc.Return_Chakras(1);
 
             TaijutsuNumber.Content = Chakras[0];
             BloodlineNumber.Content = Chakras[1];
@@ -113,110 +88,109 @@ namespace ViewWpf
             GenjutsuNumber.Content = Chakras[3];
         }
 
+        private void Change_Cursor(string Mode)
+        {
+            if (Mode == "Attack")
+            {
+                var info = Application.GetResourceStream(new Uri("Cursor/Skill_Select.ani", UriKind.Relative));
+                var cursor = new Cursor(info.Stream);
+
+                principal.Cursor = cursor;
+            }
+
+            if (Mode == "Normal")
+            {
+                var info = Application.GetResourceStream(new Uri("Cursor/Normal_Select.cur", UriKind.Relative));
+                var cursor = new Cursor(info.Stream);
+
+                principal.Cursor = cursor;
+            }
+
+        }
+
         //===================== Turno =====================
-
-        //Pass turn button
-        private void Pass_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            pass_turn();
-            ia_play();
-        }
-
-        //Alterar numeração da label de turno
-        private void pass_turn()
-        {
-            Turn.Content = bat.pass_turn(Turn.Content);
-            skill_select = 0;
-            bat.ChakraRed.turnChakra();
-            Load_Chakras();
-            Unlock_Character();
-            Receive_SkillsDH();
-            pb.Value = 0;
-            try
-            {
-                timer.Start();
-            }
-            catch
-            {
-                Timer_Function();
-            }
-            Change_Life_GlobalColor();
-        }
 
         private void Timer_Function()
         {
-            timer = new Timer(1000);
-            timer.Elapsed += new ElapsedEventHandler(Timer_Elapsed);
-            timer.Start();
+            Tmr = new Timer(1000);
+            Tmr.Elapsed += new ElapsedEventHandler(Timer_Elapsed);
+            Tmr.Start();
         }
 
         void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() =>
+            Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() =>
             {
-                if (pb.Value < 30)
+                if (BarTime.Value < 30)
                 {
-                    pb.Value += 1;
+                    BarTime.Value += 1;
                 }
                 else
                 {
-                    timer.Stop();
-                    pass_turn();
-                    ia_play();
+                    Tmr.Stop();
+                    Pass_Turn();
+                    Ia_Play();
                 }
             }));
         }
 
+        void Timer_Pass()
+        {
+            BarTime.Value = 0;
+            try
+            { Tmr.Start(); }
+            catch
+            { Timer_Function(); }
+        }
+
+        private void Pass_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Pass_Turn();
+            Ia_Play();
+        }
+
+        private void Pass_Turn()
+        {
+            Btc.AttackChar = null;
+            Btc.SkillSelect = 0;
+            Turn.Content = Btc.Pass_Turn();
+            Btc.ChakraRed.turnChakra();
+            Load_Chakras();
+            Unlock_Character();
+            Receive_SkillsDH();
+            Timer_Pass();
+            Change_Life_GlobalColor();
+        }
+
         //===================== Attack ====================
 
-        //Receive number skill
-        private void ReceiveSkillNumber(object sender, MouseButtonEventArgs e)
+        private void Receive_Skill_Number(object sender, MouseButtonEventArgs e)
         {
-            Image image = (Image)sender;
+            Image SkillImage = (Image)sender;
 
-            //Numbers
-            skillNumber = bat.convert_name_int(image.Name).ToString();
-            string skill_second = (skillNumber.Last()).ToString();
-            int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
-            skill_select = int.Parse(skill_second);
-
-            //skills chakra
-            List<string> Skills = new List<string>();
-            Skills = bat.Skills(skill_second, char_select);
-            bool haveChakra = bat.Have_Chakra(Skills);
-
-            if(attack_char == "" || attack_char == "0" || attack_char == null)
+            if (Btc.Receive_Skill_Number(SkillImage.Name.ToString()) == true)
             {
-                if (haveChakra == true)
-                {
-                    //retira o chakra
-                    bat.Withdraw_Chakra(Skills);
-
-                    //Change chakras content
-                    Load_Chakras();
-
-                    //pass character to attack char
-                    attack_char = bat.Attack_Char(char_select);
-
-                    //search skill type
-                    type_skill = bat.Skill_Type(char_select, skill_select);
-                    //qsw
-
-                    var info = Application.GetResourceStream(new Uri("Cursor/Skill_Select.ani", UriKind.Relative));
-                    var cursor = new Cursor(info.Stream);
-
-                    principal.Cursor = cursor;                       
-
-                }
+                Load_Chakras();
+                Change_Cursor("Attack");
             }
-           
-   
+            else
+            {}
+        }
+
+        private void Cancel_Skill(object sender, MouseButtonEventArgs e)
+        {
+            if (Btc.AttackChar != null && Btc.SkillSelect != 0)
+            {
+                Btc.Cancel_Attack();
+                Change_Cursor("Normal");
+                Load_Chakras();
+            }
         }
 
         private void Unlock_Character()
         {
-            var images = principal.Children.OfType<Image>();
-            foreach (Image element in images)
+            var Images = principal.Children.OfType<Image>();
+            foreach (Image element in Images)
             {
                 if (element.Name != null && element.Name != "" && element.Name.Length > 15 && element.Tag.ToString() != "dead" )
                 {
@@ -230,603 +204,436 @@ namespace ViewWpf
                         }
                     }
                     catch
-                    { }
+                    {}
                 }
             }
         }
 
         private void Receive_SkillsDH()
         {
-            var labels = SkillAdded.Children.OfType<Image>();
-            var defense = 0;
-            int turno = 0;
+            var SkillAddedSA = SkillAdded.Children.OfType<Image>();
+            int Defense = 0;
+            int Turn = 0;
             int autenti = 1;
+            string SkillString = null;
+            int SkillAddedNumber = 0;
 
-            foreach (Image element in labels)
+            foreach (Image element in SkillAddedSA)
             {
-                string skillP1 = "0";
+                SkillAddedNumber = 0;
                 try
                 {
-                    int skill = bat.convert_name_int(element.Name);
-
-                    skillP1 = skill.ToString();
-                    skillP1 = skillP1.Substring(0, 1);
+                    SkillString = Btc.Convert_Name_Int(element.Name).ToString();
+                    SkillString = SkillString.Substring(0, 1);
+                    SkillAddedNumber = int.Parse(SkillString);
                 }
-                catch
-                {}
+                catch{}
 
-                if ((skillP1 == "1" || skillP1 == "2" || skillP1 == "3") && element.Name.Substring(0,10) == "SkillAdded" && element.Tag.ToString() != "1")
+                if((SkillAddedNumber > 0 && SkillAddedNumber < 4) && element.Tag.ToString() != "1" && element.Name.Substring(0, 10) == "SkillAdded")
                 {
-                    string damage = element.Tag.ToString();
-                    damage = damage.Substring(1); // pega o d25 d20 etc
-                    string typeSkill = element.Tag.ToString().Substring(0, 1); 
-                    //passa pra função de dmg ou heal
+                    string Damage = element.Tag.ToString();
+                    Damage = Damage.Substring(1);
+                    string TypeSkill = element.Tag.ToString().Substring(0, 1);
 
-                    if (skillP1 == "1")
+                    switch (TypeSkill)
                     {
-                        if (typeSkill == "q")
-                        {
-                            turno = int.Parse(damage.Substring(3));
-                            turno -= 1;
-                            autenti = 0;
-                            defense = int.Parse(damage.Substring(0,2));
-                        }
-                        if (typeSkill == "d")
-                        {
-                            int vida = 0;
-                            if (defense != 0)
+                        case "q":
                             {
-                                vida = (defense - int.Parse(damage));
-                                if (vida > 0)
+                                Turn = int.Parse(Damage.Substring(3));
+                                Turn -= 1;
+                                autenti = 0;
+                                Defense = int.Parse(Damage.Substring(0, 2));
+                                break;
+                            }
+                        case "d":
+                            {
+                                int vida = 0;
+                                if (Defense != 0)
                                 {
-                                    vida = 0;
+                                    vida = (Defense - int.Parse(Damage));
+                                    if (vida > 0)
+                                    {
+                                        vida = 0;
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                vida = int.Parse(damage);
-                            }
-                            vida = int.Parse(Character1_blue_life.Content.ToString()) - vida;
-                            Character1_blue_life.Content = vida.ToString();
-                            Dead(Character1_blue, Character1_blue_life);
-                            autenti = 1;
-                        }
-                        else if (typeSkill == "h")
-                        {
-                            int vida = int.Parse(Character1_red_life.Content.ToString()) + int.Parse(damage);
-                            if (vida > 100)
-                                vida = 100;
-                            Character1_red_life.Content = vida.ToString();
-                        }
-                    }
-                    else if (skillP1 == "2")
-                    {
-                        if (typeSkill == "q")
-                        {
-                            turno = int.Parse(damage.Substring(3));
-                            turno -= 1;
-                            autenti = 0;
-                            defense = int.Parse(damage.Substring(0, 2));
-                        }
-                        if (typeSkill == "d")
-                        {
-                            int vida = 0;
-                            if (defense != 0)
-                            {
-                                vida = (defense - int.Parse(damage));
-                                if (vida > 0)
+                                else
                                 {
-                                    vida = 0;
+                                    vida = int.Parse(Damage);
                                 }
-                            }
-                            else
-                            {
-                                vida = int.Parse(damage);
-                            }
-                            vida = int.Parse(Character2_blue_life.Content.ToString()) - vida;
-                            Character2_blue_life.Content = vida.ToString();
-                            Dead(Character2_blue, Character2_blue_life);
 
-                        }
-                        else if (typeSkill == "h")
-                        {
-                            int vida = int.Parse(Character2_red_life.Content.ToString()) + int.Parse(damage);
-                            if (vida > 100)
-                                vida = 100;
-                            Character2_red_life.Content = vida.ToString();
-                        }
-                    }
-                    else if (skillP1 == "3")
-                    {
-                        if (typeSkill == "q")
-                        {
-                            turno = int.Parse(damage.Substring(3));
-                            turno -= 1;
-                            autenti = 0;
-                            defense = int.Parse(damage.Substring(0, 2));
-                        }
-                        if (typeSkill == "d")
-                        {
-                            int vida = 0;
-                            if (defense != 0)
-                            {
-                                vida = (defense - int.Parse(damage));
-                                if (vida > 0)
+                                if (SkillAddedNumber == 1)
                                 {
-                                    vida = 0;
+                                    vida = int.Parse(Character1_blue_life.Content.ToString()) - vida;
+                                    Character1_blue_life.Content = vida.ToString();
+                                    Dead(Character1_blue, Character1_blue_life);
+                                    autenti = 1;
                                 }
+                                else if (SkillAddedNumber == 2)
+                                {
+                                    vida = int.Parse(Character2_blue_life.Content.ToString()) - vida;
+                                    Character2_blue_life.Content = vida.ToString();
+                                    Dead(Character2_blue, Character2_blue_life);
+                                    autenti = 1;
+                                }
+                                else if (SkillAddedNumber == 3)
+                                {
+                                    vida = int.Parse(Character3_blue_life.Content.ToString()) - vida;
+                                    Character3_blue_life.Content = vida.ToString();
+                                    Dead(Character3_blue, Character3_blue_life);
+                                    autenti = 1;
+                                }
+
+                                break;
                             }
-                            else
+                        case "h":
                             {
-                                vida = int.Parse(damage);
+                                int vida = 0; 
+                                
+                                if (SkillAddedNumber == 1)
+                                {
+                                    vida = int.Parse(Character1_red_life.Content.ToString()) + int.Parse(Damage);
+                                    if (vida > 100)
+                                        vida = 100;
+                                    Character1_red_life.Content = vida.ToString();
+                                }
+                                else if (SkillAddedNumber == 2)
+                                {
+                                    vida = int.Parse(Character2_red_life.Content.ToString()) + int.Parse(Damage);
+                                    if (vida > 100)
+                                        vida = 100;
+                                    Character2_red_life.Content = vida.ToString();
+                                }
+                                else if (SkillAddedNumber == 3)
+                                {
+                                    vida = int.Parse(Character3_red_life.Content.ToString()) + int.Parse(Damage);
+                                    if (vida > 100)
+                                        vida = 100;
+                                    Character3_red_life.Content = vida.ToString();
+                                }
+                                break;
+                            }
+                        default:
+                            {
+                                break;
                             }
 
-                            vida = int.Parse(Character3_blue_life.Content.ToString()) - vida;
-                            Character3_blue_life.Content = vida.ToString();
-                            Dead(Character3_blue, Character3_blue_life);
-
-                        }
-                        else if (typeSkill == "h")
-                        {
-
-                            int vida = int.Parse(Character3_red_life.Content.ToString()) + int.Parse(damage);
-                            if (vida > 100)
-                                vida = 100;
-                            Character3_red_life.Content = vida.ToString();
-                        }
                     }
-
-                    if (turno >= 0 && autenti != 1)
-                    {
-                        element.Tag = element.Tag.ToString().Substring(0, 4) + turno;
-                    }
-                    else
-                    {
-                        element.Tag = "1";
-                        element.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
-                    }
-                    
                 }
 
+                if (Turn >= 0 && autenti != 1)
+                {
+                    element.Tag = element.Tag.ToString().Substring(0, 4) + Turn;
+                    autenti = 1;
+                }
+                else
+                {
+                    element.Tag = "1";
+                    element.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
+                }       
             }
         }
 
-        private void Block_Character(int char_select)
+        private void Block_Character(int CharSelect)
         {
-            string charn = "0";
+            var Images = principal.Children.OfType<Image>();
+            string NameSkill = "";
+            int Skill = 1;
+            NameSkill = "Character" + CharSelect + "_red_skill" + Skill;
 
-            int skills = 1;
-            charn = "Character"+ char_select + "_red_skill" + skills;
-            
-
-            var images = principal.Children.OfType<Image>();
-            foreach (Image element in images)
+            foreach (Image element in Images)
             {
                 if (element.Name != null && element.Name != "" && element.Name.Length > 14)
                 {
                     try
                     {
-                        if (element.Name.Substring(0, 21) == charn)
+                        if (element.Name.Substring(0, 21) == NameSkill)
                         {
                             
                             element.Opacity = 0.5;
                             element.IsEnabled = false;
-                            skills += 1;
-                            charn = "Character" + char_select + "_red_skill" + skills;
+                            Skill += 1;
+                            NameSkill = "Character" + CharSelect + "_red_skill" + Skill;
                         }
                     }
                     catch
                     {}
-                } 
+                }
+
+                if (Skill == 4)
+                {
+                    break;
+                }
             }
         }
 
-        private void GeralSelect(object sender, MouseButtonEventArgs e)
+        private void Geral_Select(object sender, MouseButtonEventArgs e)
         {
-            if (attack_char != "")
+            if (Btc.AttackChar != null)
             {
 
-            
                 //-----------------Damage
-                if (type_skill == "d")
+                if (Btc.TypeSkill == "d" || Btc.TypeSkill == "da")
                 {
-                    string skill_second = (skillNumber.Last()).ToString();
-                    int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
+                    Image EnemyImage = (Image)sender;
 
-                    Image image = (Image)sender;
-                    int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content, image.Name);
-                    var labels = SkillAdded.Children.OfType<Image>();
-                    string ado = "";
-
-                    if (characterNumber == 1)
-                        ado = "SkillAdded1_blue";
-                    if (characterNumber == 2)
-                        ado = "SkillAdded2_blue";
-                    if (characterNumber == 3)
-                        ado = "SkillAdded3_blue";
-
-                    foreach (Image element in labels)
+                    if (EnemyImage.Name == "Character1_red" || EnemyImage.Name == "Character2_red" || EnemyImage.Name == "Character3_red")
+                    { }
+                    else
                     {
-                        if (element.Tag != null && element.Name != null)
+                        int EnemyCharNumber = Btc.Convert_Name_Int(EnemyImage.Name);
+                        var SkillAD = SkillAdded.Children.OfType<Image>();
+
+                        if (Btc.TypeSkill == "d")
                         {
-                            if (element.Tag.ToString() == "1" && element.Name.Substring(0, 16) == ado)
+                            string Sa = null;
+                            if (EnemyCharNumber == 1)
+                                Sa = "SkillAdded1_blue";
+                            if (EnemyCharNumber == 2)
+                                Sa = "SkillAdded2_blue";
+                            if (EnemyCharNumber == 3)
+                                Sa = "SkillAdded3_blue";
+
+                            foreach (Image element in SkillAD)
                             {
-                                if (element.Tag.ToString().Substring(0, 1) != "d")
+                                if (element.Tag.ToString() == "1" && element.Name.Substring(0, 16) == Sa)
                                 {
-                                    element.Source = new BitmapImage(new Uri("Characters/" + attack_char + "/" + attack_char + "_skill" + skill_second + "_default.png", UriKind.Relative));
-                                    //Tag is damage >
+                                    element.Source = new BitmapImage(new Uri("Characters/" + Btc.AttackChar + "/" + Btc.AttackChar + "_skill" + Btc.SkillSelect + "_default.png", UriKind.Relative));
+                        
+                                    //Tag is damage
+                                    element.Tag = Btc.TypeSkill + Btc.Damage_Skill(Btc.SkillSelect, Btc.AttackChar);
 
-                                    element.Tag = type_skill + bat.damage_skill(skill_second, attack_char);
-                                }
-
-                                Block_Character(char_select);
-                                break;
-                            }
-                        }
-                    }
-
-                    attack_char = "";
-                    var info = Application.GetResourceStream(new Uri("Cursor/Normal_Select.cur", UriKind.Relative));
-                    var cursor = new Cursor(info.Stream);
-
-                    principal.Cursor = cursor;
-                }
-
-                //-----------------Damage Area
-                else if (type_skill == "da")
-                {
-                    string skill_second = (skillNumber.Last()).ToString();
-                    int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
-
-                    Image image = (Image)sender;
-                    int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content, image.Name);
-                    var labels = SkillAdded.Children.OfType<Image>();
-                    string ado = "";
-
-                    List<string> SkillAddedList = new List<string>();
-                    SkillAddedList.Add("SkillAdded1_blue");
-                    SkillAddedList.Add("SkillAdded2_blue");
-                    SkillAddedList.Add("SkillAdded3_blue");
-
-                    foreach (string element2 in SkillAddedList)
-                    {
-                        foreach (Image element in labels)
-                        {
-                            if (element.Tag != null && element.Name != null)
-                            {
-
-
-                                if (element.Tag.ToString() == "1" && element.Name.Substring(0, 16) == element2)
-                                {
-                                    if (element.Tag.ToString().Substring(0, 1) != "d")
-                                    {
-                                        element.Source = new BitmapImage(new Uri("Characters/" + attack_char + "/" + attack_char + "_skill" + skill_second + "_default.png", UriKind.Relative));
-                                        //Tag is damage >
-
-                                        element.Tag = "d" + bat.damage_skill(skill_second, attack_char);
-
-                                    }
-
-                                    Block_Character(char_select);
+                                    Block_Character(Btc.NumAttackChar);
                                     break;
                                 }
-
                             }
                         }
+                        else
+                        //-----------------Damage Area
+                        if (Btc.TypeSkill == "da")
+                        {
+                            List<string> SaList = new List<string>
+                            {
+                                "SkillAdded1_blue",
+                                "SkillAdded2_blue",
+                                "SkillAdded3_blue"
+                            };
+
+                            foreach (string elementList in SaList)
+                            {
+                                foreach (Image element in SkillAD)
+                                {
+                                    if (element.Tag.ToString() == "1" && element.Name.Substring(0, 16) == elementList)
+                                    {
+                                        element.Source = new BitmapImage(new Uri("Characters/" + Btc.AttackChar + "/" + Btc.AttackChar + "_skill" + Btc.SkillSelect + "_default.png", UriKind.Relative));
+
+                                        //Tag is damage
+                                        element.Tag = "d" + Btc.Damage_Skill(Btc.SkillSelect, Btc.AttackChar);
+
+                                        Block_Character(Btc.NumAttackChar);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        Btc.AttackChar = null;
+                        Change_Cursor("Normal");
                     }
-
-                    attack_char = "";
-                    var info = Application.GetResourceStream(new Uri("Cursor/Normal_Select.cur", UriKind.Relative));
-                    var cursor = new Cursor(info.Stream);
-
-                    principal.Cursor = cursor;
+                    
                 }
-
                 //-----------------Heal
-                else if (type_skill == "h")
+                if (Btc.TypeSkill == "h" || Btc.TypeSkill == "ha" || Btc.TypeSkill == "y" || Btc.TypeSkill == "q" || Btc.TypeSkill == "r")
                 {
-                    Image image = (Image)sender;
+                    Image FriendImage = (Image)sender;
 
-                    if (image.Name == "Character1_blue" || image.Name == "Character2_blue" || image.Name == "Character3_blue")
-                    {
-
-                    }
+                    if (FriendImage.Name == "Character1_blue" || FriendImage.Name == "Character2_blue" || FriendImage.Name == "Character3_blue")
+                    {}
                     else
                     {
-                        string skill_second = (skillNumber.Last()).ToString();
-                        int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
+                        int EnemyCharNumber = Btc.Convert_Name_Int(FriendImage.Name);
+                        var SkillAD = SkillAdded.Children.OfType<Image>();
 
-
-                        int characterNumber = bat.attack_choose(skill_select, Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content, image.Name);
-                        //List<Label> labels = new List<Label>();
-                        var labels = SkillAdded.Children.OfType<Image>();
-                        string ado = "";
-
-                        if (characterNumber == 1)
-                            ado = "SkillAdded1_red";
-                        if (characterNumber == 2)
-                            ado = "SkillAdded2_red";
-                        if (characterNumber == 3)
-                            ado = "SkillAdded3_red";
-
-                        foreach (Image element in labels)
+                        if (Btc.TypeSkill == "h")
                         {
-                            if (element.Tag != null && element.Name != null)
+                            string Sa = null;
+                            if (EnemyCharNumber == 1)
+                                Sa = "SkillAdded1_red";
+                            if (EnemyCharNumber == 2)
+                                Sa = "SkillAdded2_red";
+                            if (EnemyCharNumber == 3)
+                                Sa = "SkillAdded3_red";
+
+                            foreach (Image element in SkillAD)
                             {
-                                if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == ado)
+                                if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == Sa)
                                 {
-                                    if (element.Tag.ToString().Substring(0, 1) != "h")
-                                    {
-                                        element.Source = new BitmapImage(new Uri("Characters/" + attack_char + "/" + attack_char + "_skill" + skill_second + "_default.png", UriKind.Relative));
+                                    element.Source = new BitmapImage(new Uri("Characters/" + Btc.AttackChar + "/" + Btc.AttackChar + "_skill" + Btc.SkillSelect + "_default.png", UriKind.Relative));
 
-                                        element.Tag = type_skill + bat.heal_skill(skill_second, attack_char);
-                                    }
+                                    //Tag is damage
+                                    element.Tag = Btc.TypeSkill + Btc.Heal_Skill(Btc.SkillSelect, Btc.AttackChar);
 
-                                    Block_Character(char_select);
-                                    break;
-                                }
-                            }
-
-                        }
-
-                        attack_char = "";
-                        var info = Application.GetResourceStream(new Uri("Cursor/Normal_Select.cur", UriKind.Relative));
-                        var cursor = new Cursor(info.Stream);
-
-                        principal.Cursor = cursor;
-                    }
-                }
-
-                //-----------------Heal Area
-                else if (type_skill == "ha")
-                {
-                    string skill_second = (skillNumber.Last()).ToString();
-                    int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
-
-                    Image image = (Image)sender;
-                    int characterNumber = bat.attack_choose(skill_select, Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content, image.Name);
-                    var labels = SkillAdded.Children.OfType<Image>();
-                    string ado = "";
-
-                    List<string> SkillAddedList = new List<string>();
-                    SkillAddedList.Add("SkillAdded1_red");
-                    SkillAddedList.Add("SkillAdded2_red");
-                    SkillAddedList.Add("SkillAdded3_red");
-
-                    foreach (string element2 in SkillAddedList)
-                    {
-                        foreach (Image element in labels)
-                        {
-                            if (element.Tag != null && element.Name != null)
-                            {
-                                if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == element2)
-                                {
-                                    if (element.Tag.ToString().Substring(0, 1) != "h")
-                                    {
-                                        element.Source = new BitmapImage(new Uri("Characters/" + attack_char + "/" + attack_char + "_skill" + skill_second + "_default.png", UriKind.Relative));
-
-                                        element.Tag = "h" + bat.heal_skill(skill_second, attack_char);
-                                    }
-
-                                    Block_Character(char_select);
+                                    Block_Character(Btc.NumAttackChar);
                                     break;
                                 }
                             }
                         }
-                    }
-
-                    attack_char = "";
-                    var info = Application.GetResourceStream(new Uri("Cursor/Normal_Select.cur", UriKind.Relative));
-                    var cursor = new Cursor(info.Stream);
-
-                    principal.Cursor = cursor;
-                }
-
-                //-----------------Self Heal
-                else if (type_skill == "y")
-                {
-                    Image image = (Image)sender;
-
-                    if (image.Name == "Character1_blue" || image.Name == "Character2_blue" || image.Name == "Character3_blue")
-                    {
-
-                    }
-                    else if (image.Name == "Character" + skillNumber.Substring(0,1) + "_red")
-                    {
-                        string skill_second = (skillNumber.Last()).ToString();
-                        int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
-
-
-                        int characterNumber = bat.attack_choose(skill_select, Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content, image.Name);
-                        //List<Label> labels = new List<Label>();
-                        var labels = SkillAdded.Children.OfType<Image>();
-                        string ado = "";
-
-                        if (characterNumber == 1)
-                            ado = "SkillAdded1_red";
-                        if (characterNumber == 2)
-                            ado = "SkillAdded2_red";
-                        if (characterNumber == 3)
-                            ado = "SkillAdded3_red";
-
-                        foreach (Image element in labels)
+                        else
+                        //-----------------Heal Area
+                        if (Btc.TypeSkill == "ha")
                         {
-                            if (element.Tag != null && element.Name != null)
+                            List<string> SaList = new List<string>
                             {
-                                if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == ado)
+                                "SkillAdded1_red",
+                                "SkillAdded2_red",
+                                "SkillAdded3_red"
+                            };
+
+                            foreach (string elementList in SaList)
+                            {
+                                foreach (Image element in SkillAD)
                                 {
-                                    if (element.Tag.ToString().Substring(0, 1) != "h")
+                                    if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == elementList)
                                     {
-                                        element.Source = new BitmapImage(new Uri("Characters/" + attack_char + "/" + attack_char + "_skill" + skill_second + "_default.png", UriKind.Relative));
+                                        element.Source = new BitmapImage(new Uri("Characters/" + Btc.AttackChar + "/" + Btc.AttackChar + "_skill" + Btc.SkillSelect + "_default.png", UriKind.Relative));
 
-                                        element.Tag = "h" + bat.heal_skill(skill_second, attack_char);
+                                        //Tag is damage
+                                        element.Tag = "h" + Btc.Heal_Skill(Btc.SkillSelect, Btc.AttackChar);
+
+                                        Block_Character(Btc.NumAttackChar);
+                                        break;
                                     }
+                                }
+                            }
+                        }
+                        else
+                        //-----------------Heal Self
+                        if (Btc.TypeSkill == "y")
+                        {
+                            if (FriendImage.Name == "Character" + Btc.NumAttackChar.ToString() + "_red")
+                            {
+                                string Sa = null;
+                                if (EnemyCharNumber == 1)
+                                    Sa = "SkillAdded1_red";
+                                if (EnemyCharNumber == 2)
+                                    Sa = "SkillAdded2_red";
+                                if (EnemyCharNumber == 3)
+                                    Sa = "SkillAdded3_red";
 
-                                    Block_Character(char_select);
+                                foreach (Image element in SkillAD)
+                                {
+                                    if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == Sa)
+                                    {
+                                        element.Source = new BitmapImage(new Uri("Characters/" + Btc.AttackChar + "/" + Btc.AttackChar + "_skill" + Btc.SkillSelect + "_default.png", UriKind.Relative));
+
+                                        //Tag is damage
+                                        element.Tag = "h" + Btc.Heal_Skill(Btc.SkillSelect, Btc.AttackChar);
+
+                                        Block_Character(Btc.NumAttackChar);
+
+                                        //Self need prop
+                                        Btc.AttackChar = null;
+                                        Change_Cursor("Normal");
+                                        break;
+                                    }
+                                }
+                            }
+                            else {}
+                        }
+                        else
+                        //-----------------Defense
+                        if (Btc.TypeSkill == "q")
+                        {
+                            string Sa = null;
+                            if (EnemyCharNumber == 1)
+                                Sa = "SkillAdded1_red";
+                            if (EnemyCharNumber == 2)
+                                Sa = "SkillAdded2_red";
+                            if (EnemyCharNumber == 3)
+                                Sa = "SkillAdded3_red";
+
+                            foreach (Image element in SkillAD)
+                            {
+                                if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == Sa)
+                                {
+                                    element.Source = new BitmapImage(new Uri("Characters/" + Btc.AttackChar + "/" + Btc.AttackChar + "_skill" + Btc.SkillSelect + "_default.png", UriKind.Relative));
+
+                                    //Tag is damage
+                                    element.Tag = Btc.TypeSkill + Btc.Defense_Skill(Btc.SkillSelect, Btc.AttackChar);
+
+                                    Block_Character(Btc.NumAttackChar);
                                     break;
                                 }
                             }
-
                         }
-
-                        attack_char = "";
-                        var info = Application.GetResourceStream(new Uri("Cursor/Normal_Select.cur", UriKind.Relative));
-                        var cursor = new Cursor(info.Stream);
-
-                        principal.Cursor = cursor;
-                    }
-                }
-
-                //-----------------Defense
-                else if (type_skill == "q")
-                {
-                    Image image = (Image)sender;
-
-                    if (image.Name == "Character1_blue" || image.Name == "Character2_blue" || image.Name == "Character3_blue")
-                    {
-
-                    }
-                    else
-                    {
-                        string skill_second = (skillNumber.Last()).ToString();
-                        int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
-
-
-                        int characterNumber = bat.attack_choose(skill_select, Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content, image.Name);
-                        //List<Label> labels = new List<Label>();
-                        var labels = SkillAdded.Children.OfType<Image>();
-                        string ado = "";
-
-                        if (characterNumber == 1)
-                            ado = "SkillAdded1_red";
-                        if (characterNumber == 2)
-                            ado = "SkillAdded2_red";
-                        if (characterNumber == 3)
-                            ado = "SkillAdded3_red";
-
-                        foreach (Image element in labels)
+                        else
+                        if (Btc.TypeSkill == "r")
                         {
-                            if (element.Tag != null && element.Name != null)
+                            if (FriendImage.Name == "Character" + Btc.NumAttackChar.ToString() + "_red")
                             {
-                                if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == ado)
+                                string Sa = null;
+                                if (EnemyCharNumber == 1)
+                                    Sa = "SkillAdded1_red";
+                                if (EnemyCharNumber == 2)
+                                    Sa = "SkillAdded2_red";
+                                if (EnemyCharNumber == 3)
+                                    Sa = "SkillAdded3_red";
+
+                                foreach (Image element in SkillAD)
                                 {
-                                    if (element.Tag.ToString().Substring(0, 1) != "q")
+                                    if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == Sa)
                                     {
-                                        element.Source = new BitmapImage(new Uri("Characters/" + attack_char + "/" + attack_char + "_skill" + skill_second + "_default.png", UriKind.Relative));
+                                        element.Source = new BitmapImage(new Uri("Characters/" + Btc.AttackChar + "/" + Btc.AttackChar + "_skill" + Btc.SkillSelect + "_default.png", UriKind.Relative));
 
-                                        element.Tag = type_skill + bat.Defense_Skill(skill_second, attack_char);
+                                        //Tag is damage
+                                        element.Tag = "q" + Btc.Defense_Skill(Btc.SkillSelect, Btc.AttackChar);
+
+                                        Block_Character(Btc.NumAttackChar);
+
+                                        //Self need prop
+                                        Btc.AttackChar = null;
+                                        Change_Cursor("Normal");
+                                        break;
                                     }
-
-                                    Block_Character(char_select);
-                                    break;
                                 }
                             }
-
+                            else { }
                         }
-
-                        attack_char = "";
-                        var info = Application.GetResourceStream(new Uri("Cursor/Normal_Select.cur", UriKind.Relative));
-                        var cursor = new Cursor(info.Stream);
-
-                        principal.Cursor = cursor;
                     }
-                }
 
-                //-----------------Self Defense
-                else if (type_skill == "r")
-                {
-                    Image image = (Image)sender;
-
-                    if (image.Name == "Character1_blue" || image.Name == "Character2_blue" || image.Name == "Character3_blue" )
+                    if (Btc.TypeSkill != "y" && Btc.TypeSkill != "r")
                     {
-
+                        Btc.AttackChar = null;
+                        Change_Cursor("Normal");
                     }
-                    else if (image.Name == "Character" + skillNumber.Substring(0,1) + "_red")
-                    {
-                        string skill_second = (skillNumber.Last()).ToString();
-                        int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
-
-
-                        int characterNumber = bat.attack_choose(skill_select, Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content, image.Name);
-                        //List<Label> labels = new List<Label>();
-                        var labels = SkillAdded.Children.OfType<Image>();
-                        string ado = "";
-
-                        if (characterNumber == 1)
-                            ado = "SkillAdded1_red";
-                        if (characterNumber == 2)
-                            ado = "SkillAdded2_red";
-                        if (characterNumber == 3)
-                            ado = "SkillAdded3_red";
-
-                        foreach (Image element in labels)
-                        {
-                            if (element.Tag != null && element.Name != null)
-                            {
-                                if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == ado)
-                                {
-                                    if (element.Tag.ToString().Substring(0, 1) != "r")
-                                    {
-                                        element.Source = new BitmapImage(new Uri("Characters/" + attack_char + "/" + attack_char + "_skill" + skill_second + "_default.png", UriKind.Relative));
-
-                                        element.Tag = "q" + bat.Defense_Skill(skill_second, attack_char);
-                                    }
-
-                                    Block_Character(char_select);
-                                    break;
-                                }
-                            }
-
-                        }
-
-                        attack_char = "";
-                        var info = Application.GetResourceStream(new Uri("Cursor/Normal_Select.cur", UriKind.Relative));
-                        var cursor = new Cursor(info.Stream);
-
-                        principal.Cursor = cursor;
-                    }
+                    
                 }
-
             }
+            //Finish
         }
 
-        private void teamDead()
+        private bool Team_Dead()
         {
-            int dead = bat.confirmation_teamDead(Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content,
+            int Dead = Btc.Confirmation_TeamDead(Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content,
                                                  Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content);
-            string result = "";
-            if (dead == 2)
-            {
-                result = "Winner";
-                timer.Close();
-                Close();
-                bat.WL(account, result);
-                MessageBox.Show(result);
-            }
-            else if (dead == 1)
-            {
-                result = "Loser";
-                timer.Close();
-                Close();
-                bat.WL(account, result);
-                MessageBox.Show(result);
-            }
 
+            if (Dead == 1 || Dead == 2)
+            {
+                Close();
+                return true;
+            }
+            return false;
         }
 
-        private void Dead(object nome_e_cor, object life)
+        private void Dead(object Char, object Life)
         {  
-            Image image = (Image)nome_e_cor;
-            Label label = (Label)life;
+            Image Image = (Image)Char;
+            Label Label = (Label)Life;
+            bool Confimation = Btc.Dead_Confirmation(Label.Content);
 
-            bool confimation = bat.dead_confirmation(label.Content);
-
-            //12 - 14
-            if (confimation == true)
+            if (Confimation == true)
             {
-                if (label.Name.Substring(11) == "red_life")
+                if (Label.Name.Substring(11) == "red_life")
                 {
-                    if (bat.convert_name_int(label.Name) == 1)
+                    if (Btc.Convert_Name_Int(Label.Name) == 1)
                     {
                         Character1_red_skill1.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
                         Character1_red_skill2.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
@@ -838,7 +645,7 @@ namespace ViewWpf
                         Character1_red_skill2.Tag = "dead";
                         Character1_red_skill3.Tag = "dead";
                     }
-                    else if (bat.convert_name_int(label.Name) == 2)
+                    else if (Btc.Convert_Name_Int(Label.Name) == 2)
                     {
                         Character2_red_skill1.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
                         Character2_red_skill2.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
@@ -850,7 +657,7 @@ namespace ViewWpf
                         Character2_red_skill2.Tag = "dead";
                         Character2_red_skill3.Tag = "dead";
                     }
-                    else if (bat.convert_name_int(label.Name) == 3)
+                    else if (Btc.Convert_Name_Int(Label.Name) == 3)
                     {
                         Character3_red_skill1.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
                         Character3_red_skill2.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
@@ -863,14 +670,11 @@ namespace ViewWpf
                         Character3_red_skill3.Tag = "dead";
                     }
                 }
-                
-                 
 
-                image.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
-                image.Tag = "Others/dead_default.png";
-                image.IsEnabled = false;
-                label.Content = "0";
-                
+                Image.Source = new BitmapImage(new Uri("Others/dead_default.png", UriKind.Relative));
+                Image.Tag = "Others/dead_default.png";
+                Image.IsEnabled = false;
+                Label.Content = "0";
             }
         }
 
@@ -888,9 +692,13 @@ namespace ViewWpf
 
         private void Change_Life_Color(Label label)
         {
-            if (int.Parse(label.Content.ToString()) < 50)
+            int LabelContent = int.Parse(label.Content.ToString());
+
+            if (LabelContent > 50 && LabelContent <= 100)
+                label.Background = Brushes.Green;
+            if (LabelContent > 20 && LabelContent <= 50)
                 label.Background = Brushes.Orange;
-            if (int.Parse(label.Content.ToString()) < 20)
+            if (LabelContent <= 20)
                 label.Background = Brushes.Red;
         }
 
@@ -898,27 +706,25 @@ namespace ViewWpf
         {
             Image image = (Image)sender;
 
-            string source = image.Tag.ToString();
-            source = source.Remove(source.Length - 4);
+            string Source = image.Tag.ToString();
+            Source = Source.Remove(Source.Length - 4);
             
+            string Name = image.Name;
+            Name = Name.Substring(Name.Length - 3);
 
-            //auth RED
-            string name = image.Name;
-            name = name.Substring(name.Length - 3);
-
-            if (skill_select != 0 && attack_char != "" && image.Tag.ToString() != "Others/dead_default.png")
+            if (Btc.SkillSelect != 0 && Btc.AttackChar != null && image.Tag.ToString() != "Others/dead_default.png")
             {
-                if ((type_skill == "r" || type_skill == "y") && name == "red" && image.Name == "Character" + skillNumber.Substring(0,1) + "_red")
+                if ((Btc.TypeSkill == "r" || Btc.TypeSkill == "y") && Name == "red" && image.Name == "Character" + Btc.NumAttackChar + "_red")
                 {
-                    image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
+                    image.Source = new BitmapImage(new Uri(Source + "_select.png", UriKind.Relative));
                 }
-                if ((type_skill == "h" || type_skill == "q" || type_skill == "ha") && name == "red")
+                if ((Btc.TypeSkill == "h" || Btc.TypeSkill == "q" || Btc.TypeSkill == "ha") && Name == "red")
                 {
-                    image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
+                    image.Source = new BitmapImage(new Uri(Source + "_select.png", UriKind.Relative));
                 }
-                else if ((type_skill == "d" || type_skill == "da") && name != "red")
+                else if ((Btc.TypeSkill == "d" || Btc.TypeSkill == "da") && Name != "red")
                 {
-                    image.Source = new BitmapImage(new Uri(@source + "_select.png", UriKind.Relative));
+                    image.Source = new BitmapImage(new Uri(Source + "_select.png", UriKind.Relative));
                 }
             }
 
@@ -926,180 +732,139 @@ namespace ViewWpf
 
         private void Generic_mouseLeave(object sender, MouseEventArgs e)
         {
-            Image image = (Image)sender;
-
-            string source = image.Tag.ToString();
-            source = source.Remove(source.Length - 4);
-
-            //auth RED
-            string name = image.Name;
-            name = name.Substring(name.Length - 3);
-
-            if (skill_select != 0)
+            if (Btc.SkillSelect != 0 || Btc.AttackChar != null)
             {
-                if ((type_skill == "r" || type_skill == "y") && name == "red" && image.Name == "Character" + skillNumber.Substring(0,1) + "_red")
-                {
-                    image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
-                }
-                if ((type_skill == "h" || type_skill == "q" || type_skill == "ha") && name == "red")
-                {
-                    image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
-                }
-                else if ((type_skill == "d" || type_skill == "da") && name != "red")
-                {
-                    image.Source = new BitmapImage(new Uri(@source + ".png", UriKind.Relative));
-                }
+                Image image = (Image)sender;
+
+                string Source = image.Tag.ToString();
+                Source = Source.Remove(Source.Length - 4);
+                image.Source = new BitmapImage(new Uri(Source + ".png", UriKind.Relative));
             }
         }
-
 
         private void ShowSkill_MouseEnter(object sender, MouseEventArgs e)
         {
-            //change image
-            Image image = (Image)sender;
-            panelSkillImage.Source = image.Source;
+            Image SkillImage = (Image)sender;
+            PanelSkillImage.Source = SkillImage.Source;
 
-            //change chakras number
-            string skillNumber = bat.convert_name_int(image.Name).ToString();
-            string skill_second = (skillNumber.Last()).ToString();
-            int char_select = int.Parse(skillNumber.Remove(skillNumber.Length - 1));
-            //skill_select = int.Parse(skillNumber.Substring(0, 1));
+            string Skill = Btc.Convert_Name_Int(SkillImage.Name).ToString();
+            int SkillNumber = int.Parse((Skill.Last()).ToString());
+            int CharNumber = int.Parse(Skill.Remove(Skill.Length - 1));
+            string CharName = Btc.Return_CharacterRed(CharNumber);
 
-            List<string> skills = new List<string>();
-            skills = bat.Skills(skill_second, char_select);
+            List<string> ChakraSkill = new List<string>();
+            ChakraSkill = Btc.Chakra_Skill(SkillNumber, CharNumber);
 
-            TaijutsuNumber_Panel.Content = skills[0];
-            BloodlineNumber_Panel.Content = skills[1];
-            NinjutsuNumber_Panel.Content = skills[2];
-            GenjutsuNumber_Panel.Content = skills[3];
+            TaijutsuNumber_Panel.Content = ChakraSkill[0];
+            BloodlineNumber_Panel.Content = ChakraSkill[1];
+            NinjutsuNumber_Panel.Content = ChakraSkill[2];
+            GenjutsuNumber_Panel.Content = ChakraSkill[3];
 
-            string charshow = "";
-            if (char_select == 1)
-                charshow = bat.Character1_red;
-            else if (char_select == 2)
-                charshow = bat.Character2_red;
-            else if (char_select == 3)
-                charshow = bat.Character3_red;
+            DamageNumber_Panel.Content = Btc.Damage_Skill(SkillNumber, CharName);
+            HealNumber_Panel.Content = Btc.Heal_Skill(SkillNumber, CharName);
 
-            DamageNumber_Panel.Content = bat.damage_skill(skill_second, charshow);
-            HealNumber_Panel.Content = bat.heal_skill(skill_second, charshow);
-            string defnum = bat.Defense_Skill(skill_second, charshow);
+            string Defense = Btc.Defense_Skill(SkillNumber, CharName);
             try
             {
-                DefenseNumber_Panel.Content = defnum.Substring(0, 2);
+                DefenseNumber_Panel.Content = Defense.Substring(0, 2);
             }
-            catch
-            {
-                DefenseNumber_Panel.Content = defnum;
-            }
-            string result = bat.Skill_Type(char_select, int.Parse(skill_second));
-            if (result == "da" || result == "ha")
+            catch { DefenseNumber_Panel.Content = Defense; }
+
+            string SkillType = Btc.Skill_Type(CharNumber, SkillNumber);
+            if (SkillType == "da" || SkillType == "ha")
             {
                 AreaNumber_Panel.Content = "Yes";
             }
-            else
-            {
-                AreaNumber_Panel.Content = "No";
-            }
+            else { AreaNumber_Panel.Content = "No"; }
 
-            if (result == "r" || result == "y")
+            if (SkillType == "r" || SkillType == "y")
             {
                 SelfNumber_Panel.Content = "Yes";
             }
-            else
-            {
-                SelfNumber_Panel.Content = "No";
-            }
-
-        }
-
-        private void Surrender(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
+            else { SelfNumber_Panel.Content = "No"; }
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            string result = "Loser";
-            timer.Close();
+            if (Team_Dead() == false)
+            {
+                string Result = null;
+                Result = "Loser";
+                Tmr.Close();
+                Close();
+                Btc.Save_Battle_Result(Result);
+                MessageBox.Show(Result);
+            }
+            else
+            {
+                string Result = null;
+                Result = "Winner";
+                Tmr.Close();
+                Close();
+                Btc.Save_Battle_Result(Result);
+                MessageBox.Show(Result);
+            }
+            
+        }
+
+        private void Surrender(object sender, MouseButtonEventArgs e)
+        {
             Close();
-            bat.WL(account, result);
-            MessageBox.Show(result);
         }
 
         //===================== IA ====================
 
-        //Jogada da IA
-        private void ia_play()
+        private void Ia_Play()
         {
-            //MessageBox.Show("" + characterNumber);
             int playRandom = 0;
-
             do
             {
-
                 Random rand = new Random();
                 int characterNumber = rand.Next(1, 4);
                 if (characterNumber == 1 && Character1_red_life.Content.ToString() != "0")
                 {
-
-                        Character1_red_life.Content = bat.attack_blue(Character1_red_life.Content);
-                        Dead(Character1_red, Character1_red_life);
-                        teamDead();
-                        playRandom = 1;
- 
-
+                    Character1_red_life.Content = Btc.attack_blue(Character1_red_life.Content);
+                    Dead(Character1_red, Character1_red_life);
+                    Team_Dead();
+                    playRandom = 1;
                 }
                 else if (characterNumber == 2 && Character2_red_life.Content.ToString() != "0")
                 {
-
-                        Character2_red_life.Content = bat.attack_blue(Character2_red_life.Content);
-                        Dead(Character2_red, Character2_red_life);
-                        teamDead();
-                        playRandom = 1;
-
-
+                    Character2_red_life.Content = Btc.attack_blue(Character2_red_life.Content);
+                    Dead(Character2_red, Character2_red_life);
+                    Team_Dead();
+                    playRandom = 1;
                 }
                 else if (characterNumber == 3 && Character3_red_life.Content.ToString() != "0")
                 {
-
-                        Character3_red_life.Content = bat.attack_blue(Character3_red_life.Content);
-                        Dead(Character3_red, Character3_red_life);
-                        teamDead();
-                        playRandom = 1;
-                    
-
+                    Character3_red_life.Content = Btc.attack_blue(Character3_red_life.Content);
+                    Dead(Character3_red, Character3_red_life);
+                    Team_Dead();
+                    playRandom = 1;
                 }
 
-
             } while (playRandom == 0);
-            pass_turn();
+            Pass_Turn();
         }
 
         //===================== Sound ====================
 
-        private void VolMore_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Vol_More(object sender, MouseButtonEventArgs e)
         {
-            
             if (Volume.Content.ToString() != "100")
             {
                 MusicPlayer.Volume = MusicPlayer.Volume + 0.1;
-                Volume.Content = bat.conversion_object_toint(Volume.Content) + 10;
+                Volume.Content = Btc.Conversion_Object_Toint(Volume.Content) + 10;
             }
-               
         }
 
-        private void VolLess_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Vol_Less(object sender, MouseButtonEventArgs e)
         {
-            
             if (Volume.Content.ToString() != "0")
             {
                 MusicPlayer.Volume = MusicPlayer.Volume - 0.1;
-                Volume.Content = bat.conversion_object_toint(Volume.Content) - 10;
-            }
-                
-            
+                Volume.Content = Btc.Conversion_Object_Toint(Volume.Content) - 10;
+            }       
         }
-
     }
 }

@@ -7,21 +7,18 @@ using Controllers.DAL;
 
 namespace Controllers
 {
-    public class Tools : Context
+    public class Tools
     {
-        public int convert_name_int(string name)
+        public int Convert_Name_Int(string name)
         {
-
             name = String.Join("", System.Text.RegularExpressions.Regex.Split(name, @"[^\d]"));
             return int.Parse(name);
         }
 
-        public int conversion_object_toint(object obj)
+        public int Conversion_Object_Toint(object obj)
         {
             int obj_int = int.Parse(obj.ToString());
             return obj_int;
         }
-
-
     }
 }

@@ -23,6 +23,7 @@ namespace ViewWpf
     public partial class MainWindow : Window
     {
         Tools tools = new Tools();
+        Context Conn = new Context();
         List<string> CharacterList = new List<string>();
         List<string> CharacterListRandom = new List<string>();
         private string Char1 = "";
@@ -39,8 +40,8 @@ namespace ViewWpf
         public MainWindow()
         {
             InitializeComponent();
-            CharacterList = tools.return_Characters();
-            CharacterListRandom = tools.return_Characters();
+            CharacterList = Conn.return_Characters();
+            CharacterListRandom = Conn.return_Characters();
             Character_Load_Page();
         }
 
@@ -109,7 +110,7 @@ namespace ViewWpf
                 {
                     MessageBox.Show("Invalid Name or Password");
                 }
-                else if (tools.registerAccount(name, pass) == true)
+                else if (Conn.registerAccount(name, pass) == true)
                 {
                     MessageBox.Show("Account created");
                     Grid_Visibility(1);
@@ -135,7 +136,7 @@ namespace ViewWpf
             }
             else
             {
-                bool loginAut = tools.loginAuthentication(login, pass);
+                bool loginAut = Conn.loginAuthentication(login, pass);
                 if (loginAut == true)
                 {
                     Grid_Visibility(sender, e);
@@ -157,7 +158,7 @@ namespace ViewWpf
             try
             {
                 List<string> status = new List<string>();
-                status = tools.Account_Status(account);
+                status = Conn.Account_Status(account);
                 victoriesValue.Content = status[0];
                 losesValue.Content = status[1];
                 float kd = (float.Parse(status[0]) / float.Parse(status[1]));
@@ -209,7 +210,7 @@ namespace ViewWpf
         {
             if (loginCheck == true)
             {
-                bool reset = tools.Reset_Account(account);
+                bool reset = Conn.Reset_Account(account);
                 if (reset == true)
                 {
                     MessageBox.Show("Account status reset :)");
@@ -226,7 +227,7 @@ namespace ViewWpf
         {
             if (loginCheck == true)
             {
-                bool reset = tools.Delete_Account(account);
+                bool reset = Conn.Delete_Account(account);
                 if (reset == true)
                 {
                     Loggout_Account_Function();
@@ -243,7 +244,7 @@ namespace ViewWpf
         {
             if (loginCheck == true && (NewPassText.Password != null && NewPassText.Password != ""))
             {
-                bool resetPass = tools.Reset_Pass_Account(this.account, NewPassText.Password);
+                bool resetPass = Conn.Reset_Pass_Account(this.account, NewPassText.Password);
                 if (resetPass == true)
                 {
                     MessageBox.Show("Password reset");
@@ -463,7 +464,7 @@ namespace ViewWpf
             {
                 Next.Visibility = Visibility.Visible;
             }
-            CharacterList = tools.return_Characters();
+            CharacterList = Conn.return_Characters();
             charLoad = 0;
             Character_Load_Page();
             page -= 1;

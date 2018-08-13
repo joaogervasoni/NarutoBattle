@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Controllers.DAL;
+using System.Windows;
 
 
 
@@ -13,68 +14,80 @@ namespace Controllers
 
     public class BattleController : Tools
     {
-
         public int Turn { get; set; }
         public int Turn_play { get; set; }
-        public string Character1_red { get; set; }
-        public string Character2_red { get; set; }
-        public string Character3_red { get; set; }
+        public string Character1_red { get; private set; }
+        public string Character2_red { get; private set; }
+        public string Character3_red { get; private set; }
+        public string Account { get; set; }
 
+        public int SkillSelect { get; set; }
+        public string TypeSkill { get; set; }
+        public string AttackChar { get; set; } = null;
+        public int NumAttackChar { get; set; }
 
+        private readonly Context Conn;
         private IAController iac;
         public ChakraController ChakraRed;
         public ChakraController ChakraBlue;
-
+        List<string> ChakraSkill;
 
         public BattleController()
         {
+            ChakraSkill = new List<string>();
+            Conn = new Context();
             iac = new IAController();
             ChakraRed = new ChakraController();
             ChakraBlue = new ChakraController();
             Turn_play = 0;
-            
         }
 
+        //===================== Chakra ====================
 
-        public bool Have_Chakra(List<string> Skills)
+        public bool Have_Chakra(List<string> Skill)
         {
-            if (ChakraRed.Taijutsu >= int.Parse(Skills[0]) && ChakraRed.Bloodline >= int.Parse(Skills[1]) &&
-                ChakraRed.Ninjutsu >= int.Parse(Skills[2]) && ChakraRed.Genjutsu >= int.Parse(Skills[3]))
+            if (ChakraRed.Taijutsu >= int.Parse(Skill[0]) && ChakraRed.Bloodline >= int.Parse(Skill[1]) &&
+                ChakraRed.Ninjutsu >= int.Parse(Skill[2]) && ChakraRed.Genjutsu >= int.Parse(Skill[3]))
             {
                 return true;
             }
             return false;
         }
 
-        public List<string> Skills(string skillNumber, int char_select)
+        public List<string> Chakra_Skill(int SkillNumber, int CharSelect)
         {
-            
-            //retorna numero de chakras da skill
-            List<string> chakras = new List<string>();
+            string SkillNumberString = SkillNumber.ToString();
+            List<string> SkillChakras = new List<string>();
 
-            if (char_select == 1)
+            switch (CharSelect)
             {
-                chakras = Skills(skillNumber, Character1_red);
-            }
-            else if (char_select == 2)
-            {
-                chakras = Skills(skillNumber, Character2_red);
-            }
-            else if (char_select == 3)
-            {
-                chakras = Skills(skillNumber, Character3_red);
+                case 1:
+                    {
+                        SkillChakras = Conn.Skills(SkillNumberString, Character1_red);
+                        break;
+                    }
+                case 2:
+                    {
+                        SkillChakras = Conn.Skills(SkillNumberString, Character2_red);
+                        break;
+                    }
+                case 3:
+                    {
+                        SkillChakras = Conn.Skills(SkillNumberString, Character3_red);
+                        break;
+                    }
             }
 
-            return chakras;
+            return SkillChakras;
         }
 
-        public List<int> Return_Chakras(int team)
+        public List<int> Return_Chakras(int Team)
         {
-            if (team == 1)
+            if (Team == 1)
             {
                 return ChakraRed.returnChakras();
             }
-            else if (team == 2)
+            else if (Team == 2)
             {
                 return ChakraBlue.returnChakras();
             }
@@ -82,38 +95,56 @@ namespace Controllers
             return null;
         }
 
-        public string printChakras()
+        public void Withdraw_Chakra(List<string> Skill)
         {
-            return ChakraRed.printChakra() + ChakraBlue.printChakra();
+            ChakraRed.Taijutsu -= int.Parse(Skill[0]);
+            ChakraRed.Bloodline -= int.Parse(Skill[1]);
+            ChakraRed.Ninjutsu -= int.Parse(Skill[2]);
+            ChakraRed.Genjutsu -= int.Parse(Skill[3]);
         }
 
-        public int printturno()
+        public void Deposit_Chakra(List<string> Skill)
         {
-            return Turn_play;
+            ChakraRed.Taijutsu += int.Parse(Skill[0]);
+            ChakraRed.Bloodline += int.Parse(Skill[1]);
+            ChakraRed.Ninjutsu += int.Parse(Skill[2]);
+            ChakraRed.Genjutsu += int.Parse(Skill[3]);
         }
 
-        public void turn()
+        //===================== Turn ====================
+
+        public string Return_Turn_Play()
         {
-            //1 red
-            //2 blue
-            int atual_play = Turn_play;
-            if (atual_play == 1)
+            if (Turn_play == 1)
+            {
+                return "Player";
+            }
+            else if (Turn_play == 2)
+            {
+                return "IA";
+            }
+
+            return null;
+        }
+
+        private void This_Turn()
+        {
+            //1 red //2 blue
+            if (Turn_play == 1)
             {
                 Turn_play = 2;
             }
-            else if (atual_play == 2)
+            else if (Turn_play == 2)
             {
                 Turn_play = 1;
             }
         }
 
-
-        public bool initial_turn()
+        public bool Initial_Turn()
         {
-            //1 red
-            //2 blue
+            //1 red //2 blue
             Random random = new Random();
-            Turn_play = random.Next(1,3);
+            Turn_play = random.Next(1, 3);
 
             if (Turn_play == 2)
             {
@@ -123,105 +154,83 @@ namespace Controllers
             return false;
         }
 
-        public int pass_turn(object atual_turn)
+        public int Pass_Turn()
         {
-            int atual_turn_int = conversion_object_toint(atual_turn);
+            Turn += 1;
+            This_Turn();
+            return Turn;
+        }
 
-            if (atual_turn_int != Turn)
+        //===================== Attack ====================
+
+        public string Damage_Skill(int Skill, string Character)
+        {
+            string Damage = Conn.damage_skill(Skill.ToString(), Character);
+            return Damage;
+        }
+
+        public string Heal_Skill(int Skill, string Character)
+        {
+            string Heal = Conn.heal_skill(Skill.ToString(), Character);
+            return Heal;
+        }
+
+        public string Defense_Skill(int Skill, string Character)
+        {
+            string Defense = Conn.Defense_Skill(Skill.ToString(), Character);
+            return Defense;
+        }
+
+        public string Skill_Type(int CharNumber, int SkillNumber)
+        {
+            string Character = Return_CharacterRed(CharNumber);
+            return Conn.Skill_Type(Character, SkillNumber);
+        }
+
+        public bool Receive_Skill_Number(string SkillImageName)
+        {
+            string SkillName = Convert_Name_Int(SkillImageName).ToString();
+
+            SkillSelect = int.Parse(SkillName.Last().ToString());
+            NumAttackChar = int.Parse(SkillName.Remove(SkillName.Length - 1));
+
+            ChakraSkill = Chakra_Skill(SkillSelect, NumAttackChar);
+            bool HaveChakra = Have_Chakra(ChakraSkill);
+
+            if (AttackChar == null && HaveChakra == true)
             {
-                //erro
+                Withdraw_Chakra(ChakraSkill);
+                AttackChar = Return_CharacterRed(NumAttackChar);
+                TypeSkill = Skill_Type(NumAttackChar, SkillSelect);
+                return true;
             }
 
-            atual_turn_int = Turn += 1;
-
-            turn();
-            return atual_turn_int;
+            return false;
         }
 
-        public int attack_choose(int skillSelect ,object life1, object life2, object life3, string name)
+        //===================== Others ====================
+
+        public void Set_Characters_Red(string Char1, string Char2, string Char3)
         {
-            if (skillSelect != 0 && Turn_play == 1)
-            {
-                int characterNumber = convert_name_int(name);
-                if (characterNumber == 1)
-                {
-                    if (conversion_object_toint(life1) == 0)
-                    {
-                        return 0;
-                    }
-                    return 1;
-                }
-                else if (characterNumber == 2)
-                {
-                    if (conversion_object_toint(life2) == 0)
-                    {
-                        return 0;
-                    }
-                    return 2;
-                }
-                else if (characterNumber == 3)
-                {
-                    if (conversion_object_toint(life3) == 0)
-                    {
-                        return 0;
-                    }
-                    return 3;
-                }
-            }
-            return 0;
-
+            Character1_red = Char1;
+            Character2_red = Char2;
+            Character3_red = Char3;
         }
 
-        public string Skill_Type(int char_select, int skill_select)
-        {
-            string character = "";
-            if (char_select == 1)
-                character = Character1_red;
-            else if (char_select == 2)
-                character = Character2_red;
-            else if (char_select == 3)
-                character = Character3_red;
-
-            return Skill_Type(character, skill_select);
-        }
-
-        //public int attack_red(object life, int skillSelect, string attackChar, string type_skill)
-        //{
-        //    int life_int;
-        //    if (type_skill == "attack")
-        //    {
-        //        if (Turn_play == 1)
-        //        {
-        //            life_int = conversion_object_toint(life);
-        //            return playc.attack(life_int, skillSelect, attackChar);
-        //        }
-
-        //    }
-        //    else if (type_skill == "heal")
-        //    {
-        //        if (Turn_play == 1)
-        //        {
-        //            life_int = conversion_object_toint(life);
-        //            return playc.heal(life_int, skillSelect, attackChar);
-        //        }
-        //    }
-
-        //    life_int = conversion_object_toint(life);
-        //    return life_int;
-        //}
+        public void Set_Characters_Blue()
+        {}
 
         public int attack_blue(object life)
         {
-            int life_int = conversion_object_toint(life);
+            int life_int = Conversion_Object_Toint(life);
 
             return iac.attack(life_int);
         }
 
-
-        public bool dead_confirmation(object life)
+        public bool Dead_Confirmation(object LabelContent)
         {
-            int life_int = conversion_object_toint(life);
-            if (life_int <= 0)
+            int Life = Conversion_Object_Toint(LabelContent);
+            if (Life <= 0)
             {
                 return true;
             }
@@ -229,53 +238,59 @@ namespace Controllers
             return false;
         }
 
-
-
-        public string Attack_Char(int char_select)
+        public string Return_CharacterRed(int CharNumber)
         {
-            string attack_char = "";
-            if (char_select == 1)
+            string CharName = null;
+            switch (CharNumber)
             {
-                attack_char = Character1_red;
+                case 1:
+                    {
+                        CharName = Character1_red;
+                        break;
+                    }
+                case 2:
+                    {
+                        CharName = Character2_red;
+                        break;
+                    }
+                case 3:
+                    {
+                        CharName = Character3_red;
+                        break;
+                    }
             }
-            else if (char_select == 2)
-            {
-                attack_char = Character2_red;
-            }
-            else if (char_select == 3)
-            {
-                attack_char = Character3_red;
-            }
-
-            return attack_char;
+            return CharName;
         }
 
-        public void Withdraw_Chakra(List<string> skills)
+        public int Confirmation_TeamDead(object content1, object content2, object content3, object content4, object content5, object content6)
         {
-            ChakraRed.Taijutsu -= int.Parse(skills[0]);
-            ChakraRed.Bloodline -= int.Parse(skills[1]);
-            ChakraRed.Ninjutsu -= int.Parse(skills[2]);
-            ChakraRed.Genjutsu -= int.Parse(skills[3]);
-        }
-
-        public int confirmation_teamDead(object content1, object content2, object content3, object content4, object content5, object content6)
-        {
-            if (conversion_object_toint(content1) <= 0 &&
-                conversion_object_toint(content2) <= 0 &&
-                conversion_object_toint(content3) <= 0)
+            if (Conversion_Object_Toint(content1) <= 0 &&
+                Conversion_Object_Toint(content2) <= 0 &&
+                Conversion_Object_Toint(content3) <= 0)
             {
                 return 2;
             }
-
-            if (conversion_object_toint(content4) <= 0 &&
-                conversion_object_toint(content5) <= 0 &&
-                conversion_object_toint(content6) <= 0)
+            else
+            if (Conversion_Object_Toint(content4) <= 0 &&
+                Conversion_Object_Toint(content5) <= 0 &&
+                Conversion_Object_Toint(content6) <= 0)
             {
                 return 1;
             }
 
             return 0;
-            
+        }
+
+        public void Save_Battle_Result(string Result)
+        {
+            Conn.WL(Account, Result);
+        }
+
+        public void Cancel_Attack()
+        {
+            Deposit_Chakra(ChakraSkill);
+            AttackChar = null;
+            SkillSelect = 0;
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using Controllers;
+using Controllers.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,6 +24,7 @@ namespace ViewWpf
     {
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
         Tools tools = new Tools();
+        Context Conn = new Context();
         private string selected = "";
         private string account = "";
 
@@ -94,13 +96,13 @@ namespace ViewWpf
         private void Table_Refresh(string item)
         {
             DataTable dataTable = new DataTable();
-            dataTable = tools.Grid_DataTable(item);
+            dataTable = Conn.Grid_DataTable(item);
             Grid1.ItemsSource = dataTable.DefaultView;
         }
 
         private void Change_Account(object sender, RoutedEventArgs e)
         {
-            bool aut = tools.Change_Account(account, login.Text, pass.Text, victories.Text, loses.Text, type.Text);
+            bool aut = Conn.Change_Account(account, login.Text, pass.Text, victories.Text, loses.Text, type.Text);
 
             if (aut == true)
             {
@@ -115,7 +117,7 @@ namespace ViewWpf
 
         private void Delete_Account(object sender, RoutedEventArgs e)
         {
-            bool aut = tools.Delete_Account(account);
+            bool aut = Conn.Delete_Account(account);
             if (aut == true)
             {
                 MessageBox.Show("Deleted");
@@ -129,7 +131,7 @@ namespace ViewWpf
 
         private void Register_Account(object sender, RoutedEventArgs e)
         {
-            bool aut = tools.registerAccount(login.Text, pass.Text, victories.Text, loses.Text, type.Text);
+            bool aut = Conn.registerAccount(login.Text, pass.Text, victories.Text, loses.Text, type.Text);
             if (aut == true)
             {
                 MessageBox.Show("Created");
