@@ -1,4 +1,4 @@
-![img](http://image.noelshack.com/fichiers/2018/27/5/1530846743-logoblack.png)
+![img](https://i.imgur.com/dQWG1MX.png)
 
 # What is ?
 NarutoBattle is like a retelling of NarutoArena that left us in 2018 <br/>
@@ -18,7 +18,7 @@ The purpose is a fight in turns between Player and Machine, having characters wi
 # Game:
 
 ## Main
-![MainLogin](http://image.noelshack.com/fichiers/2018/27/5/1530846803-print1.png)
+![MainLogin](https://i.imgur.com/tJJAfcd.png)
 ## Battle
-![Battle](http://image.noelshack.com/fichiers/2018/27/5/1530846805-print2.png)
+![Battle](https://i.imgur.com/2Pmulb1.png)
 

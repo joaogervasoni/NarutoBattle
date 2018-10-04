@@ -19,6 +19,9 @@ namespace Controllers
         public string Character1_red { get; private set; }
         public string Character2_red { get; private set; }
         public string Character3_red { get; private set; }
+        public string Character1_blue { get; private set; }
+        public string Character2_blue { get; private set; }
+        public string Character3_blue { get; private set; }
         public string Account { get; set; }
 
         public int SkillSelect { get; set; }
@@ -31,9 +34,11 @@ namespace Controllers
         public ChakraController ChakraRed;
         public ChakraController ChakraBlue;
         List<string> ChakraSkill;
+        List<string> CharacterList;
 
         public BattleController()
         {
+            CharacterList = new List<string>();
             ChakraSkill = new List<string>();
             Conn = new Context();
             iac = new IAController();
@@ -95,12 +100,22 @@ namespace Controllers
             return null;
         }
 
-        public void Withdraw_Chakra(List<string> Skill)
+        public void Withdraw_Chakra(List<string> Skill, int Team)
         {
-            ChakraRed.Taijutsu -= int.Parse(Skill[0]);
-            ChakraRed.Bloodline -= int.Parse(Skill[1]);
-            ChakraRed.Ninjutsu -= int.Parse(Skill[2]);
-            ChakraRed.Genjutsu -= int.Parse(Skill[3]);
+            if (Team == 1)
+            {
+                ChakraRed.Taijutsu -= int.Parse(Skill[0]);
+                ChakraRed.Bloodline -= int.Parse(Skill[1]);
+                ChakraRed.Ninjutsu -= int.Parse(Skill[2]);
+                ChakraRed.Genjutsu -= int.Parse(Skill[3]);
+            }
+            else if (Team == 2)
+            {
+                ChakraBlue.Taijutsu -= int.Parse(Skill[0]);
+                ChakraBlue.Bloodline -= int.Parse(Skill[1]);
+                ChakraBlue.Ninjutsu -= int.Parse(Skill[2]);
+                ChakraBlue.Genjutsu -= int.Parse(Skill[3]);
+            }
         }
 
         public void Deposit_Chakra(List<string> Skill)
@@ -187,7 +202,7 @@ namespace Controllers
             return Conn.Skill_Type(Character, SkillNumber);
         }
 
-        public bool Receive_Skill_Number(string SkillImageName)
+        public bool Receive_Skill_Number(string SkillImageName, int Team)
         {
             string SkillName = Convert_Name_Int(SkillImageName).ToString();
 
@@ -199,13 +214,61 @@ namespace Controllers
 
             if (AttackChar == null && HaveChakra == true)
             {
-                Withdraw_Chakra(ChakraSkill);
+                Withdraw_Chakra(ChakraSkill, Team);
                 AttackChar = Return_CharacterRed(NumAttackChar);
                 TypeSkill = Skill_Type(NumAttackChar, SkillSelect);
                 return true;
             }
 
             return false;
+        }
+
+        //===================== IA ====================
+
+        
+
+        public int Return_MoreLow_CharacterRed(string life1, string life2, string life3)
+        {
+            int Char1 = int.Parse(life1);
+            int Char2 = int.Parse(life2);
+            int Char3 = int.Parse(life3);
+            int Character = 0;
+
+            if (Char1 < Char2 && Char1 < Char3 && Char1 > 0)
+            {
+                Character = 1;
+            }
+            else if (Char2 < Char1 && Char2 < Char3 && Char2 > 0)
+            {
+                Character = 2;
+            }
+            else if (Char3 < Char1 && Char3 < Char2 && Char3 > 0)
+            {
+                Character = 3;
+            }
+            else
+            {
+                int life = 0;
+                do
+                {
+                    Random random = new Random();
+                    Character = random.Next(1, 4);
+                    if (Character == 1)
+                    {
+                        life = Char1;
+                    }
+                    else if (Character == 2)
+                    {
+                        life = Char2;
+                    }
+                    else if (Character == 3)
+                    {
+                        life = Char3;
+                    }
+                } while (life == 0);
+            }
+
+            return Character;
         }
 
         //===================== Others ====================
@@ -218,13 +281,24 @@ namespace Controllers
         }
 
         public void Set_Characters_Blue()
-        {}
-
-        public int attack_blue(object life)
         {
-            int life_int = Conversion_Object_Toint(life);
+            CharacterList = Conn.return_Characters();
+            Random random = new Random();
+            int charNumber = CharacterList.Count();
+            int randomNum1;
+            int randomNum2;
+            int randomNum3;
 
-            return iac.attack(life_int);
+            do
+            {
+                randomNum1 = random.Next(0, charNumber);
+                randomNum2 = random.Next(0, charNumber);
+                randomNum3 = random.Next(0, charNumber);
+            } while (randomNum1 == randomNum2 || randomNum1 == randomNum3 || randomNum2 == randomNum3);
+
+            Character1_blue = CharacterList[randomNum1];
+            Character2_blue = CharacterList[randomNum2];
+            Character3_blue = CharacterList[randomNum3];
         }
 
         public bool Dead_Confirmation(object LabelContent)
@@ -236,6 +310,30 @@ namespace Controllers
             }
 
             return false;
+        }
+
+        public string Return_CharacterBlue(int CharNumber)
+        {
+            string CharName = null;
+            switch (CharNumber)
+            {
+                case 1:
+                    {
+                        CharName = Character1_blue;
+                        break;
+                    }
+                case 2:
+                    {
+                        CharName = Character2_blue;
+                        break;
+                    }
+                case 3:
+                    {
+                        CharName = Character3_blue;
+                        break;
+                    }
+            }
+            return CharName;
         }
 
         public string Return_CharacterRed(int CharNumber)

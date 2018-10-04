@@ -116,12 +116,15 @@
         </Label>
 
         <!--Others-->
-        <Label x:Name="WelcomeMessage" Visibility="Hidden" Content="Welcome again  &#xD;&#xA;&#x9;hero !!" HorizontalAlignment="Left" Margin="734,133,0,0" VerticalAlignment="Top" Height="53" Width="165" FontFamily="Verdana Pro SemiBold" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFAA0909" />
+        <Label x:Name="WelcomeMessage" Visibility="Hidden" Content="Welcome again  &#xD;&#xA;&#x9;ninja !!" HorizontalAlignment="Left" Margin="734,133,0,0" VerticalAlignment="Top" Height="53" Width="165" FontFamily="Verdana Pro SemiBold" FontSize="18" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FFAA0909" />
         <Label Content="Select your team" HorizontalAlignment="Left" Height="34" Margin="709,426,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold" FontSize="16"/>
-        <Image HorizontalAlignment="Left" Height="83" Margin="618,19,0,0" VerticalAlignment="Top" Width="207" Source="Others/logoBlack.png" RenderTransformOrigin="0.5,0.5">
+        <Image HorizontalAlignment="Left" Height="100" Margin="607,19,0,0" VerticalAlignment="Top" Width="244" Source="Others/logoBlack.png" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
-                    <RotateTransform Angle="-23.717"/>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-15"/>
+                    <TranslateTransform/>
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>

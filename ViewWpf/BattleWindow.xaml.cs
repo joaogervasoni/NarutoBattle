@@ -30,6 +30,7 @@ namespace ViewWpf
             InitializeComponent();
             Btc.Account = Account;
             Btc.Set_Characters_Red(Char1, Char2, Char3);
+            Btc.Set_Characters_Blue();
             Load_Chakras();
             Btc.Initial_Turn();
 
@@ -47,9 +48,18 @@ namespace ViewWpf
             Character1_red.Source = Load_image(Char1);
             Character2_red.Source = Load_image(Char2);
             Character3_red.Source = Load_image(Char3);
+
+            Character1_blue.Source = Load_image(Btc.Character1_blue);
+            Character2_blue.Source = Load_image(Btc.Character2_blue);
+            Character3_blue.Source = Load_image(Btc.Character3_blue);
+
             Character1_red.Tag = "Characters/" + Char1 + "/" + Char1 + "_default.png";
             Character2_red.Tag = "Characters/" + Char2 + "/" + Char2 + "_default.png";
             Character3_red.Tag = "Characters/" + Char3 + "/" + Char3 + "_default.png";
+
+            Character1_blue.Tag = "Characters/" + Btc.Character1_blue + "/" + Btc.Character1_blue + "_default.png";
+            Character2_blue.Tag = "Characters/" + Btc.Character2_blue + "/" + Btc.Character2_blue + "_default.png";
+            Character3_blue.Tag = "Characters/" + Btc.Character3_blue + "/" + Btc.Character3_blue + "_default.png";
 
             //skills
             Character1_red_skill1.Source = Load_skill(Char1, 1);
@@ -168,7 +178,7 @@ namespace ViewWpf
         {
             Image SkillImage = (Image)sender;
 
-            if (Btc.Receive_Skill_Number(SkillImage.Name.ToString()) == true)
+            if (Btc.Receive_Skill_Number(SkillImage.Name.ToString(), 1) == true)
             {
                 Load_Chakras();
                 Change_Cursor("Attack");
@@ -263,24 +273,63 @@ namespace ViewWpf
 
                                 if (SkillAddedNumber == 1)
                                 {
-                                    vida = int.Parse(Character1_blue_life.Content.ToString()) - vida;
-                                    Character1_blue_life.Content = vida.ToString();
-                                    Dead(Character1_blue, Character1_blue_life);
-                                    autenti = 1;
+                                   
+                                    if (element.Name.Substring(12).Substring(0, 3) == "red")
+                                    {
+                                        vida = int.Parse(Character1_red_life.Content.ToString()) - vida;
+                                        Character1_red_life.Content = vida.ToString();
+                                        Dead(Character1_red, Character1_red_life);
+                                        //Team_Dead();
+                                        autenti = 1;
+                                    }
+                                    else
+                                    {
+                                        vida = int.Parse(Character1_blue_life.Content.ToString()) - vida;
+                                        Character1_blue_life.Content = vida.ToString();
+                                        Dead(Character1_blue, Character1_blue_life);
+                                        //Team_Dead();
+                                        autenti = 1;
+                                    }
+
                                 }
                                 else if (SkillAddedNumber == 2)
                                 {
-                                    vida = int.Parse(Character2_blue_life.Content.ToString()) - vida;
-                                    Character2_blue_life.Content = vida.ToString();
-                                    Dead(Character2_blue, Character2_blue_life);
-                                    autenti = 1;
+                                    if (element.Name.Substring(12).Substring(0, 3) == "red")
+                                    {
+                                        vida = int.Parse(Character2_red_life.Content.ToString()) - vida;
+                                        Character2_red_life.Content = vida.ToString();
+                                        Dead(Character2_red, Character2_red_life);
+                                        //Team_Dead();
+                                        autenti = 1;
+                                    }
+                                    else
+                                    {
+                                        vida = int.Parse(Character2_blue_life.Content.ToString()) - vida;
+                                        Character2_blue_life.Content = vida.ToString();
+                                        Dead(Character2_blue, Character2_blue_life);
+                                        //Team_Dead();
+                                        autenti = 1;
+                                    }
+                                        
                                 }
                                 else if (SkillAddedNumber == 3)
                                 {
-                                    vida = int.Parse(Character3_blue_life.Content.ToString()) - vida;
-                                    Character3_blue_life.Content = vida.ToString();
-                                    Dead(Character3_blue, Character3_blue_life);
-                                    autenti = 1;
+                                    if (element.Name.Substring(12).Substring(0, 3) == "red")
+                                    {
+                                        vida = int.Parse(Character3_red_life.Content.ToString()) - vida;
+                                        Character3_red_life.Content = vida.ToString();
+                                        Dead(Character3_red, Character3_red_life);
+                                        //Team_Dead();
+                                        autenti = 1;
+                                    }
+                                    else
+                                    {
+                                        vida = int.Parse(Character3_blue_life.Content.ToString()) - vida;
+                                        Character3_blue_life.Content = vida.ToString();
+                                        Dead(Character3_blue, Character3_blue_life);
+                                        //Team_Dead();
+                                        autenti = 1;
+                                    }  
                                 }
 
                                 break;
@@ -329,7 +378,9 @@ namespace ViewWpf
                 {
                     element.Tag = "1";
                     element.Source = new BitmapImage(new Uri("Others/invalid_default.png", UriKind.Relative));
-                }       
+                }
+
+                Team_Dead();
             }
         }
 
@@ -370,7 +421,6 @@ namespace ViewWpf
         {
             if (Btc.AttackChar != null)
             {
-
                 //-----------------Damage
                 if (Btc.TypeSkill == "d" || Btc.TypeSkill == "da")
                 {
@@ -786,16 +836,8 @@ namespace ViewWpf
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (Team_Dead() == false)
-            {
-                string Result = null;
-                Result = "Loser";
-                Tmr.Close();
-                Close();
-                Btc.Save_Battle_Result(Result);
-                MessageBox.Show(Result);
-            }
-            else
+            if(Btc.Confirmation_TeamDead(Character1_blue_life.Content, Character2_blue_life.Content, Character3_blue_life.Content,
+                                                 Character1_red_life.Content, Character2_red_life.Content, Character3_red_life.Content) == 2)
             {
                 string Result = null;
                 Result = "Winner";
@@ -804,7 +846,15 @@ namespace ViewWpf
                 Btc.Save_Battle_Result(Result);
                 MessageBox.Show(Result);
             }
-            
+            else
+            {
+                string Result = null;
+                Result = "Loser";
+                Tmr.Close();
+                Close();
+                Btc.Save_Battle_Result(Result);
+                MessageBox.Show(Result);
+            }
         }
 
         private void Surrender(object sender, MouseButtonEventArgs e)
@@ -816,34 +866,62 @@ namespace ViewWpf
 
         private void Ia_Play()
         {
-            int playRandom = 0;
-            do
-            {
-                Random rand = new Random();
-                int characterNumber = rand.Next(1, 4);
-                if (characterNumber == 1 && Character1_red_life.Content.ToString() != "0")
-                {
-                    Character1_red_life.Content = Btc.attack_blue(Character1_red_life.Content);
-                    Dead(Character1_red, Character1_red_life);
-                    Team_Dead();
-                    playRandom = 1;
-                }
-                else if (characterNumber == 2 && Character2_red_life.Content.ToString() != "0")
-                {
-                    Character2_red_life.Content = Btc.attack_blue(Character2_red_life.Content);
-                    Dead(Character2_red, Character2_red_life);
-                    Team_Dead();
-                    playRandom = 1;
-                }
-                else if (characterNumber == 3 && Character3_red_life.Content.ToString() != "0")
-                {
-                    Character3_red_life.Content = Btc.attack_blue(Character3_red_life.Content);
-                    Dead(Character3_red, Character3_red_life);
-                    Team_Dead();
-                    playRandom = 1;
-                }
+            Random rand = new Random();
+            int attackChar = rand.Next(1, 4);
+            int EnemyCharNumber = Btc.Return_MoreLow_CharacterRed(Character1_red_life.Content.ToString(), Character2_red_life.Content.ToString(), Character3_red_life.Content.ToString());
+            
+            var SkillAD = SkillAdded.Children.OfType<Image>();
+            
+            string Sa = null;
+            if (EnemyCharNumber == 1)
+                Sa = "SkillAdded1_red";
+            if (EnemyCharNumber == 2)
+                Sa = "SkillAdded2_red";
+            if (EnemyCharNumber == 3)
+                Sa = "SkillAdded3_red";
 
-            } while (playRandom == 0);
+            foreach (Image element in SkillAD)
+            {
+                if (element.Tag.ToString() == "1" && element.Name.Substring(0, 15) == Sa)
+                {
+                    //int attackSKill = 0;
+                    string typeSkill = "";
+                    //do
+                    //{
+                    //    attackSKill = rand.Next(1, 4);
+                    //    typeSkill = Btc.Skill_Type(attackChar, attackSKill);
+                    //}while (typeSkill != "d");
+
+                    //if (Btc.Receive_Skill_Number(Btc.Return_CharacterBlue(attackChar) + "/" + Btc.Return_CharacterBlue(attackChar) + "_skill" + attackChar, 2) == true)
+                    //{
+                    //    element.Source = new BitmapImage(new Uri("Characters/" + Btc.Return_CharacterBlue(attackChar) + "/" + Btc.Return_CharacterBlue(attackChar) + "_skill" + attackChar + "_default.png", UriKind.Relative));
+
+                    //    //Tag is damage
+                    //    element.Tag = "d" + Btc.Damage_Skill(attackChar, Btc.Return_CharacterBlue(attackChar));
+
+                    //};
+                    
+                    for(int i = 1; i < 4; i++)
+                    {
+                        for(int y = 1; y <4; y++)
+                        {
+                            typeSkill = Btc.Skill_Type(i, y);
+                            if (Btc.Receive_Skill_Number((Btc.Return_CharacterBlue(i) + i +"/" + 
+                                Btc.Return_CharacterBlue(i) + "_skill" + y), 2) == true && typeSkill == "d")
+                            {
+                                element.Source = new BitmapImage(new Uri("Characters/" + Btc.Return_CharacterBlue(attackChar) + "/" + Btc.Return_CharacterBlue(attackChar) + "_skill" + attackChar + "_default.png", UriKind.Relative));
+
+                                //Tag is damage
+                                element.Tag = "d" + Btc.Damage_Skill(attackChar, Btc.Return_CharacterBlue(attackChar));
+
+                            };
+                        }
+                    }
+
+                    break;
+                }
+            }       
+
             Pass_Turn();
         }
 
